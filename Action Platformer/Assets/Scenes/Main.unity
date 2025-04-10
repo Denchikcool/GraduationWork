@@ -228,7 +228,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 4
+  m_GravityScale: 8
   m_Material: {fileID: 6200000, guid: ad08156f53be57548a6051f0876f573a, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -238,7 +238,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &73698896
 BoxCollider2D:
@@ -307,14 +307,17 @@ MonoBehaviour:
   WallJumpDirection: {x: 1, y: 2}
   AmountOfJumps: 1
   MovementSpeed: 8
-  JumpForce: 16
+  JumpForce: 20
   WallCheckDistance: 0.7
   WallSlideSpeed: 2
   MovementForceInAir: 10
   AirDragMultiplier: 0.95
   VariableJumpHeightMultiplier: 0.4
   WallHopForce: 10
-  WallJumpForce: 20
+  WallJumpForce: 30
+  JumpTimerSet: 0.15
+  TurnTimerSet: 0.1
+  WallJumpTimerSet: 0.5
 --- !u!95 &73698898
 Animator:
   serializedVersion: 5
