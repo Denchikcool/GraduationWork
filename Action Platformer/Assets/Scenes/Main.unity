@@ -210,6 +210,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1321287969}
+  - {fileID: 589936214}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &73698895
@@ -299,11 +300,21 @@ MonoBehaviour:
   WhatIsGround:
     serializedVersion: 2
     m_Bits: 256
-  GroundCheckRadius: 0.3
-  groundCheck: {fileID: 1321287969}
+  GroundCheckRadius: 0.2
+  GroundCheck: {fileID: 1321287969}
+  WallCheck: {fileID: 589936214}
+  WallHopDirection: {x: 1, y: 0.5}
+  WallJumpDirection: {x: 1, y: 2}
   AmountOfJumps: 1
   MovementSpeed: 8
   JumpForce: 16
+  WallCheckDistance: 0.7
+  WallSlideSpeed: 2
+  MovementForceInAir: 10
+  AirDragMultiplier: 0.95
+  VariableJumpHeightMultiplier: 0.4
+  WallHopForce: 10
+  WallJumpForce: 20
 --- !u!95 &73698898
 Animator:
   serializedVersion: 5
@@ -997,6 +1008,37 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &589936213
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 589936214}
+  m_Layer: 0
+  m_Name: WallCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &589936214
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589936213}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 73698894}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &805777578
 GameObject:
   m_ObjectHideFlags: 3
