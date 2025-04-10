@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
 
     public int AmountOfJumps = 1;
-    public float MovementSpeed = 10.0f;
+    public float MovementSpeed = 8.0f;
     public float JumpForce = 16.0f;
     
     private void Start()
@@ -56,8 +56,9 @@ public class PlayerController : MonoBehaviour
         if(_isFacingRight && _movementInputDirection < 0) FlipPlayer();
         else if(!_isFacingRight && _movementInputDirection > 0) FlipPlayer();
 
-        if (_playerRigidBody.velocity.x != 0) _isWalking = true;
-        else _isWalking = false;
+        //if (_playerRigidBody.velocity.x != 0) _isWalking = true;
+        //else _isWalking = false;
+        _isWalking = Mathf.Abs(_movementInputDirection) > 0.1f;
     }
 
     private void UpdateAnimations()
