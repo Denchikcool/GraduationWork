@@ -10,9 +10,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _playerRigidBody;
     private Animator _playerAnimation;
     [SerializeField]
-    private LayerMask WhatIsGround;
+    private LayerMask _whatIsGround;
     [SerializeField]
-    private float GroundCheckRadius;
+    private float _groundCheckRadius;
 
     private int _amountOfJumps;
     private int _facingDirection = 1;
@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour
     private float _jumpTimer;
     private float _turnTimer;
     private float _wallJumpTimer;
+    private float _dashTimeLeft;
+    private float _lastImageXPosition;
+    private float _lastDash = -50.0f;
 
     private bool _isFacingRight = true;
     private bool _isWalking;
@@ -35,9 +38,18 @@ public class PlayerController : MonoBehaviour
     private bool _canMove;
     private bool _canFlip;
     private bool _hasWallJumped;
+    private bool _isTouchingLedge;
+    private bool _canClimbLedge = false;
+    private bool _ledgeDetected;
+    private bool _isDashing;
+
+    private Vector2 _ledgePositionBottom;
+    private Vector2 _ledgePosition1;
+    private Vector2 _ledgePosition2;
 
     public Transform GroundCheck;
     public Transform WallCheck;
+    public Transform LedgeCheck;
     public Vector2 WallHopDirection;
     public Vector2 WallJumpDirection;
 
@@ -55,6 +67,14 @@ public class PlayerController : MonoBehaviour
     public float JumpTimerSet = 0.15f;
     public float TurnTimerSet = 0.1f;
     public float WallJumpTimerSet = 0.5f;
+    public float LedgeClimbXOffSet1 = 0.0f;
+    public float LedgeClimbYOffSet1 = 0.0f;
+    public float LedgeClimbXOffSet2 = 0.0f;
+    public float LedgeClimbYOffSet2 = 0.0f;
+    public float DashTime;
+    public float DashSpeed;
+    public float DistanceBetweenImages;
+    public float DashCoolDown;
 
 
     private void Start()
@@ -74,6 +94,8 @@ public class PlayerController : MonoBehaviour
         CheckIfCanJump();
         CheckIfWallSliding();
         CheckJump();
+        CheckLedgeClimb();
+        CheckDash();
     }
 
     private void FixedUpdate()
@@ -84,8 +106,15 @@ public class PlayerController : MonoBehaviour
 
     private void CheckSurroundings()
     {
-        _isGrounded = Physics2D.OverlapCircle(GroundCheck.position, GroundCheckRadius, WhatIsGround);
-        _isTouchingWall = Physics2D.Raycast(WallCheck.position, transform.right, WallCheckDistance, WhatIsGround);
+        _isGrounded = Physics2D.OverlapCircle(GroundCheck.position, _groundCheckRadius, _whatIsGround);
+        _isTouchingWall = Physics2D.Raycast(WallCheck.position, transform.right, WallCheckDistance, _whatIsGround);
+        _isTouchingLedge = Physics2D.Raycast(LedgeCheck.position, transform.right, WallCheckDistance, _whatIsGround);
+
+        if(_isTouchingWall && !_isTouchingLedge && !_ledgeDetected)
+        {
+            _ledgeDetected = true;
+            _ledgePositionBottom = WallCheck.position;
+        }
     }
 
     private void CheckMovementDirection()
@@ -135,7 +164,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (!_canMove)
+        if (_turnTimer >= 0)
         {
             _turnTimer -= Time.deltaTime;
 
@@ -150,7 +179,15 @@ public class PlayerController : MonoBehaviour
         {
             _checkJumpMultiplier = false;
             _playerRigidBody.velocity = new Vector2(_playerRigidBody.velocity.x, _playerRigidBody.velocity.y * VariableJumpHeightMultiplier);
-        } 
+        }
+
+        if (Input.GetButtonDown("Dash"))
+        {
+            if(Time.time >= (_lastDash + DashCoolDown))
+            {
+                AttemptToDash();
+            }
+        }
     }
 
     private void ApplyMovement()
@@ -256,7 +293,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(GroundCheck.position, GroundCheckRadius);
+        Gizmos.DrawWireSphere(GroundCheck.position, _groundCheckRadius);
         Gizmos.DrawLine(WallCheck.position, new Vector3(WallCheck.position.x + WallCheckDistance, WallCheck.position.y, WallCheck.position.z));
     }
 
@@ -276,9 +313,84 @@ public class PlayerController : MonoBehaviour
 
     private void CheckIfWallSliding()
     {
-        if(_isTouchingWall && _movementInputDirection == _facingDirection && _playerRigidBody.velocity.y < 0) 
+        if(_isTouchingWall && _movementInputDirection == _facingDirection && _playerRigidBody.velocity.y < 0 && !_canClimbLedge) 
             _isWallSliding = true;
         else 
             _isWallSliding = false;
+    }
+
+    private void CheckLedgeClimb()
+    {
+        if(_ledgeDetected && !_canClimbLedge)
+        {
+            _canClimbLedge = true;
+
+            if (_isFacingRight)
+            {
+                _ledgePosition1 = new Vector2(Mathf.Floor(_ledgePositionBottom.x + WallCheckDistance) - LedgeClimbXOffSet1, Mathf.Floor(_ledgePositionBottom.y) + LedgeClimbYOffSet1);
+                _ledgePosition2 = new Vector2(Mathf.Floor(_ledgePositionBottom.x + WallCheckDistance) + LedgeClimbXOffSet2, Mathf.Floor(_ledgePositionBottom.y) + LedgeClimbYOffSet2);
+            }
+            else
+            {
+                _ledgePosition1 = new Vector2(Mathf.Ceil(_ledgePositionBottom.x - WallCheckDistance) + LedgeClimbXOffSet1, Mathf.Floor(_ledgePositionBottom.y) + LedgeClimbYOffSet1);
+                _ledgePosition2 = new Vector2(Mathf.Ceil(_ledgePositionBottom.x - WallCheckDistance) - LedgeClimbXOffSet2, Mathf.Floor(_ledgePositionBottom.y) +LedgeClimbYOffSet2);
+            }
+            _canMove = false;
+            _canFlip = false;
+
+            _playerAnimation.SetBool("canClimbLedge", _canClimbLedge);
+        }
+
+        if (_canClimbLedge)
+        {
+            transform.position = _ledgePosition1;
+        }
+    }
+
+    private void AttemptToDash()
+    {
+        _isDashing = true;
+        _dashTimeLeft = DashTime;
+        _lastDash = Time.time;
+
+        PlayerAfterImagePool.Instance.GetFromPool();
+        _lastImageXPosition = transform.position.x;
+    }
+
+    private void CheckDash()
+    {
+        if (_isDashing)
+        {
+            if (_dashTimeLeft > 0)
+            {
+                _canMove = false;
+                _canFlip = false;
+                _playerRigidBody.velocity = new Vector2(DashSpeed * _facingDirection, 0.0f);
+                _dashTimeLeft -= Time.deltaTime;
+
+                if (Mathf.Abs(transform.position.x - _lastImageXPosition) > DistanceBetweenImages)
+                {
+                    PlayerAfterImagePool.Instance.GetFromPool();
+                    _lastImageXPosition = transform.position.x;
+                }
+            }
+
+            if(_dashTimeLeft <= 0 || _isTouchingWall)
+            {
+                _isDashing = false;
+                _canMove = true;
+                _canFlip = true;
+            }
+        }
+    }
+
+    public void FinishLedgeClimb()
+    {
+        _canClimbLedge = false;
+        transform.position = _ledgePosition2;
+        _canMove = true;
+        _canFlip = true;
+        _ledgeDetected = false;
+        _playerAnimation.SetBool("canClimbLedge", _canClimbLedge);
     }
 }
