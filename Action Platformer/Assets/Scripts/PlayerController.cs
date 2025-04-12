@@ -7,13 +7,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D _playerRigidBody;
-    private Animator _playerAnimation;
     [SerializeField]
     private LayerMask _whatIsGround;
     [SerializeField]
     private float _groundCheckRadius;
 
+    private Rigidbody2D _playerRigidBody;
+    private Animator _playerAnimation;
+    
     private int _amountOfJumps;
     private int _facingDirection = 1;
     private int _lastWallJumpDirection;
@@ -124,9 +125,9 @@ public class PlayerController : MonoBehaviour
         else if(!_isFacingRight && _movementInputDirection > 0) 
             FlipPlayer();
 
-        //if (_playerRigidBody.velocity.x != 0) _isWalking = true;
-        //else _isWalking = false;
-        _isWalking = Mathf.Abs(_movementInputDirection) > 0.1f;
+        if (Mathf.Abs(_playerRigidBody.velocity.x) >= 0.01f) _isWalking = true;
+        else _isWalking = false;
+        //_isWalking = Mathf.Abs(_movementInputDirection) > 0.1f;
     }
 
     private void UpdateAnimations()
@@ -135,6 +136,8 @@ public class PlayerController : MonoBehaviour
         _playerAnimation.SetBool("isGrounded", _isGrounded);
         _playerAnimation.SetFloat("yVelocity", _playerRigidBody.velocity.y);
         _playerAnimation.SetBool("isWallSliding", _isWallSliding);
+
+        Debug.Log($"isWalking: {_isWalking}, isGrounded: {_isGrounded}, yVelocity: {_playerRigidBody.velocity.y}, isWallSliding: {_isWallSliding}");
     }
 
     private void CheckInput()
@@ -392,5 +395,20 @@ public class PlayerController : MonoBehaviour
         _canFlip = true;
         _ledgeDetected = false;
         _playerAnimation.SetBool("canClimbLedge", _canClimbLedge);
+    }
+
+    public void DisableFlip()
+    {
+        _canFlip = false;
+    }
+
+    public void EnableFlip()
+    {
+        _canFlip = true;
+    }
+
+    public int GetFacingDirection()
+    {
+        return _facingDirection;
     }
 }

@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class PlayerAfterImageSprite : MonoBehaviour
 {
+    [SerializeField]
+    private float _activeTime = 0.1f;
+    [SerializeField]
+    private float _alphaSet = 0.8f;
+
     private Transform _player;
     private SpriteRenderer _spriteRenderer;
     private SpriteRenderer _playerSpriteRenderer;
     private Color _color;
 
-    [SerializeField]
-    private float _activeTime = 0.1f;
+    
     private float _timeActivated;
     private float _alpha;
-    [SerializeField]
-    private float _alphaSet = 0.8f;
     private float _alphaMultiplier = 0.85f;
 
     private void OnEnable()

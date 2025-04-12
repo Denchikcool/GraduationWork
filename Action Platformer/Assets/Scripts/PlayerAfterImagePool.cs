@@ -7,7 +7,9 @@ public class PlayerAfterImagePool : MonoBehaviour
 {
     [SerializeField]
     private GameObject _afterImagePrefab;
+
     private Queue<GameObject> _availableObjects = new Queue<GameObject>();
+
     private readonly int _countOfObjects = 10;
 
     public static PlayerAfterImagePool Instance { get; private set; }
