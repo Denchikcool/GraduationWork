@@ -136,8 +136,6 @@ public class PlayerController : MonoBehaviour
         _playerAnimation.SetBool("isGrounded", _isGrounded);
         _playerAnimation.SetFloat("yVelocity", _playerRigidBody.velocity.y);
         _playerAnimation.SetBool("isWallSliding", _isWallSliding);
-
-        Debug.Log($"isWalking: {_isWalking}, isGrounded: {_isGrounded}, yVelocity: {_playerRigidBody.velocity.y}, isWallSliding: {_isWallSliding}");
     }
 
     private void CheckInput()

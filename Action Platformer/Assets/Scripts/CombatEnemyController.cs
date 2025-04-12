@@ -44,7 +44,7 @@ public class CombatEnemyController : MonoBehaviour
     {
         _currentHealth = _maxHealth;
 
-        _playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        _playerController = GameObject.Find("MainHero").GetComponent<PlayerController>();
         _aliveGameObject = transform.Find("Alive").gameObject;
         _brokenTopGameObject = transform.Find("BrokenTop").gameObject;
         _brokenBottomGameObject = transform.Find("BrokenBottom").gameObject;
@@ -95,7 +95,7 @@ public class CombatEnemyController : MonoBehaviour
 
     private void CheckKnockback()
     {
-        if(Time.time >= _knockbackStart + _knockbackDuration && _knockback)
+        if((Time.time >= (_knockbackStart + _knockbackDuration)) && _knockback)
         {
             _knockback = false;
             _rigidBodyAlive.velocity = new Vector2(0.0f, _rigidBodyAlive.velocity.y);
