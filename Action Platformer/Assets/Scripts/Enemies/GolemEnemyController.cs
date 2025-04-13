@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GolemEnemyController : MonoBehaviour
@@ -14,6 +15,8 @@ public class GolemEnemyController : MonoBehaviour
     private State _currentState;
 
     private Vector2 _movement;
+    private Vector2 _touchDamageBottomLeft;
+    private Vector2 _touchDamageTopRight;
 
     private GameObject _alive;
     private Rigidbody2D _aliveRigidBody;
@@ -27,13 +30,19 @@ public class GolemEnemyController : MonoBehaviour
 
     private float _currentHealth;
     private float _knockbackStartTime;
+    private float[] _attackDetails = new float[2];
 
     [SerializeField]
     private Transform _groundCheck;
     [SerializeField]
     private Transform _wallCheck;
     [SerializeField]
+    private Transform _touchDamageCheck;
+    [SerializeField]
     private LayerMask _whatIsGround;
+    [SerializeField]
+    private LayerMask _whatIsPlayer;
+
     [SerializeField]
     private float _groundCheckDistance;
     [SerializeField]
@@ -45,7 +54,19 @@ public class GolemEnemyController : MonoBehaviour
     [SerializeField]
     private float _knockbackDuration;
     [SerializeField]
+    private float _lastTouchDamageTime;
+    [SerializeField]
+    private float _touchDamageCooldown;
+    [SerializeField]
+    private float _touchDamage;
+    [SerializeField]
+    private float _touchDamageWidth;
+    [SerializeField]
+    private float _touchDamageHeight;
+
+    [SerializeField]
     private Vector2 _knockbackSpeed;
+
     [SerializeField]
     private GameObject _hitParticle;
     [SerializeField]
@@ -88,6 +109,8 @@ public class GolemEnemyController : MonoBehaviour
         _groundDetected = Physics2D.Raycast(_groundCheck.position, Vector2.down, _groundCheckDistance, _whatIsGround);
         _wallDetected = Physics2D.Raycast(_wallCheck.position, transform.right, _wallCheckDistance, _whatIsGround);
 
+        CheckTouchDamage();
+
         if(!_groundDetected || _wallDetected)
         {
             Flip();
@@ -127,6 +150,8 @@ public class GolemEnemyController : MonoBehaviour
 
     private void EnterDeadState()
     {
+        Instantiate(_deathChunkParticle, _alive.transform.position, _deathChunkParticle.transform.rotation);
+        Instantiate(_deathBloodParticle, _alive.transform.position, _deathBloodParticle.transform.rotation);
         Destroy(gameObject);
     }
 
@@ -171,6 +196,26 @@ public class GolemEnemyController : MonoBehaviour
         }
     }
 
+    private void CheckTouchDamage()
+    {
+        if(Time.time >= _lastTouchDamageTime + _touchDamageCooldown)
+        {
+            _touchDamageBottomLeft.Set(_touchDamageCheck.position.x - (_touchDamageWidth / 2), _touchDamageCheck.position.y - (_touchDamageHeight / 2));
+            _touchDamageTopRight.Set(_touchDamageCheck.position.x + (_touchDamageWidth / 2), _touchDamageCheck.position.y + (_touchDamageHeight / 2));
+
+            Collider2D hit = Physics2D.OverlapArea(_touchDamageBottomLeft, _touchDamageTopRight, _whatIsPlayer);
+
+            if (hit != null)
+            {
+                _lastTouchDamageTime = Time.time;
+                _attackDetails[0] = _touchDamage;
+                _attackDetails[1] = _alive.transform.position.x;
+                hit.SendMessage("TakeDamage", _attackDetails);
+            }
+
+        }
+    }
+
     private void SwitchState(State state)
     {
         switch (_currentState)
@@ -204,7 +249,17 @@ public class GolemEnemyController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Vector2 bottomLeft = new Vector2(_touchDamageCheck.position.x - (_touchDamageWidth / 2), _touchDamageCheck.position.y - (_touchDamageHeight / 2));
+        Vector2 bottomRight = new Vector2(_touchDamageCheck.position.x + (_touchDamageWidth / 2), _touchDamageCheck.position.y - (_touchDamageHeight / 2));
+        Vector2 topRight = new Vector2(_touchDamageCheck.position.x + (_touchDamageWidth / 2), _touchDamageCheck.position.y + (_touchDamageHeight / 2)); 
+        Vector2 topLeft = new Vector2(_touchDamageCheck.position.x - (_touchDamageWidth / 2), _touchDamageCheck.position.y + (_touchDamageHeight / 2));
+
         Gizmos.DrawLine(_groundCheck.position, new Vector2(_groundCheck.position.x, _groundCheck.position.y - _groundCheckDistance));
         Gizmos.DrawLine(_wallCheck.position, new Vector2(_wallCheck.position.x + _wallCheckDistance, _wallCheck.position.y));
+
+        Gizmos.DrawLine(bottomLeft, bottomRight);
+        Gizmos.DrawLine(bottomRight, topRight);
+        Gizmos.DrawLine(topRight, topLeft);
+        Gizmos.DrawLine(topLeft, bottomLeft);
     }
 }

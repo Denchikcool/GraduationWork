@@ -64,10 +64,18 @@ public class CombatEnemyController : MonoBehaviour
         CheckKnockback();
     }
 
-    private void TakeDamage(float amount)
+    private void TakeDamage(float[] attackDetails)
     {
-        _currentHealth -= amount;
-        _playerFacingDirection = _playerController.GetFacingDirection();
+        _currentHealth -= attackDetails[0];
+
+        if (attackDetails[1] < _aliveGameObject.transform.position.x)
+        {
+            _playerFacingDirection = 1;
+        }
+        else
+        {
+            _playerFacingDirection = -1;
+        }
 
         Instantiate(_hitParticle, _aliveGameObject.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
 

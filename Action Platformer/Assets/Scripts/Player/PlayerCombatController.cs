@@ -26,10 +26,15 @@ public class PlayerCombatController : MonoBehaviour
 
     private Animator _animator;
 
+    private PlayerController _playerController;
+    private PlayerStats _playerStats;
+
     private void Start()
     {
         _animator = GetComponent<Animator>();
         _animator.SetBool("canAttack", _combatEnabled);
+        _playerController = GetComponent<PlayerController>();
+        _playerStats = GetComponent<PlayerStats>();
     }
     private void Update()
     {
@@ -91,6 +96,27 @@ public class PlayerCombatController : MonoBehaviour
         _isAttacking = false;
         _animator.SetBool("isAttacking", _isAttacking);
         _animator.SetBool("attack", false);
+    }
+
+    private void TakeDamage(float[] attackDetails)
+    {
+        if (!_playerController.GetDashStatus())
+        {
+            int direction;
+
+            _playerStats.DecreaseHealth(attackDetails[0]);
+
+            if (attackDetails[1] < transform.position.x)
+            {
+                direction = 1;
+            }
+            else
+            {
+                direction = -1;
+            }
+
+            _playerController.Knockback(direction);
+        }
     }
 
     private void OnDrawGizmos()
