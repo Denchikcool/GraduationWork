@@ -22,6 +22,7 @@ public class PlayerCombatController : MonoBehaviour
     private bool _isFirstAttack;
     
     private float _lastInputTime = Mathf.NegativeInfinity;
+    private float[] _attackDetails = new float[2]; 
 
     private Animator _animator;
 
@@ -76,9 +77,12 @@ public class PlayerCombatController : MonoBehaviour
     {
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(_attackHitBoxPosition.position, _attackRadius, _whatIsDamageable);
 
+        _attackDetails[0] = _attackDamage;
+        _attackDetails[1] = transform.position.x;
+
         foreach(Collider2D item in detectedObjects)
         {
-            item.transform.parent.SendMessage("TakeDamage", _attackDamage);
+            item.transform.parent.SendMessage("TakeDamage", _attackDetails);
         }
     }
 
