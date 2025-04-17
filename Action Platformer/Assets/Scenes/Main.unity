@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 19243474}
   m_Layer: 9
-  m_Name: GroundCheck
+  m_Name: LedgeCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1083,7 +1083,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1005883733}
-  - component: {fileID: 1005883732}
+  - component: {fileID: 1005883734}
   m_Layer: 0
   m_Name: GolemEnemy
   m_TagString: Untagged
@@ -1091,41 +1091,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1005883732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1005883731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36d331b72412e5a4e8255ba23aa48281, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _groundCheck: {fileID: 19243474}
-  _wallCheck: {fileID: 220569571}
-  _touchDamageCheck: {fileID: 704075166}
-  _whatIsGround:
-    serializedVersion: 2
-    m_Bits: 256
-  _whatIsPlayer:
-    serializedVersion: 2
-    m_Bits: 2048
-  _groundCheckDistance: 1.2
-  _wallCheckDistance: 0.1
-  _movementSpeed: 3
-  _maxHealth: 30
-  _knockbackDuration: 0.1
-  _lastTouchDamageTime: 0
-  _touchDamageCooldown: 0.2
-  _touchDamage: 10
-  _touchDamageWidth: 1
-  _touchDamageHeight: 1
-  _knockbackSpeed: {x: 10, y: 5}
-  _hitParticle: {fileID: 712945729605957310, guid: 148d1088728410b49b9df0ff287b1e12, type: 3}
-  _deathChunkParticle: {fileID: 9186176535621978315, guid: 1a6153667c7e44e40896bbdc61efe7e4, type: 3}
-  _deathBloodParticle: {fileID: 4583205411795468071, guid: ff7ed9efd45ae4f489f6e287f2361958, type: 3}
 --- !u!4 &1005883733
 Transform:
   m_ObjectHideFlags: 0
@@ -1142,6 +1107,23 @@ Transform:
   - {fileID: 1132741519}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1005883734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005883731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e34979ea4d39a34c91812e66cf33dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _wallCheck: {fileID: 220569571}
+  _ledgeCheck: {fileID: 19243474}
+  DataEntity: {fileID: 11400000, guid: b3d29bb55681bb44eb604ad29f5185c1, type: 2}
+  _idleStateData: {fileID: 11400000, guid: 869c2729791ad9340ae05e3354d08ff0, type: 2}
+  _moveStateData: {fileID: 11400000, guid: 9d53c4b0bd8467441ba5fdfef5817f74, type: 2}
 --- !u!1 &1132741518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1262,7 +1244,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 8
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ad08156f53be57548a6051f0876f573a, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

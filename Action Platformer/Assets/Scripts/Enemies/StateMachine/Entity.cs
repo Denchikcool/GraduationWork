@@ -22,6 +22,8 @@ public class Entity : MonoBehaviour
 
     public virtual void Start()
     {
+        FacingDirection = 1;
+
         AliveGameObject = transform.Find("Alive").gameObject;
         Rigidbody = AliveGameObject.GetComponent<Rigidbody2D>();
         Animator = AliveGameObject.GetComponent<Animator>();
@@ -59,5 +61,11 @@ public class Entity : MonoBehaviour
     {
         FacingDirection *= -1;
         AliveGameObject.transform.Rotate(0.0f, 180.0f, 0.0f);
+    }
+
+    public virtual void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(_wallCheck.position, _wallCheck.position + (Vector3)(Vector2.right * FacingDirection * DataEntity.WallCheckDistance));
+        Gizmos.DrawLine(_ledgeCheck.position, _ledgeCheck.position + (Vector3)(Vector2.down * DataEntity.LedgeCheckDistance));
     }
 }
