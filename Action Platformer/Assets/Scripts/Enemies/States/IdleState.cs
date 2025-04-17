@@ -8,6 +8,7 @@ public class IdleState : State
 
     protected bool flipAfterIdle;
     protected bool isIdleTimeOver;
+    protected bool isMainHeroInMinAgroRange;
 
     protected float idleTime;
     public IdleState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, DataIdleState dataIdleState) : base(entity, stateMachine, animatorBoolName)
@@ -21,6 +22,7 @@ public class IdleState : State
 
         entity.SetVelocity(0);
         isIdleTimeOver = false;
+        isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
         SetRandomIdleTime();
     }
 
@@ -47,6 +49,8 @@ public class IdleState : State
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
+
+        isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
     }
 
     public void SetFlipAfterIdle(bool flipAfterIdle)

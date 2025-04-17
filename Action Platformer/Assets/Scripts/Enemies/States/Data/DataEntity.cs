@@ -7,6 +7,9 @@ public class DataEntity : ScriptableObject
 {
     public float WallCheckDistance = 0.2f;
     public float LedgeCheckDistance = 0.4f;
+    public float MaxAgroDistance = 4.0f;
+    public float MinAgroDistance = 3.0f;
 
     public LayerMask WhatIsGround;
+    public LayerMask WhatIsPlayer;
 }

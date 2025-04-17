@@ -24,7 +24,11 @@ public class GolemMoveState : MoveState
     {
         base.UpdateLogic();
 
-        if(isDetectedWall || !isDetectedLedge)
+        if (isMainHeroInMinAgroRange)
+        {
+            stateMachine.ChangeState(_golem.MainHeroDetectedState);
+        }
+        else if(isDetectedWall || !isDetectedLedge)
         {
             _golem.IdleState.SetFlipAfterIdle(true);
             stateMachine.ChangeState(_golem.IdleState);

@@ -8,6 +8,7 @@ public class MoveState : State
 
     protected bool isDetectedWall;
     protected bool isDetectedLedge;
+    protected bool isMainHeroInMinAgroRange;
     public MoveState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, DataMoveState dataMoveState) : base(entity, stateMachine, animatorBoolName)
     {
         this.dataMoveState = dataMoveState;
@@ -20,6 +21,7 @@ public class MoveState : State
 
         isDetectedLedge = entity.CheckLedge();
         isDetectedWall = entity.CheckWall();
+        isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
     }
 
     public override void Exit()
@@ -38,5 +40,6 @@ public class MoveState : State
 
         isDetectedLedge = entity.CheckLedge();
         isDetectedWall = entity.CheckWall();
+        isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
     }
 }

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GolemIdleState : IdleState
+public class GolemMainHeroDetectedState : MainHeroDetectedState
 {
     private Golem _golem;
-    public GolemIdleState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, DataIdleState dataIdleState, Golem golem) : base(entity, stateMachine, animatorBoolName, dataIdleState)
+    public GolemMainHeroDetectedState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, DataMainHeroDetected detectedMainHeroData, Golem golem) : base(entity, stateMachine, animatorBoolName, detectedMainHeroData)
     {
         this._golem = golem;
     }
@@ -24,13 +24,10 @@ public class GolemIdleState : IdleState
     {
         base.UpdateLogic();
 
-        if (isMainHeroInMinAgroRange)
+        if (!isMainHeroInMaxAgroRange)
         {
-            stateMachine.ChangeState(_golem.MainHeroDetectedState);
-        }
-        else if (isIdleTimeOver)
-        {
-            stateMachine.ChangeState(_golem.MoveState);
+            _golem.IdleState.SetFlipAfterIdle(false);
+            stateMachine.ChangeState(_golem.IdleState);
         }
     }
 

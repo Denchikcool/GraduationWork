@@ -8,6 +8,8 @@ public class Entity : MonoBehaviour
     private Transform _wallCheck;
     [SerializeField]
     private Transform _ledgeCheck;
+    [SerializeField]
+    private Transform _playerCheck;
 
     public FinalStateMachine FinalStateMachine;
 
@@ -61,6 +63,16 @@ public class Entity : MonoBehaviour
     {
         FacingDirection *= -1;
         AliveGameObject.transform.Rotate(0.0f, 180.0f, 0.0f);
+    }
+
+    public virtual bool CheckMainHeroInMinAgroRange()
+    {
+        return Physics2D.Raycast(_playerCheck.position, AliveGameObject.transform.right, DataEntity.MinAgroDistance, DataEntity.WhatIsPlayer);
+    }
+
+    public virtual bool CheckMainHeroInMaxAgroRange()
+    {
+        return Physics2D.Raycast(_playerCheck.position, AliveGameObject.transform.right, DataEntity.MaxAgroDistance, DataEntity.WhatIsPlayer);
     }
 
     public virtual void OnDrawGizmos()
