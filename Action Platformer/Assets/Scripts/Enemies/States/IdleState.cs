@@ -22,7 +22,6 @@ public class IdleState : State
 
         entity.SetVelocity(0);
         isIdleTimeOver = false;
-        isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
         SetRandomIdleTime();
     }
 
@@ -49,8 +48,6 @@ public class IdleState : State
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
-
-        isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
     }
 
     public void SetFlipAfterIdle(bool flipAfterIdle)
@@ -61,5 +58,12 @@ public class IdleState : State
     private void SetRandomIdleTime()
     {
         idleTime = Random.Range(dataIdleState.MinIdleTime, dataIdleState.MaxIdleTime);
+    }
+
+    public override void MakeChecks()
+    {
+        base.MakeChecks();
+
+        isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
     }
 }

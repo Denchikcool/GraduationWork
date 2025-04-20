@@ -22,6 +22,7 @@ public class State
     {
         startTime = Time.time;
         entity.Animator.SetBool(animatorBoolName, true);
+        MakeChecks();
     }
 
     public virtual void Exit()
@@ -35,6 +36,11 @@ public class State
     }
 
     public virtual void UpdatePhysics()
+    {
+        MakeChecks();
+    }
+
+    public virtual void MakeChecks()
     {
 
     }

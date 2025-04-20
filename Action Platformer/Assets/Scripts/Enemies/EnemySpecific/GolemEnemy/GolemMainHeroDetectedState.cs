@@ -24,10 +24,13 @@ public class GolemMainHeroDetectedState : MainHeroDetectedState
     {
         base.UpdateLogic();
 
-        if (!isMainHeroInMaxAgroRange)
+        if (performLongRangeAction)
         {
-            _golem.IdleState.SetFlipAfterIdle(false);
-            stateMachine.ChangeState(_golem.IdleState);
+            stateMachine.ChangeState(_golem.ChargeState);
+        }
+        else if (!isMainHeroInMaxAgroRange)
+        {
+            stateMachine.ChangeState(_golem.FindMainHeroState);
         }
     }
 

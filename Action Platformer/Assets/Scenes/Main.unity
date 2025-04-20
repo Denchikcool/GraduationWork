@@ -1131,7 +1131,7 @@ Transform:
   m_GameObject: {fileID: 1005883731}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.67, y: 8.02, z: 0}
+  m_LocalPosition: {x: 10.75, y: 8.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1157,6 +1157,8 @@ MonoBehaviour:
   _idleStateData: {fileID: 11400000, guid: 869c2729791ad9340ae05e3354d08ff0, type: 2}
   _moveStateData: {fileID: 11400000, guid: 9d53c4b0bd8467441ba5fdfef5817f74, type: 2}
   _mainHeroDetectedData: {fileID: 11400000, guid: 90c13b9f5480612498d15f28d19d541b, type: 2}
+  _chargeStateData: {fileID: 11400000, guid: a5134a65881d20641ae6e772f573383a, type: 2}
+  _findMainHeroStateData: {fileID: 11400000, guid: fcf5f5e7b9f3ff54a95588abf06db70c, type: 2}
 --- !u!1 &1132741518
 GameObject:
   m_ObjectHideFlags: 0

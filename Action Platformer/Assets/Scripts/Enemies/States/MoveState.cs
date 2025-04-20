@@ -18,15 +18,20 @@ public class MoveState : State
     {
         base.Enter();
         entity.SetVelocity(dataMoveState.MovementSpeed);
-
-        isDetectedLedge = entity.CheckLedge();
-        isDetectedWall = entity.CheckWall();
-        isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
     }
 
     public override void Exit()
     {
         base.Exit();
+    }
+
+    public override void MakeChecks()
+    {
+        base.MakeChecks();
+
+        isDetectedLedge = entity.CheckLedge();
+        isDetectedWall = entity.CheckWall();
+        isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
     }
 
     public override void UpdateLogic()
@@ -37,9 +42,5 @@ public class MoveState : State
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
-
-        isDetectedLedge = entity.CheckLedge();
-        isDetectedWall = entity.CheckWall();
-        isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
     }
 }

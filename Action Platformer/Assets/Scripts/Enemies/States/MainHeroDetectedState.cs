@@ -8,6 +8,7 @@ public class MainHeroDetectedState : State
 
     protected bool isMainHeroInMinAgroRange;
     protected bool isMainHeroInMaxAgroRange;
+    protected bool performLongRangeAction;
     public MainHeroDetectedState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, DataMainHeroDetected detectedMainHeroData) : base(entity, stateMachine, animatorBoolName)
     {
         this.detectedMainHeroData = detectedMainHeroData;
@@ -17,9 +18,8 @@ public class MainHeroDetectedState : State
     {
         base.Enter();
 
+        performLongRangeAction = false;
         entity.SetVelocity(0.0f);
-        isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
-        isMainHeroInMaxAgroRange = entity.CheckMainHeroInMaxAgroRange();
     }
 
     public override void Exit()
@@ -27,16 +27,26 @@ public class MainHeroDetectedState : State
         base.Exit();
     }
 
+    public override void MakeChecks()
+    {
+        base.MakeChecks();
+
+        isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
+        isMainHeroInMaxAgroRange = entity.CheckMainHeroInMaxAgroRange();
+    }
+
     public override void UpdateLogic()
     {
         base.UpdateLogic();
+
+        if(Time.time >= startTime + detectedMainHeroData.LongRangeActionTime)
+        {
+            performLongRangeAction = true;
+        }
     }
 
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
-
-        isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
-        isMainHeroInMaxAgroRange = entity.CheckMainHeroInMaxAgroRange();
     }
 }
