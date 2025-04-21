@@ -9,6 +9,7 @@ public class Golem : Entity
     public GolemMainHeroDetectedState MainHeroDetectedState { get; private set; }
     public GolemChargeState ChargeState { get; private set; }
     public GolemFindMainHeroState FindMainHeroState { get; private set; }
+    public GolemMeleeAttackState MeleeAttackState { get; private set; }
 
     [SerializeField]
     private DataIdleState _idleStateData;
@@ -20,6 +21,11 @@ public class Golem : Entity
     private DataChargeState _chargeStateData;
     [SerializeField]
     private DataFindMainHero _findMainHeroStateData;
+    [SerializeField]
+    private DataMeleeAttack _meleeAttackStateData;
+
+    [SerializeField]
+    private Transform _meleeAttackPosition;
 
     public override void Start()
     {
@@ -30,7 +36,15 @@ public class Golem : Entity
         MainHeroDetectedState = new GolemMainHeroDetectedState(this, FinalStateMachine, "mainHeroDetected", _mainHeroDetectedData, this);
         ChargeState = new GolemChargeState(this, FinalStateMachine, "charge", _chargeStateData, this);
         FindMainHeroState = new GolemFindMainHeroState(this, FinalStateMachine, "findMainHero", _findMainHeroStateData, this);
+        MeleeAttackState = new GolemMeleeAttackState(this, FinalStateMachine, "meleeAttack", _meleeAttackPosition, _meleeAttackStateData, this);
 
         FinalStateMachine.Initialize(MoveState);
+    }
+
+    public override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+
+        Gizmos.DrawWireSphere(_meleeAttackPosition.position, _meleeAttackStateData.AttackRadius);
     }
 }

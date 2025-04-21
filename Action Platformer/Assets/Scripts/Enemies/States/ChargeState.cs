@@ -10,6 +10,7 @@ public class ChargeState : State
     protected bool isDetectedLedge;
     protected bool isDetectedWall;
     protected bool isChargeTimeOver;
+    protected bool performShortRangeAction;
     public ChargeState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, DataChargeState dataChargeState) : base(entity, stateMachine, animatorBoolName)
     {
         this.dataChargeState = dataChargeState;
@@ -35,6 +36,7 @@ public class ChargeState : State
         isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
         isDetectedLedge = entity.CheckLedge();
         isDetectedWall = entity.CheckWall();
+        performShortRangeAction = entity.CheckMainHeroInCloseRangeAction();
     }
 
     public override void UpdateLogic()

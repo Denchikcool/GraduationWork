@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GolemChargeState : ChargeState
+public class GolemMeleeAttackState : MeleeAttackState
 {
     private Golem _golem;
-    public GolemChargeState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, DataChargeState dataChargeState, Golem golem) : base(entity, stateMachine, animatorBoolName, dataChargeState)
+    public GolemMeleeAttackState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, Transform attackPosition, DataMeleeAttack dataMeleeAttack, Golem golem) : base(entity, stateMachine, animatorBoolName, attackPosition, dataMeleeAttack)
     {
         this._golem = golem;
     }
@@ -20,26 +20,28 @@ public class GolemChargeState : ChargeState
         base.Exit();
     }
 
+    public override void FinishAttack()
+    {
+        base.FinishAttack();
+    }
+
     public override void MakeChecks()
     {
         base.MakeChecks();
+    }
+
+    public override void TriggerAttack()
+    {
+        base.TriggerAttack();
     }
 
     public override void UpdateLogic()
     {
         base.UpdateLogic();
 
-        if (performShortRangeAction)
+        if (isAnimationFinished)
         {
-            stateMachine.ChangeState(_golem.MeleeAttackState);
-        }
-        else if (!isDetectedLedge || isDetectedWall)
-        {
-            stateMachine.ChangeState(_golem.FindMainHeroState);
-        }
-        else if (isChargeTimeOver)
-        {
-            if(isMainHeroInMinAgroRange)
+            if (isMainHeroInMinAgroRange)
             {
                 stateMachine.ChangeState(_golem.MainHeroDetectedState);
             }

@@ -21,6 +21,7 @@ public class Entity : MonoBehaviour
     public Rigidbody2D Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
     public GameObject AliveGameObject { get; private set; }
+    public AnimationToStateMachine AnimationToStateMachine { get; private set; }
 
     public virtual void Start()
     {
@@ -29,6 +30,7 @@ public class Entity : MonoBehaviour
         AliveGameObject = transform.Find("Alive").gameObject;
         Rigidbody = AliveGameObject.GetComponent<Rigidbody2D>();
         Animator = AliveGameObject.GetComponent<Animator>();
+        AnimationToStateMachine = AliveGameObject.GetComponent<AnimationToStateMachine>();
 
         FinalStateMachine = new FinalStateMachine();
     }
@@ -75,9 +77,17 @@ public class Entity : MonoBehaviour
         return Physics2D.Raycast(_playerCheck.position, AliveGameObject.transform.right, DataEntity.MaxAgroDistance, DataEntity.WhatIsPlayer);
     }
 
+    public virtual bool CheckMainHeroInCloseRangeAction()
+    {
+        return Physics2D.Raycast(_playerCheck.position, AliveGameObject.transform.right, DataEntity.CloseRangeActionDistance, DataEntity.WhatIsPlayer);
+    }
+
     public virtual void OnDrawGizmos()
     {
         Gizmos.DrawLine(_wallCheck.position, _wallCheck.position + (Vector3)(Vector2.right * FacingDirection * DataEntity.WallCheckDistance));
         Gizmos.DrawLine(_ledgeCheck.position, _ledgeCheck.position + (Vector3)(Vector2.down * DataEntity.LedgeCheckDistance));
+        Gizmos.DrawWireSphere(_playerCheck.position + (Vector3)(Vector2.right * DataEntity.CloseRangeActionDistance), 0.2f);
+        Gizmos.DrawWireSphere(_playerCheck.position + (Vector3)(Vector2.right * DataEntity.MinAgroDistance), 0.2f);
+        Gizmos.DrawWireSphere(_playerCheck.position + (Vector3)(Vector2.right * DataEntity.MaxAgroDistance), 0.2f);
     }
 }

@@ -24,7 +24,11 @@ public class GolemMainHeroDetectedState : MainHeroDetectedState
     {
         base.UpdateLogic();
 
-        if (performLongRangeAction)
+        if (performShortRangeAction)
+        {
+            stateMachine.ChangeState(_golem.MeleeAttackState);
+        }
+        else if (performLongRangeAction)
         {
             stateMachine.ChangeState(_golem.ChargeState);
         }
