@@ -17,6 +17,11 @@ MonoBehaviour:
   MaxAgroDistance: 8
   MinAgroDistance: 7
   CloseRangeActionDistance: 0.75
+  MaxHealth: 30
+  DamageHopSpeed: 10
+  GroundCheckRadius: 0.3
+  StunResistance: 3
+  StunRecoveryTime: 2
   WhatIsGround:
     serializedVersion: 2
     m_Bits: 256

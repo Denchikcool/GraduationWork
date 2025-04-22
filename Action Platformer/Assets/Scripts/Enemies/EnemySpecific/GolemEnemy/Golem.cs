@@ -10,6 +10,7 @@ public class Golem : Entity
     public GolemChargeState ChargeState { get; private set; }
     public GolemFindMainHeroState FindMainHeroState { get; private set; }
     public GolemMeleeAttackState MeleeAttackState { get; private set; }
+    public GolemStunState StunState { get; private set; }
 
     [SerializeField]
     private DataIdleState _idleStateData;
@@ -23,6 +24,8 @@ public class Golem : Entity
     private DataFindMainHero _findMainHeroStateData;
     [SerializeField]
     private DataMeleeAttack _meleeAttackStateData;
+    [SerializeField]
+    private DataStunState _stunStateData;
 
     [SerializeField]
     private Transform _meleeAttackPosition;
@@ -37,6 +40,7 @@ public class Golem : Entity
         ChargeState = new GolemChargeState(this, FinalStateMachine, "charge", _chargeStateData, this);
         FindMainHeroState = new GolemFindMainHeroState(this, FinalStateMachine, "findMainHero", _findMainHeroStateData, this);
         MeleeAttackState = new GolemMeleeAttackState(this, FinalStateMachine, "meleeAttack", _meleeAttackPosition, _meleeAttackStateData, this);
+        StunState = new GolemStunState(this, FinalStateMachine, "stun", _stunStateData, this);
 
         FinalStateMachine.Initialize(MoveState);
     }
@@ -46,5 +50,15 @@ public class Golem : Entity
         base.OnDrawGizmos();
 
         Gizmos.DrawWireSphere(_meleeAttackPosition.position, _meleeAttackStateData.AttackRadius);
+    }
+
+    public override void TakeDamage(AttackDetails details)
+    {
+        base.TakeDamage(details);
+
+        if (isStunned && FinalStateMachine.CurrentState != StunState)
+        {
+            FinalStateMachine.ChangeState(StunState);
+        }
     }
 }
