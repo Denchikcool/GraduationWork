@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: GolemChargeData
   m_EditorClassIdentifier: 
   ChargeSpeed: 6
-  ChargeTime: 0.5
+  ChargeTime: 1.5

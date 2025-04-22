@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7a730c3485f6bc489fcce55fa41b980, type: 3}
   m_Name: GolemStunStateData
   m_EditorClassIdentifier: 
-  StunTime: 3
+  StunTime: 2
   StunKnockbackTime: 0.2
   StunKnockbackSpeed: 20
   StunKnockbackAngle: {x: 1, y: 2}

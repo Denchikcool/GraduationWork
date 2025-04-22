@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d81b2e7f0fd59d4db41c9f6f8333d17, type: 3}
+  m_Name: GolemDeadStateData
+  m_EditorClassIdentifier: 
+  DeathChunkParticle: {fileID: 9186176535621978315, guid: 1a6153667c7e44e40896bbdc61efe7e4, type: 3}
+  DeathBloodParticle: {fileID: 4583205411795468071, guid: ff7ed9efd45ae4f489f6e287f2361958, type: 3}

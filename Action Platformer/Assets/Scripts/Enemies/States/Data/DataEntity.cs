@@ -18,4 +18,6 @@ public class DataEntity : ScriptableObject
 
     public LayerMask WhatIsGround;
     public LayerMask WhatIsPlayer;
+
+    public GameObject HitParticle;
 }

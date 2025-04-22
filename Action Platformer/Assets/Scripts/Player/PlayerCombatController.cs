@@ -13,6 +13,8 @@ public class PlayerCombatController : MonoBehaviour
     [SerializeField]
     private float _attackDamage;
     [SerializeField]
+    private float _stunDamageAmount = 1.0f;
+    [SerializeField]
     private Transform _attackHitBoxPosition;
     [SerializeField]
     private LayerMask _whatIsDamageable;
@@ -84,6 +86,7 @@ public class PlayerCombatController : MonoBehaviour
 
         _attackDetails.DamageAmount = _attackDamage;
         _attackDetails.Position = transform.position;
+        _attackDetails.StunDamageAmount = _stunDamageAmount;
 
         foreach(Collider2D item in detectedObjects)
         {

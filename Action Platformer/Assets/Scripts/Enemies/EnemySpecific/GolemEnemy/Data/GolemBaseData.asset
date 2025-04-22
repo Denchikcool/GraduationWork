@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: GolemBaseData
   m_EditorClassIdentifier: 
   WallCheckDistance: 0.2
-  LedgeCheckDistance: 1.1
+  LedgeCheckDistance: 2
   MaxAgroDistance: 8
   MinAgroDistance: 7
   CloseRangeActionDistance: 0.75
-  MaxHealth: 30
+  MaxHealth: 50
   DamageHopSpeed: 10
   GroundCheckRadius: 0.3
   StunResistance: 3
@@ -28,3 +28,4 @@ MonoBehaviour:
   WhatIsPlayer:
     serializedVersion: 2
     m_Bits: 2048
+  HitParticle: {fileID: 712945729605957310, guid: 148d1088728410b49b9df0ff287b1e12, type: 3}

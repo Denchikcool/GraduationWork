@@ -1193,6 +1193,7 @@ MonoBehaviour:
   _findMainHeroStateData: {fileID: 11400000, guid: fcf5f5e7b9f3ff54a95588abf06db70c, type: 2}
   _meleeAttackStateData: {fileID: 11400000, guid: 36c7077e19418bd4887345609603971d, type: 2}
   _stunStateData: {fileID: 11400000, guid: de850627ede9add4aaf315c183c576cd, type: 2}
+  _deadStateData: {fileID: 11400000, guid: 261c8b2ca71703a40bf50c64451d9e58, type: 2}
   _meleeAttackPosition: {fileID: 43452541}
 --- !u!1 &1132741518
 GameObject:

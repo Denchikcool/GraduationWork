@@ -10,6 +10,7 @@ public class MainHeroDetectedState : State
     protected bool isMainHeroInMaxAgroRange;
     protected bool performLongRangeAction;
     protected bool performShortRangeAction;
+    protected bool isDetectedLedge;
     public MainHeroDetectedState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, DataMainHeroDetected detectedMainHeroData) : base(entity, stateMachine, animatorBoolName)
     {
         this.detectedMainHeroData = detectedMainHeroData;
@@ -34,6 +35,7 @@ public class MainHeroDetectedState : State
 
         isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
         isMainHeroInMaxAgroRange = entity.CheckMainHeroInMaxAgroRange();
+        isDetectedLedge = entity.CheckLedge();
         performShortRangeAction = entity.CheckMainHeroInCloseRangeAction();
     }
 

@@ -64,11 +64,11 @@ public class CombatEnemyController : MonoBehaviour
         CheckKnockback();
     }
 
-    private void TakeDamage(float[] attackDetails)
+    private void TakeDamage(AttackDetails details)
     {
-        _currentHealth -= attackDetails[0];
+        _currentHealth -= details.DamageAmount;
 
-        if (attackDetails[1] < _aliveGameObject.transform.position.x)
+        if (details.Position.x < _aliveGameObject.transform.position.x)
         {
             _playerFacingDirection = 1;
         }

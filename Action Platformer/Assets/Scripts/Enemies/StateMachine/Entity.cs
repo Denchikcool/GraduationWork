@@ -24,6 +24,7 @@ public class Entity : MonoBehaviour
     private float _lastDamageTime;
 
     protected bool isStunned;
+    protected bool isDead;
 
     public int FacingDirection { get; private set; }
     public int LastDamageDirection { get; private set; }
@@ -103,6 +104,8 @@ public class Entity : MonoBehaviour
 
         DamageHop(DataEntity.DamageHopSpeed);
 
+        Instantiate(DataEntity.HitParticle, AliveGameObject.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
+
         if(details.Position.x > AliveGameObject.transform.position.x)
         {
             LastDamageDirection = -1;
@@ -115,6 +118,11 @@ public class Entity : MonoBehaviour
         if(_currentStunResistance <= 0)
         {
             isStunned = true;
+        }
+
+        if(_currentHealth <= 0)
+        {
+            isDead = true;
         }
     }
 

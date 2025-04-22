@@ -36,6 +36,11 @@ public class GolemMainHeroDetectedState : MainHeroDetectedState
         {
             stateMachine.ChangeState(_golem.FindMainHeroState);
         }
+        else if (!isDetectedLedge)
+        {
+            entity.Flip();
+            stateMachine.ChangeState(_golem.MoveState);
+        }
     }
 
     public override void UpdatePhysics()

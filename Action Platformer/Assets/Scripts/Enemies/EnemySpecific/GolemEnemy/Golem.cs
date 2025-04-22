@@ -11,6 +11,7 @@ public class Golem : Entity
     public GolemFindMainHeroState FindMainHeroState { get; private set; }
     public GolemMeleeAttackState MeleeAttackState { get; private set; }
     public GolemStunState StunState { get; private set; }
+    public GolemDeadState DeadState { get; private set; }
 
     [SerializeField]
     private DataIdleState _idleStateData;
@@ -26,6 +27,8 @@ public class Golem : Entity
     private DataMeleeAttack _meleeAttackStateData;
     [SerializeField]
     private DataStunState _stunStateData;
+    [SerializeField]
+    private DataDeadState _deadStateData;
 
     [SerializeField]
     private Transform _meleeAttackPosition;
@@ -41,6 +44,7 @@ public class Golem : Entity
         FindMainHeroState = new GolemFindMainHeroState(this, FinalStateMachine, "findMainHero", _findMainHeroStateData, this);
         MeleeAttackState = new GolemMeleeAttackState(this, FinalStateMachine, "meleeAttack", _meleeAttackPosition, _meleeAttackStateData, this);
         StunState = new GolemStunState(this, FinalStateMachine, "stun", _stunStateData, this);
+        DeadState = new GolemDeadState(this, FinalStateMachine, "dead", _deadStateData, this);
 
         FinalStateMachine.Initialize(MoveState);
     }
@@ -56,7 +60,11 @@ public class Golem : Entity
     {
         base.TakeDamage(details);
 
-        if (isStunned && FinalStateMachine.CurrentState != StunState)
+        if (isDead)
+        {
+            FinalStateMachine.ChangeState(DeadState);
+        }
+        else if (isStunned && FinalStateMachine.CurrentState != StunState)
         {
             FinalStateMachine.ChangeState(StunState);
         }

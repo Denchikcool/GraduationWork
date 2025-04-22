@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ebf40c4aced30b47a25b624a476e029, type: 3}
   m_Name: GolemMainHeroDetectedData
   m_EditorClassIdentifier: 
+  LongRangeActionTime: 0.5
