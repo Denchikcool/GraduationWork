@@ -43,7 +43,7 @@ public class ChargeState : State
     {
         base.UpdateLogic();
 
-        if(Time.time >= startTime + dataChargeState.ChargeTime)
+        if(Time.time >= StartTime + dataChargeState.ChargeTime)
         {
             isChargeTimeOver = true;
         }

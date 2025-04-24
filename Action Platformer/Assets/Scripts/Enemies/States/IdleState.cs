@@ -39,7 +39,7 @@ public class IdleState : State
     {
         base.UpdateLogic();
 
-        if(Time.time >= startTime + idleTime)
+        if(Time.time >= StartTime + idleTime)
         {
             isIdleTimeOver = true;
         }

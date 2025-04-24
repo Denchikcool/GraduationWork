@@ -11,6 +11,8 @@ public class Archer : Entity
     public ArcherFindMainHeroState FindMainHeroState { get; private set; }
     public ArcherStunState StunState { get; private set; }
     public ArcherDeadState DeadState { get; private set; }
+    public ArcherDodgeState DodgeState { get; private set; }
+    public ArcherRangeAttackState RangeAttackState { get; private set; }
 
     [SerializeField]
     private DataIdleState _idleStateData;
@@ -26,9 +28,15 @@ public class Archer : Entity
     private DataStunState _stunStateData;
     [SerializeField]
     private DataDeadState _deadStateData;
+    [SerializeField]
+    public DataDodgeState DodgeStateData;
+    [SerializeField]
+    private DataRangeAttackState _rangeAttackStateData;
 
     [SerializeField]
     private Transform _meleeAttackPosition;
+    [SerializeField]
+    private Transform _rangeAttackPosition;
 
     public override void Start()
     {
@@ -41,6 +49,8 @@ public class Archer : Entity
         FindMainHeroState = new ArcherFindMainHeroState(this, FinalStateMachine, "findMainHero", _findMainHeroStateData, this);
         StunState = new ArcherStunState(this, FinalStateMachine, "stun", _stunStateData, this);
         DeadState = new ArcherDeadState(this, FinalStateMachine, "dead", _deadStateData, this);
+        DodgeState = new ArcherDodgeState(this, FinalStateMachine, "dodge", DodgeStateData, this);
+        RangeAttackState = new ArcherRangeAttackState(this, FinalStateMachine, "rangeAttack", _rangeAttackPosition, _rangeAttackStateData, this);
 
         FinalStateMachine.Initialize(MoveState);
     }
@@ -56,6 +66,10 @@ public class Archer : Entity
         else if (isStunned && FinalStateMachine.CurrentState != StunState)
         {
             FinalStateMachine.ChangeState(StunState);
+        }
+        else if (CheckMainHeroInMinAgroRange())
+        {
+            FinalStateMachine.ChangeState(RangeAttackState);
         }
         else if (!CheckMainHeroInMinAgroRange())
         {

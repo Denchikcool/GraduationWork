@@ -31,7 +31,18 @@ public class ArcherMainHeroDetectedState : MainHeroDetectedState
 
         if (performShortRangeAction)
         {
-            stateMachine.ChangeState(_archer.MeleeAttackState);
+            if (Time.time >= _archer.DodgeState.StartTime + _archer.DodgeStateData.DodgeCooldown)
+            {
+                stateMachine.ChangeState(_archer.DodgeState);
+            }
+            else
+            {
+                stateMachine.ChangeState(_archer.MeleeAttackState);
+            }
+        }
+        else if (performLongRangeAction)
+        {
+            stateMachine.ChangeState(_archer.RangeAttackState);
         }
         else if (!isMainHeroInMaxAgroRange)
         {

@@ -43,7 +43,7 @@ public class MainHeroDetectedState : State
     {
         base.UpdateLogic();
 
-        if(Time.time >= startTime + detectedMainHeroData.LongRangeActionTime)
+        if(Time.time >= StartTime + detectedMainHeroData.LongRangeActionTime)
         {
             performLongRangeAction = true;
         }

@@ -7,7 +7,7 @@ public class State
     protected FinalStateMachine stateMachine;
     protected Entity entity;
 
-    protected float startTime;
+    public float StartTime { get; protected set; }
 
     protected string animatorBoolName;
 
@@ -20,7 +20,7 @@ public class State
 
     public virtual void Enter()
     {
-        startTime = Time.time;
+        StartTime = Time.time;
         entity.Animator.SetBool(animatorBoolName, true);
         MakeChecks();
     }

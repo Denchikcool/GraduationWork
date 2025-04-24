@@ -26,7 +26,7 @@ public class FindMainHeroState : State
 
         isAllTurnsDone = false;
         isAllTurnsTimeDone = false;
-        lastTurnTime = startTime;
+        lastTurnTime = StartTime;
         CountOfTurnsDone = 0;
         entity.SetVelocity(0.0f);
     }
