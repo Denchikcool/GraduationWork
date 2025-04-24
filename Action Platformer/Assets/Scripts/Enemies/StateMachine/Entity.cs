@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
+    #region Unity Objects
     [SerializeField]
     private Transform _wallCheck;
     [SerializeField]
@@ -12,11 +13,17 @@ public class Entity : MonoBehaviour
     private Transform _playerCheck;
     [SerializeField]
     private Transform _groundCheck;
+    #endregion
 
+    #region States
     public FinalStateMachine FinalStateMachine;
+    #endregion
 
+    #region Data
     public DataEntity DataEntity;
+    #endregion
 
+    #region Variables
     private Vector2 _velocityWorkSpace;
 
     private float _currentHealth;
@@ -25,14 +32,18 @@ public class Entity : MonoBehaviour
 
     protected bool isStunned;
     protected bool isDead;
+    #endregion
 
+    #region Components
     public int FacingDirection { get; private set; }
     public int LastDamageDirection { get; private set; }
     public Rigidbody2D Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
     public GameObject AliveGameObject { get; private set; }
     public AnimationToStateMachine AnimationToStateMachine { get; private set; }
+    #endregion
 
+    #region Unity Functions
     public virtual void Start()
     {
         FacingDirection = 1;
@@ -63,7 +74,9 @@ public class Entity : MonoBehaviour
     {
         FinalStateMachine.CurrentState.UpdatePhysics();
     }
+    #endregion
 
+    #region Set Functions
     public virtual void SetVelocity(float velocity)
     {
         _velocityWorkSpace.Set(FacingDirection * velocity, Rigidbody.velocity.y);
@@ -76,7 +89,9 @@ public class Entity : MonoBehaviour
         _velocityWorkSpace.Set(angle.x * velocity * direction, angle.y * velocity);
         Rigidbody.velocity = _velocityWorkSpace;
     }
+    #endregion
 
+    #region Check Functions
     public virtual bool CheckWall()
     {
         return Physics2D.Raycast(_wallCheck.position, AliveGameObject.transform.right, DataEntity.WallCheckDistance, DataEntity.WhatIsGround);
@@ -92,12 +107,31 @@ public class Entity : MonoBehaviour
         return Physics2D.OverlapCircle(_groundCheck.position, DataEntity.GroundCheckRadius, DataEntity.WhatIsGround);
     }
 
+    public virtual bool CheckMainHeroInMinAgroRange()
+    {
+        return Physics2D.Raycast(_playerCheck.position, AliveGameObject.transform.right, DataEntity.MinAgroDistance, DataEntity.WhatIsPlayer);
+    }
+
+    public virtual bool CheckMainHeroInMaxAgroRange()
+    {
+        return Physics2D.Raycast(_playerCheck.position, AliveGameObject.transform.right, DataEntity.MaxAgroDistance, DataEntity.WhatIsPlayer);
+    }
+
+    public virtual bool CheckMainHeroInCloseRangeAction()
+    {
+        return Physics2D.Raycast(_playerCheck.position, AliveGameObject.transform.right, DataEntity.CloseRangeActionDistance, DataEntity.WhatIsPlayer);
+    }
+    #endregion
+
+    #region Other Functions
     public virtual void Flip()
     {
         FacingDirection *= -1;
         AliveGameObject.transform.Rotate(0.0f, 180.0f, 0.0f);
     }
+    #endregion
 
+    #region Damage Functions
     public virtual void TakeDamage(AttackDetails details)
     {
         _lastDamageTime = Time.time;
@@ -139,22 +173,9 @@ public class Entity : MonoBehaviour
         isStunned = false;
         _currentStunResistance = DataEntity.StunResistance;
     }
+    #endregion
 
-    public virtual bool CheckMainHeroInMinAgroRange()
-    {
-        return Physics2D.Raycast(_playerCheck.position, AliveGameObject.transform.right, DataEntity.MinAgroDistance, DataEntity.WhatIsPlayer);
-    }
-
-    public virtual bool CheckMainHeroInMaxAgroRange()
-    {
-        return Physics2D.Raycast(_playerCheck.position, AliveGameObject.transform.right, DataEntity.MaxAgroDistance, DataEntity.WhatIsPlayer);
-    }
-
-    public virtual bool CheckMainHeroInCloseRangeAction()
-    {
-        return Physics2D.Raycast(_playerCheck.position, AliveGameObject.transform.right, DataEntity.CloseRangeActionDistance, DataEntity.WhatIsPlayer);
-    }
-
+    #region Gizmos Function
     public virtual void OnDrawGizmos()
     {
         Gizmos.DrawLine(_wallCheck.position, _wallCheck.position + (Vector3)(Vector2.right * FacingDirection * DataEntity.WallCheckDistance));
@@ -163,4 +184,5 @@ public class Entity : MonoBehaviour
         Gizmos.DrawWireSphere(_playerCheck.position + (Vector3)(Vector2.right * DataEntity.MinAgroDistance), 0.2f);
         Gizmos.DrawWireSphere(_playerCheck.position + (Vector3)(Vector2.right * DataEntity.MaxAgroDistance), 0.2f);
     }
+    #endregion
 }

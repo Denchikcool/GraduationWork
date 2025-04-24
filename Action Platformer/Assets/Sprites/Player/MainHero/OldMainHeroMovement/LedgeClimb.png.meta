@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 35dd616a384c16d44b1a50b393dbc7e6
+guid: e916af0c37021b4408dc098514e11580
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -150,8 +150,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cdb2183d00020a74cae9e86f49d331f8
-      internalID: -1315139388
+      spriteID: 23499ab1b05c498468a75557be2237a6
+      internalID: 1074280292
       vertices: []
       indices: 
       edges: []
@@ -171,8 +171,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7166afa9ebcdc064c94132e99a40daa0
-      internalID: 1150994816
+      spriteID: 144c3fadec24dca41be184b51840052b
+      internalID: 326749855
       vertices: []
       indices: 
       edges: []
@@ -192,8 +192,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c61d7297ba32efe46ac74a945290a64a
-      internalID: 1805756620
+      spriteID: ba9e776ff25ced5469b8108811688db4
+      internalID: 2090281615
       vertices: []
       indices: 
       edges: []
@@ -213,8 +213,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff6c5561ceb2ff24fa9183efa4fb1db9
-      internalID: -716464826
+      spriteID: e69b2605a5291d74dbcbb2fe201cb57a
+      internalID: 787812591
       vertices: []
       indices: 
       edges: []
@@ -234,8 +234,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e740c1f180bb6324383d3c065989103e
-      internalID: 1914267908
+      spriteID: 2bb176c01a3e7c74cb2ecc8406063784
+      internalID: 270271127
       vertices: []
       indices: 
       edges: []
@@ -255,29 +255,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42008f8a096f5c7418924486b18bef4e
-      internalID: -1704544534
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LedgeClimb_6
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4f82f7eee4d71b5448dde6a701778195
-      internalID: -2066243202
+      spriteID: 94b402dd7cf39e2419db6da2ed62df66
+      internalID: 358750273
       vertices: []
       indices: 
       edges: []
@@ -293,13 +272,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      LedgeClimb_0: -1315139388
-      LedgeClimb_1: 1150994816
-      LedgeClimb_2: 1805756620
-      LedgeClimb_3: -716464826
-      LedgeClimb_4: 1914267908
-      LedgeClimb_5: -1704544534
-      LedgeClimb_6: -2066243202
+      LedgeClimb_0: 1074280292
+      LedgeClimb_1: 326749855
+      LedgeClimb_2: 2090281615
+      LedgeClimb_3: 787812591
+      LedgeClimb_4: 270271127
+      LedgeClimb_5: 358750273
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
