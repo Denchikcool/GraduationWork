@@ -10,6 +10,8 @@ public class MainHeroState
 
     protected float startTime;
 
+    protected bool isAnimationFinish;
+
     private string _animationBoolName;
 
     public MainHeroState(MainHero mainHero, MainHeroStateMachine stateMachine, MainHeroData mainHeroData, string animationBoolName)
@@ -26,6 +28,7 @@ public class MainHeroState
         mainHero.Animator.SetBool(_animationBoolName, true);
         startTime = Time.time;
         Debug.Log(_animationBoolName);
+        isAnimationFinish = false;
     }
 
     public virtual void Exit()
@@ -46,5 +49,15 @@ public class MainHeroState
     public virtual void MakeChecks()
     {
 
+    }
+
+    public virtual void AnimationTrigger()
+    {
+
+    }
+
+    public virtual void AnimationFinishTrigger()
+    {
+        isAnimationFinish = true;
     }
 }

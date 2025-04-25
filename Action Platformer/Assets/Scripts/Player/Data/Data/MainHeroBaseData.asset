@@ -13,3 +13,11 @@ MonoBehaviour:
   m_Name: MainHeroBaseData
   m_EditorClassIdentifier: 
   MovementVelocity: 10
+  JumpVelocity: 15
+  AmountOfJumps: 1
+  CoyoteTime: 0.2
+  JumpHeightMultiplier: 0.5
+  GroundCheckRadius: 0.3
+  WhatIsGround:
+    serializedVersion: 2
+    m_Bits: 256
