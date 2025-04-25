@@ -8,6 +8,8 @@ public class MainHeroGroundedState : MainHeroState
 
     private bool _jumpInput;
     private bool _isGrounded;
+    private bool _isTouchingWall;
+    private bool _grabInput;
 
     public MainHeroGroundedState(MainHero mainHero, MainHeroStateMachine stateMachine, MainHeroData mainHeroData, string animationBoolName) : base(mainHero, stateMachine, mainHeroData, animationBoolName)
     {
@@ -30,6 +32,7 @@ public class MainHeroGroundedState : MainHeroState
         base.MakeChecks();
 
         _isGrounded = mainHero.CheckIfTouchingGround();
+        _isTouchingWall = mainHero.CheckIfTouchingWall();
     }
 
     public override void UpdateLogic()
@@ -38,6 +41,7 @@ public class MainHeroGroundedState : MainHeroState
 
         inputXPosition = mainHero.PlayerInputHandler.NormalizeInputX;
         _jumpInput = mainHero.PlayerInputHandler.JumpInput;
+        _grabInput = mainHero.PlayerInputHandler.GrabInput;
 
         if (_jumpInput && mainHero.MainHeroJumpState.CanJump())
         {
@@ -48,6 +52,10 @@ public class MainHeroGroundedState : MainHeroState
         {
             mainHero.MainHeroAirState.StartCoyoteTime();
             stateMachine.ChangeState(mainHero.MainHeroAirState);
+        }
+        else if(_isTouchingWall && _grabInput)
+        {
+            stateMachine.ChangeState(mainHero.MainHeroWallGrabState);
         }
     }
 

@@ -11,6 +11,9 @@ public class MainHero : MonoBehaviour
     public MainHeroJumpState MainHeroJumpState { get; private set; }
     public MainHeroAirState MainHeroAirState { get; private set; }
     public MainHeroLandState MainHeroLandState { get; private set; }
+    public MainHeroWallSlideState MainHeroWallSlideState { get; private set; }
+    public MainHeroWallGrabState MainHeroWallGrabState { get; private set; }
+    public MainHeroWallClimbState MainHeroWallClimbState { get; private set; }
     #endregion
 
     #region Data
@@ -27,6 +30,8 @@ public class MainHero : MonoBehaviour
     #region Transforms
     [SerializeField]
     private Transform _groundCheck;
+    [SerializeField]
+    private Transform _wallCheck;
     #endregion
 
     #region Variables
@@ -46,6 +51,9 @@ public class MainHero : MonoBehaviour
         MainHeroJumpState = new MainHeroJumpState(this, StateMachine, _mainHeroData, "inAir");
         MainHeroAirState = new MainHeroAirState(this, StateMachine, _mainHeroData, "inAir");
         MainHeroLandState = new MainHeroLandState(this, StateMachine, _mainHeroData, "land");
+        MainHeroWallSlideState = new MainHeroWallSlideState(this, StateMachine, _mainHeroData, "wallSlide");
+        MainHeroWallGrabState = new MainHeroWallGrabState(this, StateMachine, _mainHeroData, "wallGrab");
+        MainHeroWallClimbState = new MainHeroWallClimbState(this, StateMachine, _mainHeroData, "wallClimb");
     }
 
     private void Start()
@@ -97,6 +105,11 @@ public class MainHero : MonoBehaviour
     public bool CheckIfTouchingGround()
     {
         return Physics2D.OverlapCircle(_groundCheck.position, _mainHeroData.GroundCheckRadius, _mainHeroData.WhatIsGround);
+    }
+
+    public bool CheckIfTouchingWall()
+    {
+        return Physics2D.Raycast(_wallCheck.position, Vector2.right * FacingDirection, _mainHeroData.WallCheckDistance, _mainHeroData.WhatIsGround);
     }
     #endregion
 
