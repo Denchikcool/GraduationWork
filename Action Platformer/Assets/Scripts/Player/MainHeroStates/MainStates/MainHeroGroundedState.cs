@@ -45,7 +45,6 @@ public class MainHeroGroundedState : MainHeroState
 
         if (_jumpInput && mainHero.MainHeroJumpState.CanJump())
         {
-            mainHero.PlayerInputHandler.ChangeJumpInput();
             stateMachine.ChangeState(mainHero.MainHeroJumpState);
         }
         else if (!_isGrounded)

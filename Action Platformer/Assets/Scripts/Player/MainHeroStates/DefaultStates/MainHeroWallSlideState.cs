@@ -12,11 +12,14 @@ public class MainHeroWallSlideState : MainHeroTouchWallState
     {
         base.UpdateLogic();
 
-        mainHero.SetVerticalVelocity(-mainHeroData.WallSlideVelocity);
-
-        if(grabInput && yInput == 0)
+        if (!isExitingState)
         {
-            stateMachine.ChangeState(mainHero.MainHeroWallGrabState);
-        }
+            mainHero.SetVerticalVelocity(-mainHeroData.WallSlideVelocity);
+
+            if (grabInput && yInput == 0)
+            {
+                stateMachine.ChangeState(mainHero.MainHeroWallGrabState);
+            }
+        } 
     }
 }

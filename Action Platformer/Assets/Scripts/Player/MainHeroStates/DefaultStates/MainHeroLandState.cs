@@ -12,13 +12,16 @@ public class MainHeroLandState : MainHeroGroundedState
     {
         base.UpdateLogic();
 
-        if(inputXPosition != 0)
+        if (!isExitingState)
         {
-            stateMachine.ChangeState(mainHero.MainHeroMoveState);
-        }
-        else if (isAnimationFinish)
-        {
-            stateMachine.ChangeState(mainHero.MainHeroIdleState);
+            if (inputXPosition != 0)
+            {
+                stateMachine.ChangeState(mainHero.MainHeroMoveState);
+            }
+            else if (isAnimationFinish)
+            {
+                stateMachine.ChangeState(mainHero.MainHeroIdleState);
+            }
         }
     }
 }

@@ -29,7 +29,7 @@ public class MainHeroIdleState : MainHeroGroundedState
     {
         base.UpdateLogic();
 
-        if(inputXPosition != 0)
+        if(inputXPosition != 0 && !isExitingState)
         {
             stateMachine.ChangeState(mainHero.MainHeroMoveState);
         }

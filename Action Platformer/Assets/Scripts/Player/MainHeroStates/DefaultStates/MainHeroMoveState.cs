@@ -30,7 +30,7 @@ public class MainHeroMoveState : MainHeroGroundedState
         mainHero.CheckShouldFlip(inputXPosition);
         mainHero.SetHorizontalVelocity(mainHeroData.MovementVelocity * inputXPosition);
 
-        if(inputXPosition == 0)
+        if(inputXPosition == 0 && !isExitingState)
         {
             stateMachine.ChangeState(mainHero.MainHeroIdleState);
         }

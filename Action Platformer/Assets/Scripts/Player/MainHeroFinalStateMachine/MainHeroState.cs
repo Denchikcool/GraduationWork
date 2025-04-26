@@ -11,6 +11,7 @@ public class MainHeroState
     protected float startTime;
 
     protected bool isAnimationFinish;
+    protected bool isExitingState;
 
     private string _animationBoolName;
 
@@ -29,11 +30,13 @@ public class MainHeroState
         startTime = Time.time;
         Debug.Log(_animationBoolName);
         isAnimationFinish = false;
+        isExitingState = false;
     }
 
     public virtual void Exit()
     {
         mainHero.Animator.SetBool(_animationBoolName, false);
+        isExitingState = true;
     }
 
     public virtual void UpdateLogic()

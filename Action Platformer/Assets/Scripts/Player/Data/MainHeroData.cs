@@ -12,6 +12,11 @@ public class MainHeroData : ScriptableObject
     public float JumpVelocity = 15.0f;
     public int AmountOfJumps = 1;
 
+    [Header("Wall Jump State")]
+    public float WallJumpVelocity = 20.0f;
+    public float WallJumpTime = 0.4f;
+    public Vector2 WallJumpAngle = new Vector2(1, 2);
+
     [Header("In Air State")]
     public float CoyoteTime = 0.2f;
     public float JumpHeightMultiplier = 0.5f;

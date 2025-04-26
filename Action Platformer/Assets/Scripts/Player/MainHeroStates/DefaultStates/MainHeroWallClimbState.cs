@@ -12,11 +12,14 @@ public class MainHeroWallClimbState : MainHeroTouchWallState
     {
         base.UpdateLogic();
 
-        mainHero.SetVerticalVelocity(mainHeroData.WallClimbVelocity);
-
-        if(yInput != 1)
+        if (!isExitingState)
         {
-            stateMachine.ChangeState(mainHero.MainHeroWallGrabState);
+            mainHero.SetVerticalVelocity(mainHeroData.WallClimbVelocity);
+
+            if (yInput != 1)
+            {
+                stateMachine.ChangeState(mainHero.MainHeroWallGrabState);
+            }
         }
     }
 }

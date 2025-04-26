@@ -42,15 +42,18 @@ public class MainHeroWallGrabState : MainHeroTouchWallState
     {
         base.UpdateLogic();
 
-        HoldPosition();
+        if (!isExitingState)
+        {
+            HoldPosition();
 
-        if (yInput > 0)
-        {
-            stateMachine.ChangeState(mainHero.MainHeroWallClimbState);
-        }
-        else if(yInput < 0 || !grabInput)
-        {
-            stateMachine.ChangeState(mainHero.MainHeroWallSlideState);
+            if (yInput > 0)
+            {
+                stateMachine.ChangeState(mainHero.MainHeroWallClimbState);
+            }
+            else if (yInput < 0 || !grabInput)
+            {
+                stateMachine.ChangeState(mainHero.MainHeroWallSlideState);
+            }
         }
     }
 

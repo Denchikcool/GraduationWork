@@ -14,6 +14,7 @@ public class MainHero : MonoBehaviour
     public MainHeroWallSlideState MainHeroWallSlideState { get; private set; }
     public MainHeroWallGrabState MainHeroWallGrabState { get; private set; }
     public MainHeroWallClimbState MainHeroWallClimbState { get; private set; }
+    public MainHeroWallJumpState MainHeroWallJumpState { get; private set; }
     #endregion
 
     #region Data
@@ -54,6 +55,7 @@ public class MainHero : MonoBehaviour
         MainHeroWallSlideState = new MainHeroWallSlideState(this, StateMachine, _mainHeroData, "wallSlide");
         MainHeroWallGrabState = new MainHeroWallGrabState(this, StateMachine, _mainHeroData, "wallGrab");
         MainHeroWallClimbState = new MainHeroWallClimbState(this, StateMachine, _mainHeroData, "wallClimb");
+        MainHeroWallJumpState = new MainHeroWallJumpState(this, StateMachine, _mainHeroData, "inAir");
     }
 
     private void Start()
@@ -91,6 +93,14 @@ public class MainHero : MonoBehaviour
         Rigidbody.velocity = _workSpace;
         CurrentVelocity = _workSpace;
     }
+
+    public void SetVelocity(float velocity, Vector2 angle, int direction)
+    {
+        angle.Normalize();
+        _workSpace.Set(angle.x * velocity * direction, angle.y * velocity);
+        Rigidbody.velocity = _workSpace;
+        CurrentVelocity = _workSpace;
+    }
     #endregion
 
     #region Check Functions
@@ -110,6 +120,11 @@ public class MainHero : MonoBehaviour
     public bool CheckIfTouchingWall()
     {
         return Physics2D.Raycast(_wallCheck.position, Vector2.right * FacingDirection, _mainHeroData.WallCheckDistance, _mainHeroData.WhatIsGround);
+    }
+
+    public bool CheckIfTouchingWallBack()
+    {
+        return Physics2D.Raycast(_wallCheck.position, Vector2.right * -FacingDirection, _mainHeroData.WallCheckDistance, _mainHeroData.WhatIsGround);
     }
     #endregion
 
