@@ -15,6 +15,7 @@ public class MainHero : MonoBehaviour
     public MainHeroWallGrabState MainHeroWallGrabState { get; private set; }
     public MainHeroWallClimbState MainHeroWallClimbState { get; private set; }
     public MainHeroWallJumpState MainHeroWallJumpState { get; private set; }
+    public MainHeroLedgeClimbState MainHeroLedgeClimbState { get; private set; }
     #endregion
 
     #region Data
@@ -33,6 +34,8 @@ public class MainHero : MonoBehaviour
     private Transform _groundCheck;
     [SerializeField]
     private Transform _wallCheck;
+    [SerializeField]
+    private Transform _ledgeCheck;
     #endregion
 
     #region Variables
@@ -56,6 +59,7 @@ public class MainHero : MonoBehaviour
         MainHeroWallGrabState = new MainHeroWallGrabState(this, StateMachine, _mainHeroData, "wallGrab");
         MainHeroWallClimbState = new MainHeroWallClimbState(this, StateMachine, _mainHeroData, "wallClimb");
         MainHeroWallJumpState = new MainHeroWallJumpState(this, StateMachine, _mainHeroData, "inAir");
+        MainHeroLedgeClimbState = new MainHeroLedgeClimbState(this, StateMachine, _mainHeroData, "ledgeClimbState");
     }
 
     private void Start()
@@ -101,6 +105,12 @@ public class MainHero : MonoBehaviour
         Rigidbody.velocity = _workSpace;
         CurrentVelocity = _workSpace;
     }
+
+    public void SetVelocityZero()
+    {
+        Rigidbody.velocity = Vector2.zero;
+        CurrentVelocity = Vector2.zero;
+    }
     #endregion
 
     #region Check Functions
@@ -126,9 +136,28 @@ public class MainHero : MonoBehaviour
     {
         return Physics2D.Raycast(_wallCheck.position, Vector2.right * -FacingDirection, _mainHeroData.WallCheckDistance, _mainHeroData.WhatIsGround);
     }
+
+    public bool CheckIfTouchingLedge()
+    {
+        return Physics2D.Raycast(_ledgeCheck.position, Vector2.right * FacingDirection, _mainHeroData.WallCheckDistance, _mainHeroData.WhatIsGround);
+    }
     #endregion
 
     #region Other Functions
+
+    public Vector2 DetermineCornerPosition()
+    {
+        RaycastHit2D xHit = Physics2D.Raycast(_wallCheck.position, Vector2.right * FacingDirection, _mainHeroData.WallCheckDistance, _mainHeroData.WhatIsGround);
+        float xDistance = xHit.distance;
+        _workSpace.Set(xDistance * FacingDirection, 0.0f);
+        RaycastHit2D yHit = Physics2D.Raycast(_ledgeCheck.position + (Vector3)(_workSpace), Vector2.down, _ledgeCheck.position.y - _wallCheck.position.y, _mainHeroData.WhatIsGround);
+        float yDistance = yHit.distance;
+
+        _workSpace.Set(_wallCheck.position.x + (xDistance * FacingDirection), _ledgeCheck.position.y - yDistance);
+
+        return _workSpace;
+    }
+
     private void Flip()
     {
         FacingDirection *= -1;

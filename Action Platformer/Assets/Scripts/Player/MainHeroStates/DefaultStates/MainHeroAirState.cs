@@ -15,6 +15,7 @@ public class MainHeroAirState : MainHeroState
     private bool _wallJumpCoyoteTime;
     private bool _oldIsTouchingWall;
     private bool _oldIsTouchingWallBack;
+    private bool _isTouchingLedge;
 
     private float _startWallJumpCoyoteTime;
 
@@ -31,6 +32,11 @@ public class MainHeroAirState : MainHeroState
     public override void Exit()
     {
         base.Exit();
+
+        _oldIsTouchingWall = false;
+        _oldIsTouchingWallBack = false;
+        _isTouchingWall = false;
+        _isTouchingWallBack = false;
     }
 
     public override void MakeChecks()
@@ -42,6 +48,12 @@ public class MainHeroAirState : MainHeroState
         _isGrounded = mainHero.CheckIfTouchingGround();
         _isTouchingWall = mainHero.CheckIfTouchingWall();
         _isTouchingWallBack = mainHero.CheckIfTouchingWallBack();
+        _isTouchingLedge = mainHero.CheckIfTouchingLedge();
+
+        if(_isTouchingWall && !_isTouchingLedge)
+        {
+            mainHero.MainHeroLedgeClimbState.SetDetectedPosition(mainHero.transform.position);
+        }
 
         if(!_wallJumpCoyoteTime && !_isTouchingWall && !_isTouchingWallBack && (_oldIsTouchingWall || _oldIsTouchingWallBack))
         {
@@ -66,6 +78,10 @@ public class MainHeroAirState : MainHeroState
         if (_isGrounded && mainHero.CurrentVelocity.y < 0.01f)
         {
             stateMachine.ChangeState(mainHero.MainHeroLandState);
+        }
+        else if (_isTouchingWall && !_isTouchingLedge)
+        {
+            stateMachine.ChangeState(mainHero.MainHeroLedgeClimbState);
         }
         else if (_jumpInput && (_isTouchingWall || _isTouchingWallBack || _wallJumpCoyoteTime))
         {

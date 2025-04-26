@@ -8,6 +8,7 @@ public class MainHeroTouchWallState : MainHeroState
     protected bool isTouchingWall;
     protected bool grabInput;
     protected bool jumpInput;
+    protected bool isTouchingLedge;
 
     protected int xInput;
     protected int yInput;
@@ -41,6 +42,12 @@ public class MainHeroTouchWallState : MainHeroState
 
         isGrounded = mainHero.CheckIfTouchingGround();
         isTouchingWall = mainHero.CheckIfTouchingWall();
+        isTouchingLedge = mainHero.CheckIfTouchingLedge();
+
+        if(isTouchingWall && !isTouchingLedge)
+        {
+            mainHero.MainHeroLedgeClimbState.SetDetectedPosition(mainHero.transform.position);
+        }
     }
 
     public override void UpdateLogic()
@@ -64,6 +71,10 @@ public class MainHeroTouchWallState : MainHeroState
         else if(!isTouchingWall || (xInput != mainHero.FacingDirection && !grabInput))
         {
             stateMachine.ChangeState(mainHero.MainHeroAirState);
+        }
+        else if(isTouchingWall && !isTouchingLedge)
+        {
+            stateMachine.ChangeState(mainHero.MainHeroLedgeClimbState);
         }
     }
 

@@ -27,6 +27,10 @@ public class MainHeroData : ScriptableObject
     [Header("Wall Climb State")]
     public float WallClimbVelocity = 3.0f;
 
+    [Header("Ledge Climb State")]
+    public Vector2 StartOffset;
+    public Vector2 StopOffset;
+
     [Header("Check Variables")]
     public float GroundCheckRadius = 0.3f;
     public LayerMask WhatIsGround;
