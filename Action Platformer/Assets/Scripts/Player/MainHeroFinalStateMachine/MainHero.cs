@@ -16,6 +16,7 @@ public class MainHero : MonoBehaviour
     public MainHeroWallClimbState MainHeroWallClimbState { get; private set; }
     public MainHeroWallJumpState MainHeroWallJumpState { get; private set; }
     public MainHeroLedgeClimbState MainHeroLedgeClimbState { get; private set; }
+    public MainHeroDashState MainHeroDashState { get; private set; }
     #endregion
 
     #region Data
@@ -27,6 +28,7 @@ public class MainHero : MonoBehaviour
     public Animator Animator { get; private set; }
     public Rigidbody2D Rigidbody { get; private set; }
     public PlayerInputHandler PlayerInputHandler { get; private set; }
+    public Transform DashArrow { get; private set; }
     #endregion
 
     #region Transforms
@@ -60,6 +62,7 @@ public class MainHero : MonoBehaviour
         MainHeroWallClimbState = new MainHeroWallClimbState(this, StateMachine, _mainHeroData, "wallClimb");
         MainHeroWallJumpState = new MainHeroWallJumpState(this, StateMachine, _mainHeroData, "inAir");
         MainHeroLedgeClimbState = new MainHeroLedgeClimbState(this, StateMachine, _mainHeroData, "ledgeClimbState");
+        MainHeroDashState = new MainHeroDashState(this, StateMachine, _mainHeroData, "inAir");
     }
 
     private void Start()
@@ -67,6 +70,7 @@ public class MainHero : MonoBehaviour
         Animator = GetComponent<Animator>();
         Rigidbody = GetComponent<Rigidbody2D>();
         PlayerInputHandler = GetComponent<PlayerInputHandler>();
+        DashArrow = transform.Find("DashArrow");
         FacingDirection = 1;
         StateMachine.Initialize(MainHeroIdleState);
     }
@@ -94,6 +98,13 @@ public class MainHero : MonoBehaviour
     public void SetVerticalVelocity(float velocity)
     {
         _workSpace.Set(CurrentVelocity.x, velocity);
+        Rigidbody.velocity = _workSpace;
+        CurrentVelocity = _workSpace;
+    }
+
+    public void SetVelocity(float velocity, Vector2 direction)
+    {
+        _workSpace = direction * velocity;
         Rigidbody.velocity = _workSpace;
         CurrentVelocity = _workSpace;
     }

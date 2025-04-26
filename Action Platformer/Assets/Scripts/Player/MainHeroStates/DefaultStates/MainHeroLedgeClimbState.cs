@@ -11,6 +11,7 @@ public class MainHeroLedgeClimbState : MainHeroState
 
     private bool _isHanging;
     private bool _isClimbing;
+    private bool _jumpInput;
 
     private int _xInput;
     private int _yInput;
@@ -77,6 +78,7 @@ public class MainHeroLedgeClimbState : MainHeroState
         {
             _xInput = mainHero.PlayerInputHandler.NormalizeInputX;
             _yInput = mainHero.PlayerInputHandler.NormalizeInputY;
+            _jumpInput = mainHero.PlayerInputHandler.JumpInput;
 
             mainHero.SetVelocityZero();
             mainHero.transform.position = _startPosition;
@@ -89,6 +91,11 @@ public class MainHeroLedgeClimbState : MainHeroState
             else if (_yInput == -1 && _isHanging && !_isClimbing)
             {
                 stateMachine.ChangeState(mainHero.MainHeroAirState);
+            }
+            else if (_jumpInput && !_isClimbing)
+            {
+                mainHero.MainHeroWallJumpState.DetermineWallJumpDirection(true);
+                stateMachine.ChangeState(mainHero.MainHeroWallJumpState);
             }
         }
     }

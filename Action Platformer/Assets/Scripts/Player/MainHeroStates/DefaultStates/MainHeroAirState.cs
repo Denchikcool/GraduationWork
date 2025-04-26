@@ -16,6 +16,7 @@ public class MainHeroAirState : MainHeroState
     private bool _oldIsTouchingWall;
     private bool _oldIsTouchingWallBack;
     private bool _isTouchingLedge;
+    private bool _dashInput;
 
     private float _startWallJumpCoyoteTime;
 
@@ -72,6 +73,7 @@ public class MainHeroAirState : MainHeroState
         _jumpInput = mainHero.PlayerInputHandler.JumpInput;
         _jumpInputStop = mainHero.PlayerInputHandler.JumpInputStop;
         _grabInput = mainHero.PlayerInputHandler.GrabInput;
+        _dashInput = mainHero.PlayerInputHandler.DashInput;
 
         CheckJumpMultiplier();
 
@@ -79,7 +81,7 @@ public class MainHeroAirState : MainHeroState
         {
             stateMachine.ChangeState(mainHero.MainHeroLandState);
         }
-        else if (_isTouchingWall && !_isTouchingLedge)
+        else if (_isTouchingWall && !_isTouchingLedge && !_isGrounded)
         {
             stateMachine.ChangeState(mainHero.MainHeroLedgeClimbState);
         }
@@ -94,13 +96,17 @@ public class MainHeroAirState : MainHeroState
         {
             stateMachine.ChangeState(mainHero.MainHeroJumpState);
         }
-        else if (_isTouchingWall && _grabInput)
+        else if (_isTouchingWall && _grabInput && _isTouchingLedge)
         {
             stateMachine.ChangeState(mainHero.MainHeroWallGrabState);
         }
         else if (_isTouchingWall && _xInput == mainHero.FacingDirection && mainHero.CurrentVelocity.y <= 0)
         {
             stateMachine.ChangeState(mainHero.MainHeroWallSlideState);
+        }
+        else if(_dashInput && mainHero.MainHeroDashState.CheckIfCanDash())
+        {
+            stateMachine.ChangeState(mainHero.MainHeroDashState);
         }
         else
         {

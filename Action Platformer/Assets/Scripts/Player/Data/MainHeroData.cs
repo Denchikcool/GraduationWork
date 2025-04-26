@@ -31,6 +31,16 @@ public class MainHeroData : ScriptableObject
     public Vector2 StartOffset;
     public Vector2 StopOffset;
 
+    [Header("Dash State")]
+    public float DashCooldown = 2.0f;
+    public float MaxHoldTime = 1.0f;
+    public float HoldTimeScale = 0.25f;
+    public float DashTime = 0.2f;
+    public float DashVelocity = 30.0f;
+    public float Drag = 10.0f;
+    public float DashEndVerticalMultiplier = 0.2f;
+    public float DistanceBetweenAfterImages = 0.5f;
+
     [Header("Check Variables")]
     public float GroundCheckRadius = 0.3f;
     public LayerMask WhatIsGround;
