@@ -30,9 +30,16 @@ public class MainHeroMoveState : MainHeroGroundedState
         mainHero.CheckShouldFlip(inputXPosition);
         mainHero.SetHorizontalVelocity(mainHeroData.MovementVelocity * inputXPosition);
 
-        if(inputXPosition == 0 && !isExitingState)
+        if (!isExitingState)
         {
-            stateMachine.ChangeState(mainHero.MainHeroIdleState);
+            if (inputXPosition == 0)
+            {
+                stateMachine.ChangeState(mainHero.MainHeroIdleState);
+            }
+            else if (inputYPosition == -1)
+            {
+                stateMachine.ChangeState(mainHero.MainHeroCrouchMoveState);
+            }
         }
     }
 

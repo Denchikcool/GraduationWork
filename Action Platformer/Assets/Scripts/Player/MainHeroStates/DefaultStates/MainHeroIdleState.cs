@@ -29,9 +29,16 @@ public class MainHeroIdleState : MainHeroGroundedState
     {
         base.UpdateLogic();
 
-        if(inputXPosition != 0 && !isExitingState)
+        if (!isExitingState)
         {
-            stateMachine.ChangeState(mainHero.MainHeroMoveState);
+            if (inputXPosition != 0)
+            {
+                stateMachine.ChangeState(mainHero.MainHeroMoveState);
+            }
+            else if (inputYPosition == -1)
+            {
+                stateMachine.ChangeState(mainHero.MainHeroCrouchIdleState);
+            }
         }
     }
 

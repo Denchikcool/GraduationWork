@@ -5,6 +5,7 @@ using UnityEngine;
 public class MainHeroGroundedState : MainHeroState
 {
     protected int inputXPosition;
+    protected int inputYPosition;
 
     private bool _jumpInput;
     private bool _isGrounded;
@@ -12,6 +13,8 @@ public class MainHeroGroundedState : MainHeroState
     private bool _grabInput;
     private bool _isTouchingLedge;
     private bool _dashInput;
+
+    protected bool isHeadTouchingWall;
 
     public MainHeroGroundedState(MainHero mainHero, MainHeroStateMachine stateMachine, MainHeroData mainHeroData, string animationBoolName) : base(mainHero, stateMachine, mainHeroData, animationBoolName)
     {
@@ -37,6 +40,7 @@ public class MainHeroGroundedState : MainHeroState
         _isGrounded = mainHero.CheckIfTouchingGround();
         _isTouchingWall = mainHero.CheckIfTouchingWall();
         _isTouchingLedge = mainHero.CheckIfTouchingLedge();
+        isHeadTouchingWall = mainHero.CheckIfHeadTouchingWall();
     }
 
     public override void UpdateLogic()
@@ -44,6 +48,7 @@ public class MainHeroGroundedState : MainHeroState
         base.UpdateLogic();
 
         inputXPosition = mainHero.PlayerInputHandler.NormalizeInputX;
+        inputYPosition = mainHero.PlayerInputHandler.NormalizeInputY;
         _jumpInput = mainHero.PlayerInputHandler.JumpInput;
         _grabInput = mainHero.PlayerInputHandler.GrabInput;
         _dashInput = mainHero.PlayerInputHandler.DashInput;

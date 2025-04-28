@@ -17,6 +17,8 @@ public class MainHero : MonoBehaviour
     public MainHeroWallJumpState MainHeroWallJumpState { get; private set; }
     public MainHeroLedgeClimbState MainHeroLedgeClimbState { get; private set; }
     public MainHeroDashState MainHeroDashState { get; private set; }
+    public MainHeroCrouchIdleState MainHeroCrouchIdleState { get; private set; }
+    public MainHeroCrouchMoveState MainHeroCrouchMoveState { get; private set; }
     #endregion
 
     #region Data
@@ -29,6 +31,7 @@ public class MainHero : MonoBehaviour
     public Rigidbody2D Rigidbody { get; private set; }
     public PlayerInputHandler PlayerInputHandler { get; private set; }
     public Transform DashArrow { get; private set; }
+    public BoxCollider2D MovementCollider { get; private set; }
     #endregion
 
     #region Transforms
@@ -38,6 +41,8 @@ public class MainHero : MonoBehaviour
     private Transform _wallCheck;
     [SerializeField]
     private Transform _ledgeCheck;
+    [SerializeField]
+    private Transform _upHeadCheck;
     #endregion
 
     #region Variables
@@ -63,6 +68,8 @@ public class MainHero : MonoBehaviour
         MainHeroWallJumpState = new MainHeroWallJumpState(this, StateMachine, _mainHeroData, "inAir");
         MainHeroLedgeClimbState = new MainHeroLedgeClimbState(this, StateMachine, _mainHeroData, "ledgeClimbState");
         MainHeroDashState = new MainHeroDashState(this, StateMachine, _mainHeroData, "inAir");
+        MainHeroCrouchIdleState = new MainHeroCrouchIdleState(this, StateMachine, _mainHeroData, "crouchIdle");
+        MainHeroCrouchMoveState = new MainHeroCrouchMoveState(this, StateMachine, _mainHeroData, "crouchMove");
     }
 
     private void Start()
@@ -70,6 +77,7 @@ public class MainHero : MonoBehaviour
         Animator = GetComponent<Animator>();
         Rigidbody = GetComponent<Rigidbody2D>();
         PlayerInputHandler = GetComponent<PlayerInputHandler>();
+        MovementCollider = GetComponent<BoxCollider2D>();
         DashArrow = transform.Find("DashArrow");
         FacingDirection = 1;
         StateMachine.Initialize(MainHeroIdleState);
@@ -133,6 +141,11 @@ public class MainHero : MonoBehaviour
         }
     }
 
+    public bool CheckIfHeadTouchingWall()
+    {
+        return Physics2D.OverlapCircle(_upHeadCheck.position, _mainHeroData.GroundCheckRadius, _mainHeroData.WhatIsGround);
+    }
+
     public bool CheckIfTouchingGround()
     {
         return Physics2D.OverlapCircle(_groundCheck.position, _mainHeroData.GroundCheckRadius, _mainHeroData.WhatIsGround);
@@ -160,13 +173,22 @@ public class MainHero : MonoBehaviour
     {
         RaycastHit2D xHit = Physics2D.Raycast(_wallCheck.position, Vector2.right * FacingDirection, _mainHeroData.WallCheckDistance, _mainHeroData.WhatIsGround);
         float xDistance = xHit.distance;
-        _workSpace.Set(xDistance * FacingDirection, 0.0f);
-        RaycastHit2D yHit = Physics2D.Raycast(_ledgeCheck.position + (Vector3)(_workSpace), Vector2.down, _ledgeCheck.position.y - _wallCheck.position.y, _mainHeroData.WhatIsGround);
+        _workSpace.Set((xDistance + 0.015f) * FacingDirection, 0.0f);
+        RaycastHit2D yHit = Physics2D.Raycast(_ledgeCheck.position + (Vector3)(_workSpace), Vector2.down, _ledgeCheck.position.y - _wallCheck.position.y + 0.015f, _mainHeroData.WhatIsGround);
         float yDistance = yHit.distance;
 
         _workSpace.Set(_wallCheck.position.x + (xDistance * FacingDirection), _ledgeCheck.position.y - yDistance);
 
         return _workSpace;
+    }
+
+    public void SetColliderHeight(float height)
+    {
+        Vector2 center = MovementCollider.offset;
+        _workSpace.Set(MovementCollider.size.x, height);
+        center.y += (height - MovementCollider.size.y) / 2;
+        MovementCollider.size = _workSpace;
+        MovementCollider.offset = center;
     }
 
     private void Flip()

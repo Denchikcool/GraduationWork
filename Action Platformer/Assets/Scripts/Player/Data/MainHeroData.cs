@@ -41,6 +41,11 @@ public class MainHeroData : ScriptableObject
     public float DashEndVerticalMultiplier = 0.2f;
     public float DistanceBetweenAfterImages = 0.5f;
 
+    [Header("Crouch States")]
+    public float CrouchMovementVelocity = 5.0f;
+    public float CrouchColliderHeight = 0.8f;
+    public float StandColliderHeight = 1.6f;
+
     [Header("Check Variables")]
     public float GroundCheckRadius = 0.3f;
     public LayerMask WhatIsGround;
