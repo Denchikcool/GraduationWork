@@ -66,7 +66,7 @@ public class MainHeroGroundedState : MainHeroState
         {
             stateMachine.ChangeState(mainHero.MainHeroWallGrabState);
         }
-        else if (_dashInput && mainHero.MainHeroDashState.CheckIfCanDash())
+        else if (_dashInput && mainHero.MainHeroDashState.CheckIfCanDash() && !isHeadTouchingWall)
         {
             stateMachine.ChangeState(mainHero.MainHeroDashState);
         }

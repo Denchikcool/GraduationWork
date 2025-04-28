@@ -112,5 +112,6 @@ public class MainHeroLedgeClimbState : MainHeroState
     private void CheckSpace()
     {
         _isHeadTouchingWall = Physics2D.Raycast(_cornerPosition + (Vector2.up * 0.015f) + (Vector2.right * mainHero.FacingDirection * 0.015f), Vector2.up, mainHeroData.StandColliderHeight, mainHeroData.WhatIsGround);
+        mainHero.Animator.SetBool("isHeadTouchingWall", _isHeadTouchingWall);
     }
 }
