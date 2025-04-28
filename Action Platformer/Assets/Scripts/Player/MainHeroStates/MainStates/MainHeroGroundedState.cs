@@ -53,7 +53,15 @@ public class MainHeroGroundedState : MainHeroState
         _grabInput = mainHero.PlayerInputHandler.GrabInput;
         _dashInput = mainHero.PlayerInputHandler.DashInput;
 
-        if (_jumpInput && mainHero.MainHeroJumpState.CanJump())
+        if (mainHero.PlayerInputHandler.AttackInput[(int)CombatInput.primary] && !isHeadTouchingWall)
+        {
+            stateMachine.ChangeState(mainHero.PrimaryAttackState);
+        }
+        else if (mainHero.PlayerInputHandler.AttackInput[(int)CombatInput.secondary] && !isHeadTouchingWall)
+        {
+            stateMachine.ChangeState(mainHero.SecondaryAttackState);
+        }
+        else if (_jumpInput && mainHero.MainHeroJumpState.CanJump())
         {
             stateMachine.ChangeState(mainHero.MainHeroJumpState);
         }

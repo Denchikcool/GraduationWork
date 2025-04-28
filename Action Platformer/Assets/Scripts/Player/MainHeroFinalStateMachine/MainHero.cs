@@ -19,6 +19,8 @@ public class MainHero : MonoBehaviour
     public MainHeroDashState MainHeroDashState { get; private set; }
     public MainHeroCrouchIdleState MainHeroCrouchIdleState { get; private set; }
     public MainHeroCrouchMoveState MainHeroCrouchMoveState { get; private set; }
+    public MainHeroAttackState PrimaryAttackState { get; private set; }
+    public MainHeroAttackState SecondaryAttackState { get; private set; }
     #endregion
 
     #region Data
@@ -32,6 +34,7 @@ public class MainHero : MonoBehaviour
     public PlayerInputHandler PlayerInputHandler { get; private set; }
     public Transform DashArrow { get; private set; }
     public BoxCollider2D MovementCollider { get; private set; }
+    public MainHeroInventory Inventory { get; private set; }
     #endregion
 
     #region Transforms
@@ -70,16 +73,23 @@ public class MainHero : MonoBehaviour
         MainHeroDashState = new MainHeroDashState(this, StateMachine, _mainHeroData, "inAir");
         MainHeroCrouchIdleState = new MainHeroCrouchIdleState(this, StateMachine, _mainHeroData, "crouchIdle");
         MainHeroCrouchMoveState = new MainHeroCrouchMoveState(this, StateMachine, _mainHeroData, "crouchMove");
+        PrimaryAttackState = new MainHeroAttackState(this, StateMachine, _mainHeroData, "attack");
+        SecondaryAttackState = new MainHeroAttackState(this, StateMachine, _mainHeroData, "attack");
     }
 
     private void Start()
     {
         Animator = GetComponent<Animator>();
-        Rigidbody = GetComponent<Rigidbody2D>();
         PlayerInputHandler = GetComponent<PlayerInputHandler>();
-        MovementCollider = GetComponent<BoxCollider2D>();
+        Rigidbody = GetComponent<Rigidbody2D>();
         DashArrow = transform.Find("DashArrow");
+        MovementCollider = GetComponent<BoxCollider2D>();
+        Inventory = GetComponent<MainHeroInventory>();
+
         FacingDirection = 1;
+
+        PrimaryAttackState.SetWeapon(Inventory.Weapons[(int)CombatInput.primary]);
+        //SecondaryAttackState.SetWeapon(Inventory.Weapons[(int)CombatInput.primary]);
         StateMachine.Initialize(MainHeroIdleState);
     }
 
