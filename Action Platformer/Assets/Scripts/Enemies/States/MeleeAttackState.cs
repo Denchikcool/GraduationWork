@@ -18,7 +18,7 @@ public class MeleeAttackState : AttackState
         base.Enter();
 
         attackDetails.DamageAmount = dataMeleeAttack.AttackDamage;
-        attackDetails.Position = entity.AliveGameObject.transform.position;
+        attackDetails.Position = entity.transform.position;
     }
 
     public override void Exit()

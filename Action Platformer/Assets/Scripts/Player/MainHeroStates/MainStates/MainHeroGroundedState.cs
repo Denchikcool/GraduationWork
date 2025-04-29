@@ -39,7 +39,7 @@ public class MainHeroGroundedState : MainHeroState
 
         _isGrounded = core.CollisionSenses.TouchingGround;
         _isTouchingWall = core.CollisionSenses.TouchingWall;
-        _isTouchingLedge = core.CollisionSenses.TouchingLedge;
+        _isTouchingLedge = core.CollisionSenses.LedgeHorizontal;
         isHeadTouchingWall = core.CollisionSenses.HeadTouchingWall;
     }
 

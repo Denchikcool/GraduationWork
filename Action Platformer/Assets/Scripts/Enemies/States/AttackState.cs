@@ -19,7 +19,7 @@ public class AttackState : State
 
         entity.AnimationToStateMachine.AttackState = this;
         isAnimationFinished = false;
-        entity.SetVelocity(0.0f);
+        core.Movement.SetHorizontalVelocity(0.0f);
     }
 
     public override void Exit()

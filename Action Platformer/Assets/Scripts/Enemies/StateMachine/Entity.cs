@@ -35,25 +35,22 @@ public class Entity : MonoBehaviour
     #endregion
 
     #region Components
-    public int FacingDirection { get; private set; }
     public int LastDamageDirection { get; private set; }
-    public Rigidbody2D Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
-    public GameObject AliveGameObject { get; private set; }
     public AnimationToStateMachine AnimationToStateMachine { get; private set; }
+    public Core Core { get; private set; }
     #endregion
 
     #region Unity Functions
-    public virtual void Start()
+    public virtual void Awake()
     {
-        FacingDirection = 1;
+        Core = GetComponentInChildren<Core>();
+
         _currentHealth = DataEntity.MaxHealth;
         _currentStunResistance = DataEntity.StunResistance;
 
-        AliveGameObject = transform.Find("Alive").gameObject;
-        Rigidbody = AliveGameObject.GetComponent<Rigidbody2D>();
-        Animator = AliveGameObject.GetComponent<Animator>();
-        AnimationToStateMachine = AliveGameObject.GetComponent<AnimationToStateMachine>();
+        Animator = GetComponent<Animator>();
+        AnimationToStateMachine = GetComponent<AnimationToStateMachine>();
 
         FinalStateMachine = new FinalStateMachine();
     }
@@ -62,7 +59,7 @@ public class Entity : MonoBehaviour
     {
         FinalStateMachine.CurrentState.UpdateLogic();
 
-        Animator.SetFloat("yVelocity", Rigidbody.velocity.y);
+        Animator.SetFloat("yVelocity", Core.Movement.Rigidbody.velocity.y);
 
         if(Time.time >= _lastDamageTime + DataEntity.StunRecoveryTime)
         {
@@ -76,58 +73,20 @@ public class Entity : MonoBehaviour
     }
     #endregion
 
-    #region Set Functions
-    public virtual void SetVelocity(float velocity)
-    {
-        _velocityWorkSpace.Set(FacingDirection * velocity, Rigidbody.velocity.y);
-        Rigidbody.velocity = _velocityWorkSpace;
-    }
-
-    public virtual void SetVelocity(float velocity, Vector2 angle, int direction)
-    {
-        angle.Normalize();
-        _velocityWorkSpace.Set(angle.x * velocity * direction, angle.y * velocity);
-        Rigidbody.velocity = _velocityWorkSpace;
-    }
-    #endregion
-
     #region Check Functions
-    public virtual bool CheckWall()
-    {
-        return Physics2D.Raycast(_wallCheck.position, AliveGameObject.transform.right, DataEntity.WallCheckDistance, DataEntity.WhatIsGround);
-    }
-
-    public virtual bool CheckLedge()
-    {
-        return Physics2D.Raycast(_ledgeCheck.position, Vector2.down, DataEntity.LedgeCheckDistance, DataEntity.WhatIsGround);
-    }
-
-    public virtual bool CheckGround()
-    {
-        return Physics2D.OverlapCircle(_groundCheck.position, DataEntity.GroundCheckRadius, DataEntity.WhatIsGround);
-    }
-
     public virtual bool CheckMainHeroInMinAgroRange()
     {
-        return Physics2D.Raycast(_playerCheck.position, AliveGameObject.transform.right, DataEntity.MinAgroDistance, DataEntity.WhatIsPlayer);
+        return Physics2D.Raycast(_playerCheck.position, transform.right, DataEntity.MinAgroDistance, DataEntity.WhatIsPlayer);
     }
 
     public virtual bool CheckMainHeroInMaxAgroRange()
     {
-        return Physics2D.Raycast(_playerCheck.position, AliveGameObject.transform.right, DataEntity.MaxAgroDistance, DataEntity.WhatIsPlayer);
+        return Physics2D.Raycast(_playerCheck.position, transform.right, DataEntity.MaxAgroDistance, DataEntity.WhatIsPlayer);
     }
 
     public virtual bool CheckMainHeroInCloseRangeAction()
     {
-        return Physics2D.Raycast(_playerCheck.position, AliveGameObject.transform.right, DataEntity.CloseRangeActionDistance, DataEntity.WhatIsPlayer);
-    }
-    #endregion
-
-    #region Other Functions
-    public virtual void Flip()
-    {
-        FacingDirection *= -1;
-        AliveGameObject.transform.Rotate(0.0f, 180.0f, 0.0f);
+        return Physics2D.Raycast(_playerCheck.position, transform.right, DataEntity.CloseRangeActionDistance, DataEntity.WhatIsPlayer);
     }
     #endregion
 
@@ -140,9 +99,9 @@ public class Entity : MonoBehaviour
 
         DamageHop(DataEntity.DamageHopSpeed);
 
-        Instantiate(DataEntity.HitParticle, AliveGameObject.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
+        Instantiate(DataEntity.HitParticle, transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
 
-        if(details.Position.x > AliveGameObject.transform.position.x)
+        if(details.Position.x > transform.position.x)
         {
             LastDamageDirection = -1;
         }
@@ -164,8 +123,8 @@ public class Entity : MonoBehaviour
 
     public virtual void DamageHop(float velocity)
     {
-        _velocityWorkSpace.Set(Rigidbody.velocity.x, velocity);
-        Rigidbody.velocity = _velocityWorkSpace;
+        _velocityWorkSpace.Set(Core.Movement.Rigidbody.velocity.x, velocity);
+        Core.Movement.Rigidbody.velocity = _velocityWorkSpace;
     }
 
     public virtual void ResetStunResistance()
@@ -178,11 +137,14 @@ public class Entity : MonoBehaviour
     #region Gizmos Function
     public virtual void OnDrawGizmos()
     {
-        Gizmos.DrawLine(_wallCheck.position, _wallCheck.position + (Vector3)(Vector2.right * FacingDirection * DataEntity.WallCheckDistance));
-        Gizmos.DrawLine(_ledgeCheck.position, _ledgeCheck.position + (Vector3)(Vector2.down * DataEntity.LedgeCheckDistance));
-        Gizmos.DrawWireSphere(_playerCheck.position + (Vector3)(Vector2.right * DataEntity.CloseRangeActionDistance), 0.2f);
-        Gizmos.DrawWireSphere(_playerCheck.position + (Vector3)(Vector2.right * DataEntity.MinAgroDistance), 0.2f);
-        Gizmos.DrawWireSphere(_playerCheck.position + (Vector3)(Vector2.right * DataEntity.MaxAgroDistance), 0.2f);
+        if (Core != null)
+        {
+            Gizmos.DrawLine(_wallCheck.position, _wallCheck.position + (Vector3)(Vector2.right * Core.Movement.FacingDirection * DataEntity.WallCheckDistance));
+            Gizmos.DrawLine(_ledgeCheck.position, _ledgeCheck.position + (Vector3)(Vector2.down * DataEntity.LedgeCheckDistance));
+            Gizmos.DrawWireSphere(_playerCheck.position + (Vector3)(Vector2.right * DataEntity.CloseRangeActionDistance), 0.2f);
+            Gizmos.DrawWireSphere(_playerCheck.position + (Vector3)(Vector2.right * DataEntity.MinAgroDistance), 0.2f);
+            Gizmos.DrawWireSphere(_playerCheck.position + (Vector3)(Vector2.right * DataEntity.MaxAgroDistance), 0.2f);
+        }
     }
     #endregion
 }

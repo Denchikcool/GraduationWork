@@ -38,9 +38,9 @@ public class Archer : Entity
     [SerializeField]
     private Transform _rangeAttackPosition;
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         IdleState = new ArcherIdleState(this, FinalStateMachine, "idle", _idleStateData, this);
         MoveState = new ArcherMoveState(this, FinalStateMachine, "move", _moveStateData, this);
@@ -51,7 +51,10 @@ public class Archer : Entity
         DeadState = new ArcherDeadState(this, FinalStateMachine, "dead", _deadStateData, this);
         DodgeState = new ArcherDodgeState(this, FinalStateMachine, "dodge", DodgeStateData, this);
         RangeAttackState = new ArcherRangeAttackState(this, FinalStateMachine, "rangeAttack", _rangeAttackPosition, _rangeAttackStateData, this);
+    }
 
+    private void Start()
+    {
         FinalStateMachine.Initialize(MoveState);
     }
 

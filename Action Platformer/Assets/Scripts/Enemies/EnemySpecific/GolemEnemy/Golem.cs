@@ -33,9 +33,9 @@ public class Golem : Entity
     [SerializeField]
     private Transform _meleeAttackPosition;
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         MoveState = new GolemMoveState(this, FinalStateMachine, "move", _moveStateData, this);
         IdleState = new GolemIdleState(this, FinalStateMachine, "idle", _idleStateData, this);
@@ -45,7 +45,10 @@ public class Golem : Entity
         MeleeAttackState = new GolemMeleeAttackState(this, FinalStateMachine, "meleeAttack", _meleeAttackPosition, _meleeAttackStateData, this);
         StunState = new GolemStunState(this, FinalStateMachine, "stun", _stunStateData, this);
         DeadState = new GolemDeadState(this, FinalStateMachine, "dead", _deadStateData, this);
+    }
 
+    private void Start()
+    {
         FinalStateMachine.Initialize(MoveState);
     }
 

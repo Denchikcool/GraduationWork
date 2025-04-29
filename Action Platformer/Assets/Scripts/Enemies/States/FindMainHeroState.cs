@@ -28,7 +28,7 @@ public class FindMainHeroState : State
         isAllTurnsTimeDone = false;
         lastTurnTime = StartTime;
         CountOfTurnsDone = 0;
-        entity.SetVelocity(0.0f);
+        core.Movement.SetHorizontalVelocity(0.0f);
     }
 
     public override void Exit()
@@ -49,14 +49,14 @@ public class FindMainHeroState : State
 
         if (turnNow)
         {
-            entity.Flip();
+            core.Movement.Flip();
             lastTurnTime = Time.time;
             CountOfTurnsDone++;
             turnNow = false;
         }
         else if (Time.time >= lastTurnTime + dataFindMainHero.TimeBetweenTurns && !isAllTurnsDone)
         {
-            entity.Flip();
+            core.Movement.Flip();
             lastTurnTime = Time.time;
             CountOfTurnsDone++;
         }

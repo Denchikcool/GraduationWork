@@ -21,7 +21,7 @@ public class MainHeroDetectedState : State
         base.Enter();
 
         performLongRangeAction = false;
-        entity.SetVelocity(0.0f);
+        core.Movement.SetHorizontalVelocity(0.0f);
     }
 
     public override void Exit()
@@ -35,7 +35,7 @@ public class MainHeroDetectedState : State
 
         isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
         isMainHeroInMaxAgroRange = entity.CheckMainHeroInMaxAgroRange();
-        isDetectedLedge = entity.CheckLedge();
+        isDetectedLedge = core.CollisionSenses.LedgeVertical;
         performShortRangeAction = entity.CheckMainHeroInCloseRangeAction();
     }
 

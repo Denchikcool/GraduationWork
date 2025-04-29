@@ -42,7 +42,7 @@ public class MainHeroTouchWallState : MainHeroState
 
         isGrounded = core.CollisionSenses.TouchingGround;
         isTouchingWall = core.CollisionSenses.TouchingWall;
-        isTouchingLedge = core.CollisionSenses.TouchingLedge;
+        isTouchingLedge = core.CollisionSenses.LedgeHorizontal;
 
         if(isTouchingWall && !isTouchingLedge)
         {

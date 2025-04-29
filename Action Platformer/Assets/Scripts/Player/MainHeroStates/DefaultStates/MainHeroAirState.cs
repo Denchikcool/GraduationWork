@@ -49,7 +49,7 @@ public class MainHeroAirState : MainHeroState
         _isGrounded = core.CollisionSenses.TouchingGround;
         _isTouchingWall = core.CollisionSenses.TouchingWall;
         _isTouchingWallBack = core.CollisionSenses.TouchingWallBack;
-        _isTouchingLedge = core.CollisionSenses.TouchingLedge;
+        _isTouchingLedge = core.CollisionSenses.LedgeHorizontal;
 
         if(_isTouchingWall && !_isTouchingLedge)
         {
