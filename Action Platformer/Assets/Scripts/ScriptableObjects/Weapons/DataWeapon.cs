@@ -5,5 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newWeaponData", menuName = "Data/Weapon Data/Weapon")]
 public class DataWeapon : ScriptableObject
 {
-    public float[] MovementSpeed; 
+    public int AmountOfAttacks { get; protected set; }
+    public float[] MovementSpeed { get; protected set; }
 }

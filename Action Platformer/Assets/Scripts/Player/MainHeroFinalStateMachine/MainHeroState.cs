@@ -31,7 +31,7 @@ public class MainHeroState
         MakeChecks();
         mainHero.Animator.SetBool(_animationBoolName, true);
         startTime = Time.time;
-        Debug.Log(_animationBoolName);
+        //Debug.Log(_animationBoolName);
         isAnimationFinish = false;
         isExitingState = false;
     }
