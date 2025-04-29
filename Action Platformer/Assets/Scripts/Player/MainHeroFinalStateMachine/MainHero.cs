@@ -35,29 +35,18 @@ public class MainHero : MonoBehaviour
     public Transform DashArrow { get; private set; }
     public BoxCollider2D MovementCollider { get; private set; }
     public MainHeroInventory Inventory { get; private set; }
-    #endregion
-
-    #region Transforms
-    [SerializeField]
-    private Transform _groundCheck;
-    [SerializeField]
-    private Transform _wallCheck;
-    [SerializeField]
-    private Transform _ledgeCheck;
-    [SerializeField]
-    private Transform _upHeadCheck;
+    public Core Core { get; private set; }
     #endregion
 
     #region Variables
-    public Vector2 CurrentVelocity { get; private set; }
-    public int FacingDirection { get; private set; }
-
     private Vector2 _workSpace;
     #endregion
 
     #region Unity Functions
     private void Awake()
     {
+        Core = GetComponentInChildren<Core>();
+
         StateMachine = new MainHeroStateMachine();
 
         MainHeroIdleState = new MainHeroIdleState(this, StateMachine, _mainHeroData, "idle");
@@ -86,8 +75,6 @@ public class MainHero : MonoBehaviour
         MovementCollider = GetComponent<BoxCollider2D>();
         Inventory = GetComponent<MainHeroInventory>();
 
-        FacingDirection = 1;
-
         PrimaryAttackState.SetWeapon(Inventory.Weapons[(int)CombatInput.primary]);
         //SecondaryAttackState.SetWeapon(Inventory.Weapons[(int)CombatInput.primary]);
         StateMachine.Initialize(MainHeroIdleState);
@@ -95,7 +82,7 @@ public class MainHero : MonoBehaviour
 
     private void Update()
     {
-        CurrentVelocity = Rigidbody.velocity;
+        Core.UpdateLogic();
         StateMachine.CurrentState.UpdateLogic();
     }
 
@@ -105,92 +92,7 @@ public class MainHero : MonoBehaviour
     }
     #endregion
 
-    #region Set Functions
-    public void SetHorizontalVelocity(float velocity)
-    {
-        _workSpace.Set(velocity, CurrentVelocity.y);
-        Rigidbody.velocity = _workSpace;
-        CurrentVelocity = _workSpace;
-    }
-
-    public void SetVerticalVelocity(float velocity)
-    {
-        _workSpace.Set(CurrentVelocity.x, velocity);
-        Rigidbody.velocity = _workSpace;
-        CurrentVelocity = _workSpace;
-    }
-
-    public void SetVelocity(float velocity, Vector2 direction)
-    {
-        _workSpace = direction * velocity;
-        Rigidbody.velocity = _workSpace;
-        CurrentVelocity = _workSpace;
-    }
-
-    public void SetVelocity(float velocity, Vector2 angle, int direction)
-    {
-        angle.Normalize();
-        _workSpace.Set(angle.x * velocity * direction, angle.y * velocity);
-        Rigidbody.velocity = _workSpace;
-        CurrentVelocity = _workSpace;
-    }
-
-    public void SetVelocityZero()
-    {
-        Rigidbody.velocity = Vector2.zero;
-        CurrentVelocity = Vector2.zero;
-    }
-    #endregion
-
-    #region Check Functions
-    public void CheckShouldFlip(int horizontalInput)
-    {
-        if(horizontalInput != 0 && horizontalInput != FacingDirection)
-        {
-            Flip();
-        }
-    }
-
-    public bool CheckIfHeadTouchingWall()
-    {
-        return Physics2D.OverlapCircle(_upHeadCheck.position, _mainHeroData.GroundCheckRadius, _mainHeroData.WhatIsGround);
-    }
-
-    public bool CheckIfTouchingGround()
-    {
-        return Physics2D.OverlapCircle(_groundCheck.position, _mainHeroData.GroundCheckRadius, _mainHeroData.WhatIsGround);
-    }
-
-    public bool CheckIfTouchingWall()
-    {
-        return Physics2D.Raycast(_wallCheck.position, Vector2.right * FacingDirection, _mainHeroData.WallCheckDistance, _mainHeroData.WhatIsGround);
-    }
-
-    public bool CheckIfTouchingWallBack()
-    {
-        return Physics2D.Raycast(_wallCheck.position, Vector2.right * -FacingDirection, _mainHeroData.WallCheckDistance, _mainHeroData.WhatIsGround);
-    }
-
-    public bool CheckIfTouchingLedge()
-    {
-        return Physics2D.Raycast(_ledgeCheck.position, Vector2.right * FacingDirection, _mainHeroData.WallCheckDistance, _mainHeroData.WhatIsGround);
-    }
-    #endregion
-
     #region Other Functions
-
-    public Vector2 DetermineCornerPosition()
-    {
-        RaycastHit2D xHit = Physics2D.Raycast(_wallCheck.position, Vector2.right * FacingDirection, _mainHeroData.WallCheckDistance, _mainHeroData.WhatIsGround);
-        float xDistance = xHit.distance;
-        _workSpace.Set((xDistance + 0.015f) * FacingDirection, 0.0f);
-        RaycastHit2D yHit = Physics2D.Raycast(_ledgeCheck.position + (Vector3)(_workSpace), Vector2.down, _ledgeCheck.position.y - _wallCheck.position.y + 0.015f, _mainHeroData.WhatIsGround);
-        float yDistance = yHit.distance;
-
-        _workSpace.Set(_wallCheck.position.x + (xDistance * FacingDirection), _ledgeCheck.position.y - yDistance);
-
-        return _workSpace;
-    }
 
     public void SetColliderHeight(float height)
     {
@@ -199,12 +101,6 @@ public class MainHero : MonoBehaviour
         center.y += (height - MovementCollider.size.y) / 2;
         MovementCollider.size = _workSpace;
         MovementCollider.offset = center;
-    }
-
-    private void Flip()
-    {
-        FacingDirection *= -1;
-        transform.Rotate(0.0f, 180.0f, 0.0f);
     }
 
     private void AnimationTrigger()

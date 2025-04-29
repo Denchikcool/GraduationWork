@@ -37,10 +37,10 @@ public class MainHeroGroundedState : MainHeroState
     {
         base.MakeChecks();
 
-        _isGrounded = mainHero.CheckIfTouchingGround();
-        _isTouchingWall = mainHero.CheckIfTouchingWall();
-        _isTouchingLedge = mainHero.CheckIfTouchingLedge();
-        isHeadTouchingWall = mainHero.CheckIfHeadTouchingWall();
+        _isGrounded = core.CollisionSenses.TouchingGround;
+        _isTouchingWall = core.CollisionSenses.TouchingWall;
+        _isTouchingLedge = core.CollisionSenses.TouchingLedge;
+        isHeadTouchingWall = core.CollisionSenses.HeadTouchingWall;
     }
 
     public override void UpdateLogic()

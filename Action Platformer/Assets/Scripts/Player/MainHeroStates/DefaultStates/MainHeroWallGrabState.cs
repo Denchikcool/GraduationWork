@@ -66,7 +66,7 @@ public class MainHeroWallGrabState : MainHeroTouchWallState
     {
         mainHero.transform.position = _holdPosition;
 
-        mainHero.SetHorizontalVelocity(0.0f);
-        mainHero.SetVerticalVelocity(0.0f);
+        core.Movement.SetHorizontalVelocity(0.0f);
+        core.Movement.SetVerticalVelocity(0.0f);
     }
 }

@@ -40,9 +40,9 @@ public class MainHeroTouchWallState : MainHeroState
     {
         base.MakeChecks();
 
-        isGrounded = mainHero.CheckIfTouchingGround();
-        isTouchingWall = mainHero.CheckIfTouchingWall();
-        isTouchingLedge = mainHero.CheckIfTouchingLedge();
+        isGrounded = core.CollisionSenses.TouchingGround;
+        isTouchingWall = core.CollisionSenses.TouchingWall;
+        isTouchingLedge = core.CollisionSenses.TouchingLedge;
 
         if(isTouchingWall && !isTouchingLedge)
         {
@@ -68,7 +68,7 @@ public class MainHeroTouchWallState : MainHeroState
         {
             stateMachine.ChangeState(mainHero.MainHeroIdleState);
         }
-        else if(!isTouchingWall || (xInput != mainHero.FacingDirection && !grabInput))
+        else if(!isTouchingWall || (xInput != core.Movement.FacingDirection && !grabInput))
         {
             stateMachine.ChangeState(mainHero.MainHeroAirState);
         }

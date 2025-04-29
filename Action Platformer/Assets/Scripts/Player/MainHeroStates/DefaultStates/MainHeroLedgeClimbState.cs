@@ -8,6 +8,7 @@ public class MainHeroLedgeClimbState : MainHeroState
     private Vector2 _cornerPosition;
     private Vector2 _startPosition;
     private Vector2 _stopPosition;
+    private Vector2 _workSpace;
 
     private bool _isHanging;
     private bool _isClimbing;
@@ -39,12 +40,12 @@ public class MainHeroLedgeClimbState : MainHeroState
     {
         base.Enter();
 
-        mainHero.SetVelocityZero();
+        core.Movement.SetVelocityZero();
         mainHero.transform.position = _detectedPosition;
-        _cornerPosition = mainHero.DetermineCornerPosition();
+        _cornerPosition = DetermineCornerPosition();
 
-        _startPosition.Set(_cornerPosition.x - (mainHero.FacingDirection * mainHeroData.StartOffset.x), _cornerPosition.y - mainHeroData.StartOffset.y);
-        _stopPosition.Set(_cornerPosition.x + (mainHero.FacingDirection * mainHeroData.StopOffset.x), _cornerPosition.y + mainHeroData.StopOffset.y);
+        _startPosition.Set(_cornerPosition.x - (core.Movement.FacingDirection * mainHeroData.StartOffset.x), _cornerPosition.y - mainHeroData.StartOffset.y);
+        _stopPosition.Set(_cornerPosition.x + (core.Movement.FacingDirection * mainHeroData.StopOffset.x), _cornerPosition.y + mainHeroData.StopOffset.y);
 
         mainHero.transform.position = _startPosition;
     }
@@ -88,10 +89,10 @@ public class MainHeroLedgeClimbState : MainHeroState
             _yInput = mainHero.PlayerInputHandler.NormalizeInputY;
             _jumpInput = mainHero.PlayerInputHandler.JumpInput;
 
-            mainHero.SetVelocityZero();
+            core.Movement.SetVelocityZero();
             mainHero.transform.position = _startPosition;
 
-            if (_xInput == mainHero.FacingDirection && _isHanging && !_isClimbing)
+            if (_xInput == core.Movement.FacingDirection && _isHanging && !_isClimbing)
             {
                 CheckSpace();
                 _isClimbing = true;
@@ -111,7 +112,20 @@ public class MainHeroLedgeClimbState : MainHeroState
 
     private void CheckSpace()
     {
-        _isHeadTouchingWall = Physics2D.Raycast(_cornerPosition + (Vector2.up * 0.015f) + (Vector2.right * mainHero.FacingDirection * 0.015f), Vector2.up, mainHeroData.StandColliderHeight, mainHeroData.WhatIsGround);
+        _isHeadTouchingWall = Physics2D.Raycast(_cornerPosition + (Vector2.up * 0.015f) + (Vector2.right * core.Movement.FacingDirection * 0.015f), Vector2.up, mainHeroData.StandColliderHeight, core.CollisionSenses.WhatIsGround);
         mainHero.Animator.SetBool("isHeadTouchingWall", _isHeadTouchingWall);
+    }
+
+    private Vector2 DetermineCornerPosition()
+    {
+        RaycastHit2D xHit = Physics2D.Raycast(core.CollisionSenses.WallCheck.position, Vector2.right * core.Movement.FacingDirection, core.CollisionSenses.WallCheckDistance, core.CollisionSenses.WhatIsGround);
+        float xDistance = xHit.distance;
+        _workSpace.Set((xDistance + 0.015f) * core.Movement.FacingDirection, 0.0f);
+        RaycastHit2D yHit = Physics2D.Raycast(core.CollisionSenses.LedgeCheck.position + (Vector3)(_workSpace), Vector2.down, core.CollisionSenses.LedgeCheck.position.y - core.CollisionSenses.WallCheck.position.y + 0.015f, core.CollisionSenses.WhatIsGround);
+        float yDistance = yHit.distance;
+
+        _workSpace.Set(core.CollisionSenses.WallCheck.position.x + (xDistance * core.Movement.FacingDirection), core.CollisionSenses.LedgeCheck.position.y - yDistance);
+
+        return _workSpace;
     }
 }

@@ -27,7 +27,7 @@ public class MainHeroAbilityState : MainHeroState
     {
         base.MakeChecks();
 
-        _isGrounded = mainHero.CheckIfTouchingGround();
+        _isGrounded = core.CollisionSenses.TouchingGround;
     }
 
     public override void UpdateLogic()
@@ -36,7 +36,7 @@ public class MainHeroAbilityState : MainHeroState
 
         if (isAbilityDone)
         {
-            if (_isGrounded && mainHero.CurrentVelocity.y < 0.01f)
+            if (_isGrounded && core.Movement.CurrentVelocity.y < 0.01f)
             {
                 stateMachine.ChangeState(mainHero.MainHeroIdleState);
             }

@@ -14,7 +14,7 @@ public class MainHeroWallClimbState : MainHeroTouchWallState
 
         if (!isExitingState)
         {
-            mainHero.SetVerticalVelocity(mainHeroData.WallClimbVelocity);
+            core.Movement.SetVerticalVelocity(mainHeroData.WallClimbVelocity);
 
             if (yInput != 1)
             {

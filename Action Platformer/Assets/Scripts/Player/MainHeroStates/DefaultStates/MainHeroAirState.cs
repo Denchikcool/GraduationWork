@@ -46,10 +46,10 @@ public class MainHeroAirState : MainHeroState
 
         _oldIsTouchingWall = _isTouchingWall;
         _oldIsTouchingWallBack = _isTouchingWallBack;
-        _isGrounded = mainHero.CheckIfTouchingGround();
-        _isTouchingWall = mainHero.CheckIfTouchingWall();
-        _isTouchingWallBack = mainHero.CheckIfTouchingWallBack();
-        _isTouchingLedge = mainHero.CheckIfTouchingLedge();
+        _isGrounded = core.CollisionSenses.TouchingGround;
+        _isTouchingWall = core.CollisionSenses.TouchingWall;
+        _isTouchingWallBack = core.CollisionSenses.TouchingWallBack;
+        _isTouchingLedge = core.CollisionSenses.TouchingLedge;
 
         if(_isTouchingWall && !_isTouchingLedge)
         {
@@ -85,7 +85,7 @@ public class MainHeroAirState : MainHeroState
         {
             stateMachine.ChangeState(mainHero.SecondaryAttackState);
         }
-        else if (_isGrounded && mainHero.CurrentVelocity.y < 0.01f)
+        else if (_isGrounded && core.Movement.CurrentVelocity.y < 0.01f)
         {
             stateMachine.ChangeState(mainHero.MainHeroLandState);
         }
@@ -96,7 +96,7 @@ public class MainHeroAirState : MainHeroState
         else if (_jumpInput && (_isTouchingWall || _isTouchingWallBack || _wallJumpCoyoteTime))
         {
             StopWallJumpCoyoteTime();
-            _isTouchingWall = mainHero.CheckIfTouchingWall();
+            _isTouchingWall = core.CollisionSenses.TouchingWall;
             mainHero.MainHeroWallJumpState.DetermineWallJumpDirection(_isTouchingWall);
             stateMachine.ChangeState(mainHero.MainHeroWallJumpState);
         }
@@ -108,7 +108,7 @@ public class MainHeroAirState : MainHeroState
         {
             stateMachine.ChangeState(mainHero.MainHeroWallGrabState);
         }
-        else if (_isTouchingWall && _xInput == mainHero.FacingDirection && mainHero.CurrentVelocity.y <= 0)
+        else if (_isTouchingWall && _xInput == core.Movement.FacingDirection && core.Movement.CurrentVelocity.y <= 0)
         {
             stateMachine.ChangeState(mainHero.MainHeroWallSlideState);
         }
@@ -118,11 +118,11 @@ public class MainHeroAirState : MainHeroState
         }
         else
         {
-            mainHero.CheckShouldFlip(_xInput);
-            mainHero.SetHorizontalVelocity(mainHeroData.MovementVelocity * _xInput);
+            core.Movement.CheckShouldFlip(_xInput);
+            core.Movement.SetHorizontalVelocity(mainHeroData.MovementVelocity * _xInput);
 
-            mainHero.Animator.SetFloat("yVelocity", mainHero.CurrentVelocity.y);
-            mainHero.Animator.SetFloat("xVelocity", Mathf.Abs(mainHero.CurrentVelocity.x));
+            mainHero.Animator.SetFloat("yVelocity", core.Movement.CurrentVelocity.y);
+            mainHero.Animator.SetFloat("xVelocity", Mathf.Abs(core.Movement.CurrentVelocity.x));
         }
     }
 
@@ -175,10 +175,10 @@ public class MainHeroAirState : MainHeroState
         {
             if (_jumpInputStop)
             {
-                mainHero.SetVerticalVelocity(mainHero.CurrentVelocity.y * mainHeroData.JumpHeightMultiplier);
+                core.Movement.SetVerticalVelocity(core.Movement.CurrentVelocity.y * mainHeroData.JumpHeightMultiplier);
                 _isJumping = false;
             }
-            else if (mainHero.CurrentVelocity.y <= 0f)
+            else if (core.Movement.CurrentVelocity.y <= 0f)
             {
                 _isJumping = false;
             }

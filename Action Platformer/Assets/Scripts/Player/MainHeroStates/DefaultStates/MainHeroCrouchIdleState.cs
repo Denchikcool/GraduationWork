@@ -12,7 +12,7 @@ public class MainHeroCrouchIdleState : MainHeroGroundedState
     {
         base.Enter();
 
-        mainHero.SetVelocityZero();
+        core.Movement.SetVelocityZero();
         mainHero.SetColliderHeight(mainHeroData.CrouchColliderHeight);
     }
 

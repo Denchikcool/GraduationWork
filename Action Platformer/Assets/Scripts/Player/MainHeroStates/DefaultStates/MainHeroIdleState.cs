@@ -12,7 +12,7 @@ public class MainHeroIdleState : MainHeroGroundedState
     {
         base.Enter();
 
-        mainHero.SetHorizontalVelocity(0.0f);
+        core.Movement.SetHorizontalVelocity(0.0f);
     }
 
     public override void Exit()

@@ -15,7 +15,7 @@ public class MainHeroJumpState : MainHeroAbilityState
         base.Enter();
 
         mainHero.PlayerInputHandler.ChangeJumpInput();
-        mainHero.SetVerticalVelocity(mainHeroData.JumpVelocity);
+        core.Movement.SetVerticalVelocity(mainHeroData.JumpVelocity);
         isAbilityDone = true;
         _amountOfJumpsLeft--;
         mainHero.MainHeroAirState.SetIsJumping();  

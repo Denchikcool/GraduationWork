@@ -40,12 +40,12 @@ public class MainHeroAttackState : MainHeroAbilityState
 
         if (_shouldCheckFlip)
         {
-            mainHero.CheckShouldFlip(_xInput);
+            core.Movement.CheckShouldFlip(_xInput);
         }
         
         if(_setVelocity)
         {
-            mainHero.SetHorizontalVelocity(_velocityToSet * mainHero.FacingDirection);
+            core.Movement.SetHorizontalVelocity(_velocityToSet * core.Movement.FacingDirection);
         }
     }
 
@@ -57,7 +57,7 @@ public class MainHeroAttackState : MainHeroAbilityState
 
     public void SetMainHeroVelocity(float velocity)
     {
-        mainHero.SetHorizontalVelocity(velocity * mainHero.FacingDirection);
+        core.Movement.SetHorizontalVelocity(velocity * core.Movement.FacingDirection);
         _velocityToSet = velocity;
         _setVelocity = true;
     }

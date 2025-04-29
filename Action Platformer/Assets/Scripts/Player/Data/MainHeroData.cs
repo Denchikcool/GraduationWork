@@ -45,9 +45,4 @@ public class MainHeroData : ScriptableObject
     public float CrouchMovementVelocity = 5.0f;
     public float CrouchColliderHeight = 0.8f;
     public float StandColliderHeight = 1.6f;
-
-    [Header("Check Variables")]
-    public float GroundCheckRadius = 0.3f;
-    public LayerMask WhatIsGround;
-    public float WallCheckDistance = 0.5f;
 }
