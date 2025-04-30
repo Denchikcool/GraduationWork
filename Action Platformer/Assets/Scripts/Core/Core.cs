@@ -38,20 +38,46 @@ public class Core : MonoBehaviour
         }
     }
 
+    public Stats Stats
+    {
+        get
+        {
+            return GenericNotImplementedError<Stats>.TryGet(_stats, transform.parent.name);
+        }
+        private set
+        {
+            _stats = value;
+        }
+    }
+
     private Movement _movement;
     private CollisionSenses _collisionSenses;
     private Combat _combat;
+    private Stats _stats;
+
+    private List<ILogicUpdate> _components = new List<ILogicUpdate>();
 
     private void Awake()
     {
         Movement = GetComponentInChildren<Movement>();
         CollisionSenses = GetComponentInChildren<CollisionSenses>();
         Combat = GetComponentInChildren<Combat>();
+        Stats = GetComponentInChildren<Stats>();
     }
 
     public void UpdateLogic()
     {
-        Movement.UpdateLogic();
-        Combat.UpdateLogic();
+        foreach (ILogicUpdate component in _components)
+        {
+            component.UpdateLogic();
+        }
+    }
+
+    public void AddComponent(ILogicUpdate component)
+    {
+        if (!_components.Contains(component))
+        {
+            _components.Add(component);
+        } 
     }
 }

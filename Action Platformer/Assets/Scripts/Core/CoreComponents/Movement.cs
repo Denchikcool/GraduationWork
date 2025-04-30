@@ -23,7 +23,7 @@ public class Movement : CoreComponent
         CanSetVelocity = true;
     }
 
-    public void UpdateLogic()
+    public override void UpdateLogic()
     {
         CurrentVelocity = Rigidbody.velocity;
     }
