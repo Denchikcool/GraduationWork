@@ -77,7 +77,7 @@ public class MainHeroGroundedState : MainHeroState
         {
             stateMachine.ChangeState(mainHero.SecondaryAttackState);
         }
-        else if (_jumpInput && mainHero.MainHeroJumpState.CanJump())
+        else if (_jumpInput && mainHero.MainHeroJumpState.CanJump() && !isHeadTouchingWall)
         {
             stateMachine.ChangeState(mainHero.MainHeroJumpState);
         }
