@@ -14,7 +14,7 @@ public class MainHeroWallSlideState : MainHeroTouchWallState
 
         if (!isExitingState)
         {
-            core.Movement.SetVerticalVelocity(-mainHeroData.WallSlideVelocity);
+            Movement?.SetVerticalVelocity(-mainHeroData.WallSlideVelocity);
 
             if (grabInput && yInput == 0)
             {

@@ -11,6 +11,20 @@ public class MainHeroDetectedState : State
     protected bool performLongRangeAction;
     protected bool performShortRangeAction;
     protected bool isDetectedLedge;
+
+    private Movement _movement;
+    private CollisionSenses _collisionSenses;
+
+    protected Movement Movement
+    {
+        get => _movement ?? core.GetCoreComponent(ref _movement);
+    }
+
+    private CollisionSenses CollisionSenses
+    {
+        get => _collisionSenses ?? core.GetCoreComponent(ref _collisionSenses);
+    }
+
     public MainHeroDetectedState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, DataMainHeroDetected detectedMainHeroData) : base(entity, stateMachine, animatorBoolName)
     {
         this.detectedMainHeroData = detectedMainHeroData;
@@ -21,7 +35,7 @@ public class MainHeroDetectedState : State
         base.Enter();
 
         performLongRangeAction = false;
-        core.Movement.SetHorizontalVelocity(0.0f);
+        Movement?.SetHorizontalVelocity(0.0f);
     }
 
     public override void Exit()
@@ -35,7 +49,7 @@ public class MainHeroDetectedState : State
 
         isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
         isMainHeroInMaxAgroRange = entity.CheckMainHeroInMaxAgroRange();
-        isDetectedLedge = core.CollisionSenses.LedgeVertical;
+        isDetectedLedge = CollisionSenses.LedgeVertical;
         performShortRangeAction = entity.CheckMainHeroInCloseRangeAction();
     }
 
@@ -43,7 +57,7 @@ public class MainHeroDetectedState : State
     {
         base.UpdateLogic();
 
-        core.Movement.SetHorizontalVelocity(0.0f);
+        Movement?.SetHorizontalVelocity(0.0f);
 
         if (Time.time >= StartTime + detectedMainHeroData.LongRangeActionTime)
         {

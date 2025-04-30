@@ -11,6 +11,20 @@ public class IdleState : State
     protected bool isMainHeroInMinAgroRange;
 
     protected float idleTime;
+
+    private Movement _movement;
+    private CollisionSenses _collisionSenses;
+
+    private Movement Movement
+    {
+        get => _movement ?? core.GetCoreComponent(ref _movement);
+    }
+
+    private CollisionSenses CollisionSenses
+    {
+        get => _collisionSenses ?? core.GetCoreComponent(ref _collisionSenses);
+    }
+
     public IdleState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, DataIdleState dataIdleState) : base(entity, stateMachine, animatorBoolName)
     {
         this.dataIdleState = dataIdleState;
@@ -20,7 +34,7 @@ public class IdleState : State
     {
         base.Enter();
 
-        core.Movement.SetHorizontalVelocity(0.0f);
+        Movement?.SetHorizontalVelocity(0.0f);
         isIdleTimeOver = false;
         SetRandomIdleTime();
     }
@@ -31,7 +45,7 @@ public class IdleState : State
 
         if (flipAfterIdle)
         {
-            core.Movement.Flip();
+            Movement?.Flip();
         }
     }
 
@@ -39,7 +53,7 @@ public class IdleState : State
     {
         base.UpdateLogic();
 
-        core.Movement.SetHorizontalVelocity(0.0f);
+        Movement?.SetHorizontalVelocity(0.0f);
 
         if (Time.time >= StartTime + idleTime)
         {

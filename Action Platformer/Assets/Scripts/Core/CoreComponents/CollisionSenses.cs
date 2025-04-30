@@ -69,6 +69,15 @@ public class CollisionSenses : CoreComponent
     private LayerMask _whatIsGround;
     #endregion
 
+    #region Components
+    private Movement _movement;
+
+    private Movement Movement
+    {
+        get => _movement ?? core.GetCoreComponent(ref _movement);
+    }
+    #endregion
+
     #region Check Properties
     public bool HeadTouchingWall
     {
@@ -82,17 +91,17 @@ public class CollisionSenses : CoreComponent
 
     public bool TouchingWall
     {
-        get => Physics2D.Raycast(WallCheck.position, Vector2.right * core.Movement.FacingDirection, _wallCheckDistance, _whatIsGround);
+        get => Physics2D.Raycast(WallCheck.position, Vector2.right * Movement.FacingDirection, _wallCheckDistance, _whatIsGround);
     }
 
     public bool TouchingWallBack
     {
-        get => Physics2D.Raycast(WallCheck.position, Vector2.right * -core.Movement.FacingDirection, _wallCheckDistance, _whatIsGround);
+        get => Physics2D.Raycast(WallCheck.position, Vector2.right * -Movement.FacingDirection, _wallCheckDistance, _whatIsGround);
     }
 
     public bool LedgeHorizontal
     {
-        get => Physics2D.Raycast(LedgeCheckHorizontal.position, Vector2.right * core.Movement.FacingDirection, _wallCheckDistance, _whatIsGround);
+        get => Physics2D.Raycast(LedgeCheckHorizontal.position, Vector2.right * Movement.FacingDirection, _wallCheckDistance, _whatIsGround);
     }
 
     public bool LedgeVertical

@@ -6,6 +6,18 @@ public class MeleeAttackState : AttackState
 {
     protected DataMeleeAttack dataMeleeAttack;
 
+    private Movement _movement;
+    private CollisionSenses _collisionSenses;
+
+    private Movement Movement
+    {
+        get => _movement ?? core.GetCoreComponent(ref _movement);
+    }
+
+    private CollisionSenses CollisionSenses
+    {
+        get => _collisionSenses ?? core.GetCoreComponent(ref _collisionSenses);
+    }
     public MeleeAttackState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, Transform attackPosition, DataMeleeAttack dataMeleeAttack) : base(entity, stateMachine, animatorBoolName, attackPosition)
     {
         this.dataMeleeAttack = dataMeleeAttack;
@@ -51,9 +63,8 @@ public class MeleeAttackState : AttackState
 
             if(knockbackable != null)
             {
-                knockbackable.Knockback(dataMeleeAttack.KnockbackAngle, dataMeleeAttack.KnockbackStrength, core.Movement.FacingDirection);
+                knockbackable.Knockback(dataMeleeAttack.KnockbackAngle, dataMeleeAttack.KnockbackStrength, Movement.FacingDirection);
             }
-            //collider.transform.SendMessage("TakeDamage", attackDetails);
         }
     }
 

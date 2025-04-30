@@ -10,6 +10,19 @@ public class DodgeState : State
     protected bool isMainHeroInMaxAgroRange;
     protected bool isGrounded;
     protected bool isDodgeOver;
+
+    private Movement _movement;
+    private CollisionSenses _collisionSenses;
+
+    private Movement Movement
+    {
+        get => _movement ?? core.GetCoreComponent(ref _movement);
+    }
+
+    private CollisionSenses CollisionSenses
+    {
+        get => _collisionSenses ?? core.GetCoreComponent(ref _collisionSenses);
+    }
     public DodgeState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, DataDodgeState dataDodgeState) : base(entity, stateMachine, animatorBoolName)
     {
         this.dataDodgeState = dataDodgeState;
@@ -20,7 +33,7 @@ public class DodgeState : State
         base.Enter();
 
         isDodgeOver = false;
-        core.Movement.SetVelocity(dataDodgeState.DodgeSpeed, dataDodgeState.DodgeAngle, -core.Movement.FacingDirection);
+        Movement?.SetVelocity(dataDodgeState.DodgeSpeed, dataDodgeState.DodgeAngle, -Movement.FacingDirection);
     }
 
     public override void Exit()
@@ -34,7 +47,7 @@ public class DodgeState : State
 
         performCloseRangeAction = entity.CheckMainHeroInCloseRangeAction();
         isMainHeroInMaxAgroRange = entity.CheckMainHeroInMaxAgroRange();
-        isGrounded = core.CollisionSenses.TouchingGround;
+        isGrounded = CollisionSenses.TouchingGround;
     }
 
     public override void UpdateLogic()

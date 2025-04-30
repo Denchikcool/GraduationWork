@@ -12,6 +12,19 @@ public class MainHeroTouchWallState : MainHeroState
 
     protected int xInput;
     protected int yInput;
+
+    private CollisionSenses _collisionSenses;
+    private Movement _movement;
+
+    protected Movement Movement
+    {
+        get => _movement ?? core.GetCoreComponent(ref _movement);
+    }
+    private CollisionSenses CollisionSenses
+    {
+        get => _collisionSenses ?? core.GetCoreComponent(ref _collisionSenses);
+    }
+
     public MainHeroTouchWallState(MainHero mainHero, MainHeroStateMachine stateMachine, MainHeroData mainHeroData, string animationBoolName) : base(mainHero, stateMachine, mainHeroData, animationBoolName)
     {
     }
@@ -40,10 +53,13 @@ public class MainHeroTouchWallState : MainHeroState
     {
         base.MakeChecks();
 
-        isGrounded = core.CollisionSenses.TouchingGround;
-        isTouchingWall = core.CollisionSenses.TouchingWall;
-        isTouchingLedge = core.CollisionSenses.LedgeHorizontal;
-
+        if (CollisionSenses)
+        {
+            isGrounded = CollisionSenses.TouchingGround;
+            isTouchingWall = CollisionSenses.TouchingWall;
+            isTouchingLedge = CollisionSenses.LedgeHorizontal;
+        }
+       
         if(isTouchingWall && !isTouchingLedge)
         {
             mainHero.MainHeroLedgeClimbState.SetDetectedPosition(mainHero.transform.position);
@@ -68,7 +84,7 @@ public class MainHeroTouchWallState : MainHeroState
         {
             stateMachine.ChangeState(mainHero.MainHeroIdleState);
         }
-        else if(!isTouchingWall || (xInput != core.Movement.FacingDirection && !grabInput))
+        else if(!isTouchingWall || (xInput != Movement?.FacingDirection && !grabInput))
         {
             stateMachine.ChangeState(mainHero.MainHeroAirState);
         }

@@ -27,8 +27,8 @@ public class MainHeroMoveState : MainHeroGroundedState
     {
         base.UpdateLogic();
 
-        core.Movement.CheckShouldFlip(inputXPosition);
-        core.Movement.SetHorizontalVelocity(mainHeroData.MovementVelocity * inputXPosition);
+        Movement?.CheckShouldFlip(inputXPosition);
+        Movement?.SetHorizontalVelocity(mainHeroData.MovementVelocity * inputXPosition);
 
         if (!isExitingState)
         {

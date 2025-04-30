@@ -7,6 +7,8 @@ public class MainHeroGroundedState : MainHeroState
     protected int inputXPosition;
     protected int inputYPosition;
 
+    protected bool isHeadTouchingWall;
+
     private bool _jumpInput;
     private bool _isGrounded;
     private bool _isTouchingWall;
@@ -14,7 +16,18 @@ public class MainHeroGroundedState : MainHeroState
     private bool _isTouchingLedge;
     private bool _dashInput;
 
-    protected bool isHeadTouchingWall;
+    protected Movement Movement
+    {
+        get => _movement ?? core.GetCoreComponent(ref _movement);
+
+    }
+    private CollisionSenses CollisionSenses
+    {
+        get => _collisionSenses ?? core.GetCoreComponent(ref _collisionSenses);
+    }
+
+    private CollisionSenses _collisionSenses;
+    private Movement _movement;
 
     public MainHeroGroundedState(MainHero mainHero, MainHeroStateMachine stateMachine, MainHeroData mainHeroData, string animationBoolName) : base(mainHero, stateMachine, mainHeroData, animationBoolName)
     {
@@ -37,10 +50,13 @@ public class MainHeroGroundedState : MainHeroState
     {
         base.MakeChecks();
 
-        _isGrounded = core.CollisionSenses.TouchingGround;
-        _isTouchingWall = core.CollisionSenses.TouchingWall;
-        _isTouchingLedge = core.CollisionSenses.LedgeHorizontal;
-        isHeadTouchingWall = core.CollisionSenses.HeadTouchingWall;
+        if (CollisionSenses)
+        {
+            _isGrounded = CollisionSenses.TouchingGround;
+            _isTouchingWall = CollisionSenses.TouchingWall;
+            _isTouchingLedge = CollisionSenses.LedgeHorizontal;
+            isHeadTouchingWall = CollisionSenses.HeadTouchingWall;
+        }
     }
 
     public override void UpdateLogic()

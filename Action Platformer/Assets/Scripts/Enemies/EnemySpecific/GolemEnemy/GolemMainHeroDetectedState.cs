@@ -38,7 +38,7 @@ public class GolemMainHeroDetectedState : MainHeroDetectedState
         }
         else if (!isDetectedLedge)
         {
-            core.Movement.Flip();
+            Movement?.Flip();
             stateMachine.ChangeState(_golem.MoveState);
         }
     }

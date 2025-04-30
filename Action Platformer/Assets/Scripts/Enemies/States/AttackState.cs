@@ -8,6 +8,13 @@ public class AttackState : State
 
     protected bool isAnimationFinished;
     protected bool isMainHeroInMinAgroRange;
+
+    private Movement _movement;
+    private Movement Movement
+    {
+        get => _movement ?? core.GetCoreComponent(ref _movement);
+    }
+    
     public AttackState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, Transform attackPosition) : base(entity, stateMachine, animatorBoolName)
     {
         this.attackPosition = attackPosition;
@@ -19,7 +26,7 @@ public class AttackState : State
 
         entity.AnimationToStateMachine.AttackState = this;
         isAnimationFinished = false;
-        core.Movement.SetHorizontalVelocity(0.0f);
+        Movement?.SetHorizontalVelocity(0.0f);
     }
 
     public override void Exit()
@@ -38,7 +45,7 @@ public class AttackState : State
     {
         base.UpdateLogic();
 
-        core.Movement.SetHorizontalVelocity(0.0f);
+        Movement?.SetHorizontalVelocity(0.0f);
     }
 
     public override void UpdatePhysics()

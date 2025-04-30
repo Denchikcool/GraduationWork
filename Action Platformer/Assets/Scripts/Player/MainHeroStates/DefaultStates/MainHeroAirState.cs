@@ -21,6 +21,19 @@ public class MainHeroAirState : MainHeroState
     private float _startWallJumpCoyoteTime;
 
     private int _xInput;
+
+    private CollisionSenses _collisionSenses;
+    private Movement _movement;
+
+    protected Movement Movement
+    {
+        get => _movement ?? core.GetCoreComponent(ref _movement);
+    }
+    private CollisionSenses CollisionSenses
+    {
+        get => _collisionSenses ?? core.GetCoreComponent(ref _collisionSenses);
+    }
+
     public MainHeroAirState(MainHero mainHero, MainHeroStateMachine stateMachine, MainHeroData mainHeroData, string animationBoolName) : base(mainHero, stateMachine, mainHeroData, animationBoolName)
     {
     }
@@ -46,10 +59,14 @@ public class MainHeroAirState : MainHeroState
 
         _oldIsTouchingWall = _isTouchingWall;
         _oldIsTouchingWallBack = _isTouchingWallBack;
-        _isGrounded = core.CollisionSenses.TouchingGround;
-        _isTouchingWall = core.CollisionSenses.TouchingWall;
-        _isTouchingWallBack = core.CollisionSenses.TouchingWallBack;
-        _isTouchingLedge = core.CollisionSenses.LedgeHorizontal;
+
+        if (CollisionSenses)
+        {
+            _isGrounded = CollisionSenses.TouchingGround;
+            _isTouchingWall = CollisionSenses.TouchingWall;
+            _isTouchingWallBack = CollisionSenses.TouchingWallBack;
+            _isTouchingLedge = CollisionSenses.LedgeHorizontal;
+        }
 
         if(_isTouchingWall && !_isTouchingLedge)
         {
@@ -85,7 +102,7 @@ public class MainHeroAirState : MainHeroState
         {
             stateMachine.ChangeState(mainHero.SecondaryAttackState);
         }
-        else if (_isGrounded && core.Movement.CurrentVelocity.y < 0.01f)
+        else if (_isGrounded && Movement?.CurrentVelocity.y < 0.01f)
         {
             stateMachine.ChangeState(mainHero.MainHeroLandState);
         }
@@ -96,7 +113,7 @@ public class MainHeroAirState : MainHeroState
         else if (_jumpInput && (_isTouchingWall || _isTouchingWallBack || _wallJumpCoyoteTime))
         {
             StopWallJumpCoyoteTime();
-            _isTouchingWall = core.CollisionSenses.TouchingWall;
+            _isTouchingWall = CollisionSenses.TouchingWall;
             mainHero.MainHeroWallJumpState.DetermineWallJumpDirection(_isTouchingWall);
             stateMachine.ChangeState(mainHero.MainHeroWallJumpState);
         }
@@ -108,7 +125,7 @@ public class MainHeroAirState : MainHeroState
         {
             stateMachine.ChangeState(mainHero.MainHeroWallGrabState);
         }
-        else if (_isTouchingWall && _xInput == core.Movement.FacingDirection && core.Movement.CurrentVelocity.y <= 0)
+        else if (_isTouchingWall && _xInput == Movement?.FacingDirection && Movement?.CurrentVelocity.y <= 0)
         {
             stateMachine.ChangeState(mainHero.MainHeroWallSlideState);
         }
@@ -118,11 +135,11 @@ public class MainHeroAirState : MainHeroState
         }
         else
         {
-            core.Movement.CheckShouldFlip(_xInput);
-            core.Movement.SetHorizontalVelocity(mainHeroData.MovementVelocity * _xInput);
+            Movement?.CheckShouldFlip(_xInput);
+            Movement?.SetHorizontalVelocity(mainHeroData.MovementVelocity * _xInput);
 
-            mainHero.Animator.SetFloat("yVelocity", core.Movement.CurrentVelocity.y);
-            mainHero.Animator.SetFloat("xVelocity", Mathf.Abs(core.Movement.CurrentVelocity.x));
+            mainHero.Animator.SetFloat("yVelocity", Movement.CurrentVelocity.y);
+            mainHero.Animator.SetFloat("xVelocity", Mathf.Abs(Movement.CurrentVelocity.x));
         }
     }
 
@@ -175,10 +192,10 @@ public class MainHeroAirState : MainHeroState
         {
             if (_jumpInputStop)
             {
-                core.Movement.SetVerticalVelocity(core.Movement.CurrentVelocity.y * mainHeroData.JumpHeightMultiplier);
+                Movement?.SetVerticalVelocity(Movement.CurrentVelocity.y * mainHeroData.JumpHeightMultiplier);
                 _isJumping = false;
             }
-            else if (core.Movement.CurrentVelocity.y <= 0f)
+            else if (Movement.CurrentVelocity.y <= 0f)
             {
                 _isJumping = false;
             }

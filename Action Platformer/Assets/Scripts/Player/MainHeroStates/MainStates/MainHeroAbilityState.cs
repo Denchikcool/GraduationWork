@@ -7,6 +7,19 @@ public class MainHeroAbilityState : MainHeroState
     protected bool isAbilityDone;
 
     private bool _isGrounded;
+
+    private CollisionSenses _collisionSenses;
+    private Movement _movement;
+
+    protected Movement Movement
+    {
+        get => _movement ?? core.GetCoreComponent(ref _movement);
+    }
+    private CollisionSenses CollisionSenses
+    {
+        get => _collisionSenses ?? core.GetCoreComponent(ref _collisionSenses);
+    }
+    
     public MainHeroAbilityState(MainHero mainHero, MainHeroStateMachine stateMachine, MainHeroData mainHeroData, string animationBoolName) : base(mainHero, stateMachine, mainHeroData, animationBoolName)
     {
     }
@@ -27,7 +40,10 @@ public class MainHeroAbilityState : MainHeroState
     {
         base.MakeChecks();
 
-        _isGrounded = core.CollisionSenses.TouchingGround;
+        if (CollisionSenses)
+        {
+            _isGrounded = CollisionSenses.TouchingGround;
+        }
     }
 
     public override void UpdateLogic()
@@ -36,7 +52,7 @@ public class MainHeroAbilityState : MainHeroState
 
         if (isAbilityDone)
         {
-            if (_isGrounded && core.Movement.CurrentVelocity.y < 0.01f)
+            if (_isGrounded && Movement?.CurrentVelocity.y < 0.01f)
             {
                 stateMachine.ChangeState(mainHero.MainHeroIdleState);
             }

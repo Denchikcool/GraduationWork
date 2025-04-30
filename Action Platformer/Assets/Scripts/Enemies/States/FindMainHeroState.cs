@@ -15,6 +15,19 @@ public class FindMainHeroState : State
 
     protected int CountOfTurnsDone;
 
+    private Movement _movement;
+    private CollisionSenses _collisionSenses;
+
+    private Movement Movement
+    {
+        get => _movement ?? core.GetCoreComponent(ref _movement);
+    }
+
+    private CollisionSenses CollisionSenses
+    {
+        get => _collisionSenses ?? core.GetCoreComponent(ref _collisionSenses);
+    }
+
     public FindMainHeroState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, DataFindMainHero dataFindMainHero) : base(entity, stateMachine, animatorBoolName)
     {
         this.dataFindMainHero = dataFindMainHero;
@@ -28,7 +41,7 @@ public class FindMainHeroState : State
         isAllTurnsTimeDone = false;
         lastTurnTime = StartTime;
         CountOfTurnsDone = 0;
-        core.Movement.SetHorizontalVelocity(0.0f);
+        Movement?.SetHorizontalVelocity(0.0f);
     }
 
     public override void Exit()
@@ -47,18 +60,18 @@ public class FindMainHeroState : State
     {
         base.UpdateLogic();
 
-        core.Movement.SetHorizontalVelocity(0.0f);
+        Movement?.SetHorizontalVelocity(0.0f);
 
         if (turnNow)
         {
-            core.Movement.Flip();
+            Movement?.Flip();
             lastTurnTime = Time.time;
             CountOfTurnsDone++;
             turnNow = false;
         }
         else if (Time.time >= lastTurnTime + dataFindMainHero.TimeBetweenTurns && !isAllTurnsDone)
         {
-            core.Movement.Flip();
+            Movement?.Flip();
             lastTurnTime = Time.time;
             CountOfTurnsDone++;
         }

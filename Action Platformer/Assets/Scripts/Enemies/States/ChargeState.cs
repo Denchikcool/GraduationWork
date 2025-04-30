@@ -11,6 +11,20 @@ public class ChargeState : State
     protected bool isDetectedWall;
     protected bool isChargeTimeOver;
     protected bool performShortRangeAction;
+
+    private Movement _movement;
+    private CollisionSenses _collisionSenses;
+
+    private Movement Movement
+    {
+        get => _movement ?? core.GetCoreComponent(ref _movement);
+    }
+
+    private CollisionSenses CollisionSenses
+    {
+        get => _collisionSenses ?? core.GetCoreComponent(ref _collisionSenses);
+    }
+
     public ChargeState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, DataChargeState dataChargeState) : base(entity, stateMachine, animatorBoolName)
     {
         this.dataChargeState = dataChargeState;
@@ -21,7 +35,7 @@ public class ChargeState : State
         base.Enter();
 
         isChargeTimeOver = false;
-        core.Movement.SetHorizontalVelocity(dataChargeState.ChargeSpeed * core.Movement.FacingDirection);
+        Movement?.SetHorizontalVelocity(dataChargeState.ChargeSpeed * Movement.FacingDirection);
     }
 
     public override void Exit()
@@ -34,8 +48,8 @@ public class ChargeState : State
         base.MakeChecks();
 
         isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
-        isDetectedLedge = core.CollisionSenses.LedgeVertical;
-        isDetectedWall = core.CollisionSenses.TouchingWall;
+        isDetectedLedge = CollisionSenses.LedgeVertical;
+        isDetectedWall = CollisionSenses.TouchingWall;
         performShortRangeAction = entity.CheckMainHeroInCloseRangeAction();
     }
 
@@ -43,7 +57,7 @@ public class ChargeState : State
     {
         base.UpdateLogic();
 
-        core.Movement.SetHorizontalVelocity(dataChargeState.ChargeSpeed * core.Movement.FacingDirection);
+        Movement?.SetHorizontalVelocity(dataChargeState.ChargeSpeed * Movement.FacingDirection);
 
         if (Time.time >= StartTime + dataChargeState.ChargeTime)
         {

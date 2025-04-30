@@ -9,6 +9,19 @@ public class MoveState : State
     protected bool isDetectedWall;
     protected bool isDetectedLedge;
     protected bool isMainHeroInMinAgroRange;
+
+    private Movement _movement;
+    private CollisionSenses _collisionSenses;
+
+    private Movement Movement
+    {
+        get => _movement ?? core.GetCoreComponent(ref _movement);
+    }
+
+    private CollisionSenses CollisionSenses
+    {
+        get => _collisionSenses ?? core.GetCoreComponent(ref _collisionSenses);
+    }
     public MoveState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, DataMoveState dataMoveState) : base(entity, stateMachine, animatorBoolName)
     {
         this.dataMoveState = dataMoveState;
@@ -17,7 +30,7 @@ public class MoveState : State
     public override void Enter()
     {
         base.Enter();
-        core.Movement.SetHorizontalVelocity(dataMoveState.MovementSpeed * core.Movement.FacingDirection);
+        Movement?.SetHorizontalVelocity(dataMoveState.MovementSpeed * Movement.FacingDirection);
     }
 
     public override void Exit()
@@ -29,8 +42,8 @@ public class MoveState : State
     {
         base.MakeChecks();
 
-        isDetectedLedge = core.CollisionSenses.LedgeVertical;
-        isDetectedWall = core.CollisionSenses.TouchingWall;
+        isDetectedLedge = CollisionSenses.LedgeVertical;
+        isDetectedWall = CollisionSenses.TouchingWall;
         isMainHeroInMinAgroRange = entity.CheckMainHeroInMinAgroRange();
     }
 
@@ -38,7 +51,7 @@ public class MoveState : State
     {
         base.UpdateLogic();
 
-        core.Movement.SetHorizontalVelocity(dataMoveState.MovementSpeed * core.Movement.FacingDirection);
+        Movement?.SetHorizontalVelocity(dataMoveState.MovementSpeed * Movement.FacingDirection);
     }
 
     public override void UpdatePhysics()

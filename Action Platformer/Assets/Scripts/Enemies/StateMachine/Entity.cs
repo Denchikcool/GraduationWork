@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Entity : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class Entity : MonoBehaviour
 
     protected bool isStunned;
     protected bool isDead;
+
+    private Movement _movement;
     #endregion
 
     #region Components
@@ -39,6 +42,10 @@ public class Entity : MonoBehaviour
     public Animator Animator { get; private set; }
     public AnimationToStateMachine AnimationToStateMachine { get; private set; }
     public Core Core { get; private set; }
+    private Movement Movement
+    {
+        get => _movement ?? Core.GetCoreComponent(ref _movement);
+    }
     #endregion
 
     #region Unity Functions
@@ -60,7 +67,7 @@ public class Entity : MonoBehaviour
         Core.UpdateLogic();
         FinalStateMachine.CurrentState.UpdateLogic();
 
-        Animator.SetFloat("yVelocity", Core.Movement.Rigidbody.velocity.y);
+        Animator.SetFloat("yVelocity", Movement.Rigidbody.velocity.y);
 
         if(Time.time >= _lastDamageTime + DataEntity.StunRecoveryTime)
         {
@@ -95,8 +102,8 @@ public class Entity : MonoBehaviour
 
     public virtual void DamageHop(float velocity)
     {
-        _velocityWorkSpace.Set(Core.Movement.Rigidbody.velocity.x, velocity);
-        Core.Movement.Rigidbody.velocity = _velocityWorkSpace;
+        _velocityWorkSpace.Set(Movement.Rigidbody.velocity.x, velocity);
+        Movement.Rigidbody.velocity = _velocityWorkSpace;
     }
 
     public virtual void ResetStunResistance()
@@ -111,7 +118,7 @@ public class Entity : MonoBehaviour
     {
         if (Core != null)
         {
-            Gizmos.DrawLine(_wallCheck.position, _wallCheck.position + (Vector3)(Vector2.right * Core.Movement.FacingDirection * DataEntity.WallCheckDistance));
+            Gizmos.DrawLine(_wallCheck.position, _wallCheck.position + (Vector3)(Vector2.right * Movement.FacingDirection * DataEntity.WallCheckDistance));
             Gizmos.DrawLine(_ledgeCheck.position, _ledgeCheck.position + (Vector3)(Vector2.down * DataEntity.LedgeCheckDistance));
             Gizmos.DrawWireSphere(_playerCheck.position + (Vector3)(Vector2.right * DataEntity.CloseRangeActionDistance), 0.2f);
             Gizmos.DrawWireSphere(_playerCheck.position + (Vector3)(Vector2.right * DataEntity.MinAgroDistance), 0.2f);

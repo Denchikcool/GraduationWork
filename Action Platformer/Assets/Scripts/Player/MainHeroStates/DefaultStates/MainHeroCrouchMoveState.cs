@@ -28,8 +28,8 @@ public class MainHeroCrouchMoveState : MainHeroGroundedState
 
         if (!isExitingState)
         {
-            core.Movement.SetHorizontalVelocity(mainHeroData.CrouchMovementVelocity * core.Movement.FacingDirection);
-            core.Movement.CheckShouldFlip(inputXPosition);
+            Movement?.SetHorizontalVelocity(mainHeroData.CrouchMovementVelocity * Movement.FacingDirection);
+            Movement?.CheckShouldFlip(inputXPosition);
 
             if(inputXPosition == 0)
             {
