@@ -8,12 +8,7 @@ public class Core : MonoBehaviour
     {
         get
         {
-            if (_movement)
-            {
-                return _movement;
-            }
-            Debug.LogError("No move core component on " + transform.parent.name);
-            return null;
+            return GenericNotImplementedError<Movement>.TryGet(_movement, transform.parent.name);
         }
         private set
         {
@@ -24,30 +19,39 @@ public class Core : MonoBehaviour
     {
         get
         {
-            if (_collisionSenses)
-            {
-                return _collisionSenses;
-            }
-            Debug.LogError("No collision core component on " + transform.parent.name);
-            return null;
+            return GenericNotImplementedError<CollisionSenses>.TryGet(_collisionSenses, transform.parent.name);
         }
         set
         {
             _collisionSenses = value;
         }
     }
+    public Combat Combat
+    {
+        get
+        {
+            return GenericNotImplementedError<Combat>.TryGet(_combat, transform.parent.name);
+        }
+        private set
+        {
+            _combat = value;
+        }
+    }
 
     private Movement _movement;
     private CollisionSenses _collisionSenses;
+    private Combat _combat;
 
     private void Awake()
     {
         Movement = GetComponentInChildren<Movement>();
         CollisionSenses = GetComponentInChildren<CollisionSenses>();
+        Combat = GetComponentInChildren<Combat>();
     }
 
     public void UpdateLogic()
     {
         Movement.UpdateLogic();
+        Combat.UpdateLogic();
     }
 }

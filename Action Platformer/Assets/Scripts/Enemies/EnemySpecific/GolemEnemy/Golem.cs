@@ -58,18 +58,4 @@ public class Golem : Entity
 
         Gizmos.DrawWireSphere(_meleeAttackPosition.position, _meleeAttackStateData.AttackRadius);
     }
-
-    public override void TakeDamage(AttackDetails details)
-    {
-        base.TakeDamage(details);
-
-        if (isDead)
-        {
-            FinalStateMachine.ChangeState(DeadState);
-        }
-        else if (isStunned && FinalStateMachine.CurrentState != StunState)
-        {
-            FinalStateMachine.ChangeState(StunState);
-        }
-    }
 }

@@ -58,29 +58,6 @@ public class Archer : Entity
         FinalStateMachine.Initialize(MoveState);
     }
 
-    public override void TakeDamage(AttackDetails details)
-    {
-        base.TakeDamage(details);
-
-        if (isDead)
-        {
-            FinalStateMachine.ChangeState(DeadState);
-        }
-        else if (isStunned && FinalStateMachine.CurrentState != StunState)
-        {
-            FinalStateMachine.ChangeState(StunState);
-        }
-        else if (CheckMainHeroInMinAgroRange())
-        {
-            FinalStateMachine.ChangeState(RangeAttackState);
-        }
-        else if (!CheckMainHeroInMinAgroRange())
-        {
-            FindMainHeroState.SetTurnNow(true);
-            FinalStateMachine.ChangeState(FindMainHeroState);
-        }
-    }
-
     public override void OnDrawGizmos()
     {
         base.OnDrawGizmos();

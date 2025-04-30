@@ -17,7 +17,7 @@ public class RangeAttackItem : MonoBehaviour
     [SerializeField]
     private Transform _damagePosition;
 
-    private AttackDetails _attackDetails;
+    //private AttackDetails _attackDetails;
 
     private float _itemSpeed;
     private float _itemTravelDistance;
@@ -44,7 +44,7 @@ public class RangeAttackItem : MonoBehaviour
     {
         if (!_hasHitGround)
         {
-            _attackDetails.Position = transform.position;
+            //_attackDetails.Position = transform.position;
 
             if (_isGravityOn)
             {
@@ -63,7 +63,7 @@ public class RangeAttackItem : MonoBehaviour
 
             if (damageHit)
             {
-                damageHit.transform.SendMessage("TakeDamage", _attackDetails);
+                //damageHit.transform.SendMessage("TakeDamage", _attackDetails);
                 Destroy(gameObject);
             }
             if (groundHit)
@@ -85,7 +85,7 @@ public class RangeAttackItem : MonoBehaviour
     {
         this._itemSpeed = speed;
         this._itemTravelDistance = travelDistance;
-        _attackDetails.DamageAmount = damage;
+        //_attackDetails.DamageAmount = damage;
     }
 
     private void OnDrawGizmos()

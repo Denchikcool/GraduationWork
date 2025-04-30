@@ -11,6 +11,7 @@ public class Weapon : MonoBehaviour
     protected Animator weaponAnimator;
 
     protected MainHeroAttackState mainHeroAttackState;
+    protected Core core;
 
     protected int attackCounter;
 
@@ -80,8 +81,9 @@ public class Weapon : MonoBehaviour
     }
     #endregion
 
-    public void InitializeWeapon(MainHeroAttackState mainHeroAttackState)
+    public void InitializeWeapon(MainHeroAttackState mainHeroAttackState, Core core)
     {
         this.mainHeroAttackState = mainHeroAttackState;
+        this.core = core;
     }
 }

@@ -57,6 +57,7 @@ public class Entity : MonoBehaviour
 
     public virtual void Update()
     {
+        Core.UpdateLogic();
         FinalStateMachine.CurrentState.UpdateLogic();
 
         Animator.SetFloat("yVelocity", Core.Movement.Rigidbody.velocity.y);
@@ -91,35 +92,6 @@ public class Entity : MonoBehaviour
     #endregion
 
     #region Damage Functions
-    public virtual void TakeDamage(AttackDetails details)
-    {
-        _lastDamageTime = Time.time;
-        _currentHealth -= details.DamageAmount;
-        _currentStunResistance -= details.StunDamageAmount;
-
-        DamageHop(DataEntity.DamageHopSpeed);
-
-        Instantiate(DataEntity.HitParticle, transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
-
-        if(details.Position.x > transform.position.x)
-        {
-            LastDamageDirection = -1;
-        }
-        else
-        {
-            LastDamageDirection = 1;
-        }
-
-        if(_currentStunResistance <= 0)
-        {
-            isStunned = true;
-        }
-
-        if(_currentHealth <= 0)
-        {
-            isDead = true;
-        }
-    }
 
     public virtual void DamageHop(float velocity)
     {

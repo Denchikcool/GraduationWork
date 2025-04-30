@@ -47,6 +47,8 @@ public class FindMainHeroState : State
     {
         base.UpdateLogic();
 
+        core.Movement.SetHorizontalVelocity(0.0f);
+
         if (turnNow)
         {
             core.Movement.Flip();

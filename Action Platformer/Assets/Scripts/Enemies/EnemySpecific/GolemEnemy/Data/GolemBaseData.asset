@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WallCheckDistance: 0.2
   LedgeCheckDistance: 1.5
-  MaxAgroDistance: 8
-  MinAgroDistance: 7
+  MaxAgroDistance: 5
+  MinAgroDistance: 4
   CloseRangeActionDistance: 0.75
   MaxHealth: 50
   DamageHopSpeed: 10

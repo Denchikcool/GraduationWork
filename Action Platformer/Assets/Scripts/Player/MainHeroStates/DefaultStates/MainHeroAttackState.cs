@@ -52,7 +52,7 @@ public class MainHeroAttackState : MainHeroAbilityState
     public void SetWeapon(Weapon weapon)
     {
         this._weapon = weapon;
-        _weapon.InitializeWeapon(this);
+        _weapon.InitializeWeapon(this, core);
     }
 
     public void SetMainHeroVelocity(float velocity)

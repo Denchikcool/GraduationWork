@@ -37,6 +37,8 @@ public class MoveState : State
     public override void UpdateLogic()
     {
         base.UpdateLogic();
+
+        core.Movement.SetHorizontalVelocity(dataMoveState.MovementSpeed * core.Movement.FacingDirection);
     }
 
     public override void UpdatePhysics()

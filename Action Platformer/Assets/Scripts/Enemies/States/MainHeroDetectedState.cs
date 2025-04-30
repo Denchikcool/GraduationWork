@@ -43,7 +43,9 @@ public class MainHeroDetectedState : State
     {
         base.UpdateLogic();
 
-        if(Time.time >= StartTime + detectedMainHeroData.LongRangeActionTime)
+        core.Movement.SetHorizontalVelocity(0.0f);
+
+        if (Time.time >= StartTime + detectedMainHeroData.LongRangeActionTime)
         {
             performLongRangeAction = true;
         }

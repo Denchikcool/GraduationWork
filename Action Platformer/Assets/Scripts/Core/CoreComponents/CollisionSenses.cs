@@ -8,12 +8,7 @@ public class CollisionSenses : CoreComponent
     public Transform GroundCheck 
     {   get 
         {
-            if (_groundCheck)
-            {
-                return _groundCheck;
-            }
-            Debug.LogError("No ground check on " + core.transform.parent.name);
-            return null;
+            return GenericNotImplementedError<Transform>.TryGet(_groundCheck, core.transform.parent.name);
         }
         private set => _groundCheck = value; 
     }
@@ -21,48 +16,28 @@ public class CollisionSenses : CoreComponent
     {
         get
         {
-            if (_wallCheck)
-            {
-                return _wallCheck;
-            }
-            Debug.LogError("No wall check on " + core.transform.parent.name);
-            return null;
+            return GenericNotImplementedError<Transform>.TryGet(_wallCheck, core.transform.parent.name);
         } 
         private set => _wallCheck = value; 
     }
     public Transform LedgeCheckHorizontal 
     {   get
         {
-            if (_ledgeCheckHorizontal)
-            {
-                return _ledgeCheckHorizontal;
-            }
-            Debug.LogError("No ledge check horizontal on " + core.transform.parent.name);
-            return null;
+            return GenericNotImplementedError<Transform>.TryGet(_ledgeCheckHorizontal, core.transform.parent.name);
         }
         private set => _ledgeCheckHorizontal = value; 
     }
     public Transform LedgeCheckVertical 
     {   get
         {
-            if(_ledgeCheckVertical)
-            {
-                return _ledgeCheckVertical;
-            }
-            Debug.LogError("No ledge check vertical on " + core.transform.parent.name);
-            return null;
+            return GenericNotImplementedError<Transform>.TryGet(_ledgeCheckVertical, core.transform.parent.name);
         }
         private set => _ledgeCheckVertical = value; 
     }
     public Transform UpHeadCheck 
     {   get
         {
-            if (_upHeadCheck)
-            {
-                return _upHeadCheck;
-            }
-            Debug.LogError("No upHead check on " + core.transform.parent.name);
-            return null;
+            return GenericNotImplementedError<Transform>.TryGet(_upHeadCheck, core.transform.parent.name);
         } 
         private set => _upHeadCheck = value; 
     }

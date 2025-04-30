@@ -64,36 +64,6 @@ public class CombatEnemyController : MonoBehaviour
         CheckKnockback();
     }
 
-    private void TakeDamage(AttackDetails details)
-    {
-        _currentHealth -= details.DamageAmount;
-
-        if (details.Position.x < _aliveGameObject.transform.position.x)
-        {
-            _playerFacingDirection = 1;
-        }
-        else
-        {
-            _playerFacingDirection = -1;
-        }
-
-        Instantiate(_hitParticle, _aliveGameObject.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
-
-        if (_playerFacingDirection == 1)
-            _playerOnLeft = true;
-        else
-            _playerOnLeft = false;
-
-        _aliveAnimator.SetBool("playerOnLeft", _playerOnLeft);
-        _aliveAnimator.SetTrigger("damage");
-
-        if (_applyKnockback && _currentHealth > 0.0f)
-            Knockback();
-
-        if (_currentHealth <= 0.0f)
-            Die();
-    }
-
     private void Knockback()
     {
         _knockback = true;
