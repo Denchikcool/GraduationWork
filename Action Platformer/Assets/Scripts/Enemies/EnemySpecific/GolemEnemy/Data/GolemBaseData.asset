@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GolemBaseData
   m_EditorClassIdentifier: 
   WallCheckDistance: 0.2
-  LedgeCheckDistance: 1.5
+  LedgeCheckDistance: 1
   MaxAgroDistance: 5
   MinAgroDistance: 4
   CloseRangeActionDistance: 0.75
