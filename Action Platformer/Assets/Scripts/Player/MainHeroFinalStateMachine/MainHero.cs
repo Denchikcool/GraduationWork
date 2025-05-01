@@ -34,7 +34,6 @@ public class MainHero : MonoBehaviour
     public PlayerInputHandler PlayerInputHandler { get; private set; }
     public Transform DashArrow { get; private set; }
     public BoxCollider2D MovementCollider { get; private set; }
-    public MainHeroInventory Inventory { get; private set; }
     public Core Core { get; private set; }
     #endregion
 
@@ -73,10 +72,7 @@ public class MainHero : MonoBehaviour
         Rigidbody = GetComponent<Rigidbody2D>();
         DashArrow = transform.Find("DashArrow");
         MovementCollider = GetComponent<BoxCollider2D>();
-        Inventory = GetComponent<MainHeroInventory>();
 
-        PrimaryAttackState.SetWeapon(Inventory.Weapons[(int)CombatInput.primary]);
-        //SecondaryAttackState.SetWeapon(Inventory.Weapons[(int)CombatInput.primary]);
         StateMachine.Initialize(MainHeroIdleState);
     }
 
