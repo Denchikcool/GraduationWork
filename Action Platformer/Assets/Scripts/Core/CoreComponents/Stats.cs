@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Stats : CoreComponent
@@ -9,6 +11,8 @@ public class Stats : CoreComponent
 
     private float _currentHealth;
 
+    public event Action OnHealthZero;
+   
     protected override void Awake()
     {
         base.Awake();
@@ -23,7 +27,7 @@ public class Stats : CoreComponent
         if(_currentHealth <= 0)
         {
             _currentHealth = 0;
-            Debug.Log("Enemy dead!");
+            OnHealthZero?.Invoke();
         }
     }
 

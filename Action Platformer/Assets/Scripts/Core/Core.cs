@@ -32,7 +32,12 @@ public class Core : MonoBehaviour
     {
         var component = _coreComponents.OfType<T>().FirstOrDefault();
 
-        if(component == null)
+        if (component == null)
+        {
+            component = GetComponentInChildren<T>();
+        }
+
+        if (component == null)
         {
             Debug.LogWarning($"{typeof(T)} not found on {transform.parent.name}");
         }
