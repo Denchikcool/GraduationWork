@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class MainHeroStateMachine
 {
     public MainHeroState CurrentState { get; private set; }

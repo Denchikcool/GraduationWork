@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "newFindMainHeroStateData", menuName = "Data/State Data/Find Main Hero State")]

@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03b266bb805ebbb45aced88ccc7efe66, type: 3}
+  m_Name: Sword_1
+  m_EditorClassIdentifier: 
+  <NumberOfAttacks>k__BackingField: 3
+  <ComponentData>k__BackingField:
+  - rid: 7993347338972168192
+  - rid: 7993347338972168194
+  references:
+    version: 2
+    RefIds:
+    - rid: 7993347338972168192
+      type: {class: WeaponSpriteData, ns: Denchik.Weapon.Components.ComponentData, asm: Assembly-CSharp}
+      data:
+        <AttackData>k__BackingField:
+        - <Sprites>k__BackingField:
+          - {fileID: 593431752, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
+          - {fileID: -326150148, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
+          - {fileID: -889254959, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
+          - {fileID: 1122253246, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
+          - {fileID: 1788866264, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
+        - <Sprites>k__BackingField:
+          - {fileID: -971300572, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
+          - {fileID: -1515895854, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
+          - {fileID: 1656414396, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
+          - {fileID: 2065205498, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
+          - {fileID: 49266981, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
+        - <Sprites>k__BackingField:
+          - {fileID: 903199652, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
+          - {fileID: -229825633, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
+          - {fileID: -1203846911, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
+          - {fileID: 1898201013, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
+          - {fileID: -573272957, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
+    - rid: 7993347338972168194
+      type: {class: MovementData, ns: Denchik.Weapon.Components.ComponentData, asm: Assembly-CSharp}
+      data:
+        <AttackMovementData>k__BackingField:
+        - <Direction>k__BackingField: {x: 1, y: 0}
+          <Velocity>k__BackingField: 3
+        - <Direction>k__BackingField: {x: 1, y: 0}
+          <Velocity>k__BackingField: 4
+        - <Direction>k__BackingField: {x: 1, y: 5}
+          <Velocity>k__BackingField: 5

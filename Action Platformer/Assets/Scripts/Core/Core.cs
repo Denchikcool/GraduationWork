@@ -1,53 +1,55 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Core : MonoBehaviour
+namespace Denchik.CoreSystem
 {
-    private readonly List<CoreComponent> _coreComponents = new List<CoreComponent>();
-
-    private void Awake()
+    public class Core : MonoBehaviour
     {
-        
-    }
+        private readonly List<CoreComponent> _coreComponents = new List<CoreComponent>();
 
-    public void UpdateLogic()
-    {
-        foreach (CoreComponent component in _coreComponents)
+        private void Awake()
         {
-            component.UpdateLogic();
-        }
-    }
 
-    public void AddComponent(CoreComponent component)
-    {
-        if (!_coreComponents.Contains(component))
-        {
-            _coreComponents.Add(component);
-        } 
-    }
-
-    public T GetCoreComponent<T>() where T : CoreComponent
-    {
-        var component = _coreComponents.OfType<T>().FirstOrDefault();
-
-        if (component == null)
-        {
-            component = GetComponentInChildren<T>();
         }
 
-        if (component == null)
+        public void UpdateLogic()
         {
-            Debug.LogWarning($"{typeof(T)} not found on {transform.parent.name}");
+            foreach (CoreComponent component in _coreComponents)
+            {
+                component.UpdateLogic();
+            }
         }
 
-        return component;
-    }
+        public void AddComponent(CoreComponent component)
+        {
+            if (!_coreComponents.Contains(component))
+            {
+                _coreComponents.Add(component);
+            }
+        }
 
-    public T GetCoreComponent<T>(ref T value) where T : CoreComponent
-    {
-        value = GetCoreComponent<T>();
-        return value;
+        public T GetCoreComponent<T>() where T : CoreComponent
+        {
+            var component = _coreComponents.OfType<T>().FirstOrDefault();
+
+            if (component == null)
+            {
+                component = GetComponentInChildren<T>();
+            }
+
+            if (component == null)
+            {
+                Debug.LogWarning($"{typeof(T)} not found on {transform.parent.name}");
+            }
+
+            return component;
+        }
+
+        public T GetCoreComponent<T>(ref T value) where T : CoreComponent
+        {
+            value = GetCoreComponent<T>();
+            return value;
+        }
     }
 }

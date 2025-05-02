@@ -1,7 +1,4 @@
 using Denchik.Weapon;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class MainHeroAttackState : MainHeroAbilityState
 {

@@ -1,22 +1,19 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Denchik.Utilities;
-using Denchik.Weapon.Components;
+using Denchik.CoreSystem;
 
 namespace Denchik.Weapon
 {
     public class Weapon : MonoBehaviour
     {
-        [SerializeField]
-        private int _numberOfAttacks;
+        [field: SerializeField]
+        public WeaponData WeaponData { get; private set; }
         [SerializeField]
         private float _attackCounterResetCooldown;
 
         private Animator _animator;
         
-        private AnimationEventHandler _animationEventHandler;
         private Timer _attackCounterResetTimer;
 
         private int _currentAttackCounter;
@@ -24,12 +21,16 @@ namespace Denchik.Weapon
         public event Action OnExit;
         public event Action OnEnter;
 
+        public AnimationEventHandler EventHandler { get; private set; }
+
+        public Core Core { get; private set; }
+
         public int CurrentAttackCounter
         {
             get => _currentAttackCounter;
             private set
             {
-                _currentAttackCounter = value >= _numberOfAttacks ? 0 : value;
+                _currentAttackCounter = value >= WeaponData.NumberOfAttacks ? 0 : value;
             }
         }
         public GameObject MainHeroGameObject { get; private set; }
@@ -42,7 +43,7 @@ namespace Denchik.Weapon
             WeaponSpriteGameObject = transform.Find("WeaponSprite").gameObject;
 
             _animator = MainHeroGameObject.GetComponent<Animator>();
-            _animationEventHandler = MainHeroGameObject.GetComponent<AnimationEventHandler>();
+            EventHandler = MainHeroGameObject.GetComponent<AnimationEventHandler>();
 
             _attackCounterResetTimer = new Timer(_attackCounterResetCooldown);
         }
@@ -67,13 +68,13 @@ namespace Denchik.Weapon
 
         private void OnEnable()
         {
-            _animationEventHandler.OnFinished += Exit;
+            EventHandler.OnFinished += Exit;
             _attackCounterResetTimer.OnTimerDone += ResetAttackCounter;
         }
 
         private void OnDisable()
         {
-            _animationEventHandler.OnFinished -= Exit;
+            EventHandler.OnFinished -= Exit;
             _attackCounterResetTimer.OnTimerDone -= ResetAttackCounter;
         }
 
@@ -87,6 +88,11 @@ namespace Denchik.Weapon
             _animator.SetInteger("counter", CurrentAttackCounter);
 
             OnEnter?.Invoke();
+        }
+
+        public void SetCore(Core core)
+        {
+            Core = core;
         }
     }
 }

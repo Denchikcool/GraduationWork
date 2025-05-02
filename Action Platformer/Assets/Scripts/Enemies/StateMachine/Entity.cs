@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
+using Denchik.CoreSystem;
 
 public class Entity : MonoBehaviour
 {

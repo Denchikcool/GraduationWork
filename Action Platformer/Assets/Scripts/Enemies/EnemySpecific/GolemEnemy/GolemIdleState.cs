@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class GolemIdleState : IdleState
 {
     private Golem _golem;

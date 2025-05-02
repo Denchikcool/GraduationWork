@@ -1,17 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Denchik.Weapon.Components.ComponentData;
 using UnityEngine;
 
 namespace Denchik.Weapon.Components
 {
     public class WeaponSprite : WeaponComponent
     {
-        [SerializeField]
-        private WeaponSprites[] _weaponSprites;
-
         private SpriteRenderer _mainHeroSpriteRenderer;
         private SpriteRenderer _weaponSpriteRenderer;
+
+        private WeaponSpriteData _weaponSpriteData;
 
         private int _currentWeaponSpriteIndex;
 
@@ -21,6 +18,8 @@ namespace Denchik.Weapon.Components
 
             _mainHeroSpriteRenderer = transform.Find("MainHeroMotion").GetComponent<SpriteRenderer>();
             _weaponSpriteRenderer = transform.Find("WeaponSprite").GetComponent<SpriteRenderer>();
+
+            _weaponSpriteData = weapon.WeaponData.GetData<WeaponSpriteData>();
             //TODO: fix this
             //_mainHeroSpriteRenderer = weapon.MainHeroGameObject.GetComponent<SpriteRenderer>();
             //_weaponSpriteRenderer = weapon.WeaponSpriteGameObject.GetComponent<SpriteRenderer>();
@@ -34,7 +33,7 @@ namespace Denchik.Weapon.Components
                 return;
             }
 
-            Sprite[] currentAttackSprites = _weaponSprites[weapon.CurrentAttackCounter].Sprites;
+            Sprite[] currentAttackSprites = _weaponSpriteData.AttackData[weapon.CurrentAttackCounter].Sprites;
 
             if(_currentWeaponSpriteIndex >= currentAttackSprites.Length)
             {
@@ -69,12 +68,5 @@ namespace Denchik.Weapon.Components
             _mainHeroSpriteRenderer.RegisterSpriteChangeCallback(HandleMainHeroSpriteChange);
             weapon.OnEnter -= HandleEnter;
         }
-    }
-
-    [Serializable]
-    public class WeaponSprites
-    {
-        [field: SerializeField]
-        public Sprite[] Sprites { get; private set; }
     }
 }

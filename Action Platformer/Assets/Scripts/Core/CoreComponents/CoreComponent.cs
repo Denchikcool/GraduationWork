@@ -1,25 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CoreComponent : MonoBehaviour, ILogicUpdate
+namespace Denchik.CoreSystem
 {
-    protected Core core;
-
-    protected virtual void Awake()
+    public class CoreComponent : MonoBehaviour, ILogicUpdate
     {
-        core = transform.parent.GetComponent<Core>();
+        protected Core core;
 
-        if (core == null)
+        protected virtual void Awake()
         {
-            Debug.LogError("No core on the parent!");
+            core = transform.parent.GetComponent<Core>();
+
+            if (core == null)
+            {
+                Debug.LogError("No core on the parent!");
+            }
+
+            core.AddComponent(this);
         }
 
-        core.AddComponent(this);
-    }
+        public virtual void UpdateLogic()
+        {
 
-    public virtual void UpdateLogic()
-    {
-        
+        }
     }
 }

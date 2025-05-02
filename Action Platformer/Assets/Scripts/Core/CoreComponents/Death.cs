@@ -1,42 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Death : CoreComponent
+namespace Denchik.CoreSystem
 {
-    [SerializeField]
-    private GameObject[] _deathParticles;
-
-    private ParticleManager ParticleManager
+    public class Death : CoreComponent
     {
-        get => _particleManager ? _particleManager : core.GetCoreComponent(ref _particleManager);
-    }
+        [SerializeField]
+        private GameObject[] _deathParticles;
 
-    private Stats Stats
-    {
-        get => _stats ? _stats : core.GetCoreComponent(ref _stats);
-    }
-
-    private ParticleManager _particleManager;
-    private Stats _stats;
-
-    public void Die()
-    {
-        foreach (GameObject particle in _deathParticles)
+        private ParticleManager ParticleManager
         {
-            ParticleManager.StartParticles(particle);
+            get => _particleManager ? _particleManager : core.GetCoreComponent(ref _particleManager);
         }
 
-        core.transform.parent.gameObject.SetActive(false);
-    }
+        private Stats Stats
+        {
+            get => _stats ? _stats : core.GetCoreComponent(ref _stats);
+        }
 
-    private void OnEnable()
-    {
-        Stats.OnHealthZero += Die;
-    }
+        private ParticleManager _particleManager;
+        private Stats _stats;
 
-    private void OnDisable()
-    {
-        Stats.OnHealthZero -= Die;
+        public void Die()
+        {
+            foreach (GameObject particle in _deathParticles)
+            {
+                ParticleManager.StartParticles(particle);
+            }
+
+            core.transform.parent.gameObject.SetActive(false);
+        }
+
+        private void OnEnable()
+        {
+            Stats.OnHealthZero += Die;
+        }
+
+        private void OnDisable()
+        {
+            Stats.OnHealthZero -= Die;
+        }
     }
 }

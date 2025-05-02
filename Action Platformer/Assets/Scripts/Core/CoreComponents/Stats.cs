@@ -1,38 +1,38 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Stats : CoreComponent
+namespace Denchik.CoreSystem
 {
-    [SerializeField]
-    private float _maxHealth;
-
-    private float _currentHealth;
-
-    public event Action OnHealthZero;
-   
-    protected override void Awake()
+    public class Stats : CoreComponent
     {
-        base.Awake();
+        [SerializeField]
+        private float _maxHealth;
 
-        _currentHealth = _maxHealth;
-    }
+        private float _currentHealth;
 
-    public void DecreaseHealth(float damage)
-    {
-        _currentHealth -= damage;
+        public event Action OnHealthZero;
 
-        if(_currentHealth <= 0)
+        protected override void Awake()
         {
-            _currentHealth = 0;
-            OnHealthZero?.Invoke();
-        }
-    }
+            base.Awake();
 
-    public void IncreaseHealth(float amount)
-    {
-        _currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _maxHealth);
+            _currentHealth = _maxHealth;
+        }
+
+        public void DecreaseHealth(float damage)
+        {
+            _currentHealth -= damage;
+
+            if (_currentHealth <= 0)
+            {
+                _currentHealth = 0;
+                OnHealthZero?.Invoke();
+            }
+        }
+
+        public void IncreaseHealth(float amount)
+        {
+            _currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _maxHealth);
+        }
     }
 }

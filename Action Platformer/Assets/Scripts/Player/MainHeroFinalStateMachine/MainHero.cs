@@ -1,7 +1,6 @@
 using Denchik.Weapon;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Denchik.CoreSystem;
 
 public class MainHero : MonoBehaviour
 {
@@ -52,6 +51,9 @@ public class MainHero : MonoBehaviour
 
         _primaryWeapon = transform.Find("PrimaryWeapon").GetComponent<Weapon>();
         _secondaryWeapon = transform.Find("SecondaryWeapon").GetComponent<Weapon>();
+
+        _primaryWeapon.SetCore(Core);
+        _secondaryWeapon.SetCore(Core);
 
         StateMachine = new MainHeroStateMachine();
 

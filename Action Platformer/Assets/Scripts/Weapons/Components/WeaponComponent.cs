@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Denchik.CoreSystem;
 
 namespace Denchik.Weapon.Components
 {
@@ -8,11 +7,18 @@ namespace Denchik.Weapon.Components
     {
         protected Weapon weapon;
 
+        //TODO
+        //protected AnimationEventHandler EventHandler => weapon.EventHandler;
+        protected AnimationEventHandler eventHandler;
+        protected Core core => weapon.Core; 
+
         protected bool isAttackActive;
 
         protected virtual void Awake()
         {
             weapon = GetComponent<Weapon>();
+
+            eventHandler = GetComponentInChildren<AnimationEventHandler>();
         }
 
         protected virtual void HandleEnter()
