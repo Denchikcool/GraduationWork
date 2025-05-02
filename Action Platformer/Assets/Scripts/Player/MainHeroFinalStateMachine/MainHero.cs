@@ -1,3 +1,4 @@
+using Denchik.Weapon;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,12 +40,18 @@ public class MainHero : MonoBehaviour
 
     #region Variables
     private Vector2 _workSpace;
+
+    private Weapon _primaryWeapon;
+    private Weapon _secondaryWeapon;
     #endregion
 
     #region Unity Functions
     private void Awake()
     {
         Core = GetComponentInChildren<Core>();
+
+        _primaryWeapon = transform.Find("PrimaryWeapon").GetComponent<Weapon>();
+        _secondaryWeapon = transform.Find("SecondaryWeapon").GetComponent<Weapon>();
 
         StateMachine = new MainHeroStateMachine();
 
@@ -61,8 +68,8 @@ public class MainHero : MonoBehaviour
         MainHeroDashState = new MainHeroDashState(this, StateMachine, _mainHeroData, "inAir");
         MainHeroCrouchIdleState = new MainHeroCrouchIdleState(this, StateMachine, _mainHeroData, "crouchIdle");
         MainHeroCrouchMoveState = new MainHeroCrouchMoveState(this, StateMachine, _mainHeroData, "crouchMove");
-        PrimaryAttackState = new MainHeroAttackState(this, StateMachine, _mainHeroData, "attack");
-        SecondaryAttackState = new MainHeroAttackState(this, StateMachine, _mainHeroData, "attack");
+        PrimaryAttackState = new MainHeroAttackState(this, StateMachine, _mainHeroData, "attack", _primaryWeapon);
+        SecondaryAttackState = new MainHeroAttackState(this, StateMachine, _mainHeroData, "attack", _secondaryWeapon);
     }
 
     private void Start()
