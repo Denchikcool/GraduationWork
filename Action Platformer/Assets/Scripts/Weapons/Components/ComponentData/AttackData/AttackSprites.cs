@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-namespace Denchik.Weapon.Components.ComponentData.AttackData
+namespace Denchik.Weapon.Components
 {
     [Serializable]
-    public class AttackSprites
+    public class AttackSprites : AttackData
     {
         [field: SerializeField]
         public Sprite[] Sprites { get; private set; }

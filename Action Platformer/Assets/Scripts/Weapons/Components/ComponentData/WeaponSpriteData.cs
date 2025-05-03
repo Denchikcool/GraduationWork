@@ -1,11 +1,7 @@
-using Denchik.Weapon.Components.ComponentData.AttackData;
-using UnityEngine;
-
-namespace Denchik.Weapon.Components.ComponentData
+namespace Denchik.Weapon.Components
 {
-    public class WeaponSpriteData : ComponentData
+    public class WeaponSpriteData : ComponentData<AttackSprites>
     {
-        [field: SerializeField]
-        public AttackSprites[] AttackData {  get; private set; }
+        
     }
 }

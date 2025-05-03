@@ -1,11 +1,10 @@
-using Denchik.Weapon.Components.ComponentData.AttackData;
+using Denchik.Weapon.Components;
 using UnityEngine;
 
-namespace Denchik.Weapon.Components.ComponentData
+namespace Denchik.Weapon.Components
 {
-    public class MovementData : ComponentData
+    public class MovementData : ComponentData<AttackMovement>
     {
-        [field: SerializeField]
-        public AttackMovement[] AttackMovementData { get; private set; } 
+        
     }
 }

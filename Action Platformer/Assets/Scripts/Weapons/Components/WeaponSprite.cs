@@ -1,14 +1,12 @@
-using Denchik.Weapon.Components.ComponentData;
+using Denchik.Weapon.Components;
 using UnityEngine;
 
 namespace Denchik.Weapon.Components
 {
-    public class WeaponSprite : WeaponComponent
+    public class WeaponSprite : WeaponComponent<WeaponSpriteData, AttackSprites>
     {
         private SpriteRenderer _mainHeroSpriteRenderer;
         private SpriteRenderer _weaponSpriteRenderer;
-
-        private WeaponSpriteData _weaponSpriteData;
 
         private int _currentWeaponSpriteIndex;
 
@@ -19,7 +17,7 @@ namespace Denchik.Weapon.Components
             _mainHeroSpriteRenderer = transform.Find("MainHeroMotion").GetComponent<SpriteRenderer>();
             _weaponSpriteRenderer = transform.Find("WeaponSprite").GetComponent<SpriteRenderer>();
 
-            _weaponSpriteData = weapon.WeaponData.GetData<WeaponSpriteData>();
+            data = weapon.WeaponData.GetData<WeaponSpriteData>();
             //TODO: fix this
             //_mainHeroSpriteRenderer = weapon.MainHeroGameObject.GetComponent<SpriteRenderer>();
             //_weaponSpriteRenderer = weapon.WeaponSpriteGameObject.GetComponent<SpriteRenderer>();
@@ -33,7 +31,7 @@ namespace Denchik.Weapon.Components
                 return;
             }
 
-            Sprite[] currentAttackSprites = _weaponSpriteData.AttackData[weapon.CurrentAttackCounter].Sprites;
+            Sprite[] currentAttackSprites = currentAttackData.Sprites;
 
             if(_currentWeaponSpriteIndex >= currentAttackSprites.Length)
             {

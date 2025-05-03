@@ -10,19 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03b266bb805ebbb45aced88ccc7efe66, type: 3}
-  m_Name: Sword_1
+  m_Name: Sword1
   m_EditorClassIdentifier: 
   <NumberOfAttacks>k__BackingField: 3
   <ComponentData>k__BackingField:
-  - rid: 7993347357169680396
-  - rid: 7993347357169680397
+  - rid: 7993347357169680385
+  - rid: 7993347357169680386
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7993347357169680396
-      type: {class: WeaponSpriteData, ns: Denchik.Weapon.Components, asm: Assembly-CSharp}
+    - rid: 7993347357169680385
+      type: {class: WeaponSpriteData, ns: Denchik.Weapon.Components.Component, asm: Assembly-CSharp}
       data:
         <AttackData>k__BackingField:
         - <Sprites>k__BackingField:
@@ -43,13 +41,13 @@ MonoBehaviour:
           - {fileID: -1203846911, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
           - {fileID: 1898201013, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
           - {fileID: -573272957, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
-    - rid: 7993347357169680397
-      type: {class: MovementData, ns: Denchik.Weapon.Components, asm: Assembly-CSharp}
+    - rid: 7993347357169680386
+      type: {class: MovementData, ns: Denchik.Weapon.Components.Component, asm: Assembly-CSharp}
       data:
-        <AttackData>k__BackingField:
+        <AttackMovementData>k__BackingField:
         - <Direction>k__BackingField: {x: 1, y: 0}
           <Velocity>k__BackingField: 3
         - <Direction>k__BackingField: {x: 1, y: 0}
           <Velocity>k__BackingField: 4
-        - <Direction>k__BackingField: {x: 1, y: 5}
-          <Velocity>k__BackingField: 5
+        - <Direction>k__BackingField: {x: 1, y: 2}
+          <Velocity>k__BackingField: 6

@@ -1,5 +1,6 @@
 using UnityEngine;
 using Denchik.CoreSystem;
+using Denchik.Weapon.Components;
 
 namespace Denchik.Weapon.Components
 {
@@ -41,6 +42,26 @@ namespace Denchik.Weapon.Components
         {
             weapon.OnEnter -= HandleEnter;
             weapon.OnExit -= HandleExit;
+        }
+    }
+
+    public abstract class WeaponComponent<firstType, secondType> : WeaponComponent where firstType : ComponentData<secondType> where secondType : AttackData
+    {
+        protected firstType data;
+        protected secondType currentAttackData;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            data = weapon.WeaponData.GetData<firstType>();
+        }
+
+        protected override void HandleEnter()
+        {
+            base.HandleEnter();
+
+            currentAttackData = data.AttackData[weapon.CurrentAttackCounter];
         }
     }
 }
