@@ -14,21 +14,19 @@ namespace Denchik.Weapon
         [field: SerializeReference]
         public List<ComponentData> ComponentData { get; private set; }
 
-        [ContextMenu("Add sprite data")]
-        private void AddSpriteData()
-        {
-            ComponentData.Add(new WeaponSpriteData());
-        }
-
-        [ContextMenu("Add movement data")]
-        private void AddMovementData()
-        {
-            ComponentData.Add(new MovementData());
-        }
-
         public T GetData<T>()
         {
             return ComponentData.OfType<T>().FirstOrDefault();
+        }
+
+        public void AddData(ComponentData data)
+        {
+            if(ComponentData.FirstOrDefault(type => type.GetType() == data.GetType()) != null)
+            {
+                return;
+            }
+
+            ComponentData.Add(data);
         }
     }
 }

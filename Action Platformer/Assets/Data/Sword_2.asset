@@ -14,14 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <NumberOfAttacks>k__BackingField: 3
   <ComponentData>k__BackingField:
-  - rid: 7993347357169680389
-  - rid: 7993347357169680390
+  - rid: 7993347358045241344
+  - rid: 7993347358045241345
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7993347357169680389
+    - rid: 7993347358045241344
       type: {class: WeaponSpriteData, ns: Denchik.Weapon.Components, asm: Assembly-CSharp}
       data:
         <AttackData>k__BackingField:
@@ -43,7 +41,7 @@ MonoBehaviour:
           - {fileID: -1879201197, guid: 09d841d57f4b11d449c5077c34d8e504, type: 3}
           - {fileID: -174048190, guid: 09d841d57f4b11d449c5077c34d8e504, type: 3}
           - {fileID: 749396193, guid: 09d841d57f4b11d449c5077c34d8e504, type: 3}
-    - rid: 7993347357169680390
+    - rid: 7993347358045241345
       type: {class: MovementData, ns: Denchik.Weapon.Components, asm: Assembly-CSharp}
       data:
         <AttackData>k__BackingField:
