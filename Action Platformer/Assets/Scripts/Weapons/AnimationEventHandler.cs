@@ -8,6 +8,7 @@ namespace Denchik.Weapon
         public event Action OnFinished;
         public event Action OnStartMovement;
         public event Action OnStopMovement;
+        public event Action OnAttackAction;
 
         private void AnimationFinishedTrigger()
         {
@@ -22,6 +23,11 @@ namespace Denchik.Weapon
         private void StopMovementTrigger()
         {
             OnStopMovement?.Invoke();
+        }
+
+        private void AttackActionTrigger()
+        {
+            OnAttackAction?.Invoke();
         }
     }
 }
