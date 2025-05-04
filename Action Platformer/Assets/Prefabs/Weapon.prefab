@@ -129,8 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4260995615150793152}
   - component: {fileID: 8675647539398799237}
-  - component: {fileID: 4447223489988764530}
-  - component: {fileID: 7098210251847264273}
+  - component: {fileID: 1262054468090909966}
   m_Layer: 11
   m_Name: Weapon
   m_TagString: Untagged
@@ -167,9 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111f46dca37b3cf47b20a4d6dc6b8ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <WeaponData>k__BackingField: {fileID: 0}
   _attackCounterResetCooldown: 3
---- !u!114 &4447223489988764530
+--- !u!114 &1262054468090909966
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,21 +176,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6108647952688108365}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53ab4b764ed5eed4eae586ea3756bd92, type: 3}
+  m_Script: {fileID: 11500000, guid: 9dd22632e5b1dd74e88f797afef33752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7098210251847264273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6108647952688108365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d7635860c86abf4698a06bff385735a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _weapon: {fileID: 8675647539398799237}
+  _weaponData: {fileID: 0}
 --- !u!1 &7829369629439131399
 GameObject:
   m_ObjectHideFlags: 0

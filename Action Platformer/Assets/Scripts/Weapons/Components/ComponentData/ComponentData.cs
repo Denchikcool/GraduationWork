@@ -9,6 +9,8 @@ namespace Denchik.Weapon.Components
         [SerializeField, HideInInspector]
         private string _name;
 
+        public Type ComponentDependency { get; protected set; }
+
         public ComponentData()
         {
             SetComponentName();

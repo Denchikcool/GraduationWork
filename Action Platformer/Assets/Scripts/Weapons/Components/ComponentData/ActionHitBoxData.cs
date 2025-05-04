@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Denchik.Weapon.Components
@@ -8,5 +6,10 @@ namespace Denchik.Weapon.Components
     {
         [field: SerializeField]
         public LayerMask DetectableLayers { get; private set; }
+
+        public ActionHitBoxData()
+        {
+            ComponentDependency = typeof(ActionHitBox);
+        }
     }
 }

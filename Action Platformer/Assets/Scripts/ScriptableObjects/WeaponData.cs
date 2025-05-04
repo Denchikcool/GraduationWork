@@ -1,4 +1,5 @@
 using Denchik.Weapon.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -27,6 +28,11 @@ namespace Denchik.Weapon
             }
 
             ComponentData.Add(data);
+        }
+
+        public List<Type> GetAllDependencies()
+        {
+            return ComponentData.Select(component => component.ComponentDependency).ToList();
         }
     }
 }

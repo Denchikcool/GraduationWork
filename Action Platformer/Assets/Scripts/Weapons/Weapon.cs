@@ -7,8 +7,6 @@ namespace Denchik.Weapon
 {
     public class Weapon : MonoBehaviour
     {
-        [field: SerializeField]
-        public WeaponData WeaponData { get; private set; }
         [SerializeField]
         private float _attackCounterResetCooldown;
 
@@ -20,6 +18,8 @@ namespace Denchik.Weapon
 
         public event Action OnExit;
         public event Action OnEnter;
+
+        public WeaponData WeaponData { get; private set; }
 
         public AnimationEventHandler EventHandler { get; private set; }
 
@@ -93,6 +93,11 @@ namespace Denchik.Weapon
         public void SetCore(Core core)
         {
             Core = core;
+        }
+
+        public void SetData(WeaponData dataWeapon)
+        {
+            WeaponData = dataWeapon;
         }
     }
 }

@@ -6,11 +6,13 @@ namespace Denchik.Weapon.Components
     {
         private ActionHitBox _hitBox;
 
-        protected override void Awake()
+        protected override void Start()
         {
-            base.Awake();
+            base.Start();
 
             _hitBox = GetComponent<ActionHitBox>();
+
+            _hitBox.OnDetectedCollider += HandleDetectedCollider;
         }
 
         private void HandleDetectedCollider(Collider2D[] colliders)
@@ -24,16 +26,9 @@ namespace Denchik.Weapon.Components
             }
         }
 
-        protected override void OnEnable()
+        protected override void OnDestroy()
         {
-            base.OnEnable();
-
-            _hitBox.OnDetectedCollider += HandleDetectedCollider;
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
+            base.OnDestroy();
 
             _hitBox.OnDetectedCollider -= HandleDetectedCollider;
         }

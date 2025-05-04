@@ -9,6 +9,14 @@ namespace Denchik.Weapon.Components
 
         private CoreSystem.Movement CoreMovement => _coreMovement ? _coreMovement : core.GetCoreComponent(ref _coreMovement);
 
+        protected override void Start()
+        {
+            base.Start();
+
+            eventHandler.OnStartMovement += HandleStartMovement;
+            eventHandler.OnStopMovement += HandleStopMovement;
+        }
+
         private void HandleStartMovement()
         {
             CoreMovement.SetVelocity(currentAttackData.Velocity, currentAttackData.Direction, CoreMovement.FacingDirection);
@@ -19,17 +27,9 @@ namespace Denchik.Weapon.Components
             CoreMovement.SetVelocityZero();
         }
 
-        protected override void OnEnable()
+        protected override void OnDestroy()
         {
-            base.OnEnable();
-
-            eventHandler.OnStartMovement += HandleStartMovement;
-            eventHandler.OnStopMovement += HandleStopMovement;
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
+            base.OnDestroy();
 
             eventHandler.OnStartMovement -= HandleStartMovement;
             eventHandler.OnStopMovement -= HandleStopMovement;

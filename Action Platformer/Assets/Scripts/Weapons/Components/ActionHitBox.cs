@@ -21,6 +21,8 @@ namespace Denchik.Weapon.Components
             base.Start();
 
             _movement = new CoreComp<CoreSystem.Movement>(core);
+
+            eventHandler.OnAttackAction += HandleAttackAction;
         }
 
         private void HandleAttackAction()
@@ -36,14 +38,7 @@ namespace Denchik.Weapon.Components
             OnDetectedCollider?.Invoke(_detected);
         }
 
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-
-            eventHandler.OnAttackAction += HandleAttackAction;
-        }
-
-        protected override void OnDisable()
+        protected override void OnDestroy()
         {
             eventHandler.OnAttackAction -= HandleAttackAction;
         }

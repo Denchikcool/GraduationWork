@@ -10,17 +10,16 @@ namespace Denchik.Weapon.Components
 
         private int _currentWeaponSpriteIndex;
 
-        protected override void Awake()
+        protected override void Start()
         {
-            base.Awake();
+            base.Start();
 
-            _mainHeroSpriteRenderer = transform.Find("MainHeroMotion").GetComponent<SpriteRenderer>();
-            _weaponSpriteRenderer = transform.Find("WeaponSprite").GetComponent<SpriteRenderer>();
+            _mainHeroSpriteRenderer = weapon.MainHeroGameObject.GetComponent<SpriteRenderer>();
+            _weaponSpriteRenderer = weapon.WeaponSpriteGameObject.GetComponent<SpriteRenderer>();
 
             data = weapon.WeaponData.GetData<WeaponSpriteData>();
-            //TODO: fix this
-            //_mainHeroSpriteRenderer = weapon.MainHeroGameObject.GetComponent<SpriteRenderer>();
-            //_weaponSpriteRenderer = weapon.WeaponSpriteGameObject.GetComponent<SpriteRenderer>();
+
+            _mainHeroSpriteRenderer.RegisterSpriteChangeCallback(HandleMainHeroSpriteChange);
         }
 
         private void HandleMainHeroSpriteChange(SpriteRenderer spriteRenderer)
@@ -51,20 +50,11 @@ namespace Denchik.Weapon.Components
             _currentWeaponSpriteIndex = 0;
         }
 
-        protected override void OnEnable()
+        protected override void OnDestroy()
         {
-            base.OnEnable();
+            base.OnDestroy();
 
             _mainHeroSpriteRenderer.RegisterSpriteChangeCallback(HandleMainHeroSpriteChange);
-            weapon.OnEnter += HandleEnter;
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-
-            _mainHeroSpriteRenderer.RegisterSpriteChangeCallback(HandleMainHeroSpriteChange);
-            weapon.OnEnter -= HandleEnter;
         }
     }
 }
