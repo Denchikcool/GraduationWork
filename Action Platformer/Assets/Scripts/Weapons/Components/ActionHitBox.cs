@@ -14,7 +14,7 @@ namespace Denchik.Weapon.Components
 
         private Collider2D[] _detected;
 
-        private event Action<Collider2D[]> OnDetectedCollider;
+        public event Action<Collider2D[]> OnDetectedCollider;
 
         protected override void Start()
         {
@@ -34,11 +34,6 @@ namespace Denchik.Weapon.Components
             }
 
             OnDetectedCollider?.Invoke(_detected);
-
-            foreach(Collider2D collider in _detected)
-            {
-                Debug.Log(collider.name);
-            }
         }
 
         protected override void OnEnable()

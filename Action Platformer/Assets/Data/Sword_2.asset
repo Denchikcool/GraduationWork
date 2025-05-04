@@ -17,26 +17,31 @@ MonoBehaviour:
   - rid: 7993347358045241344
   - rid: 7993347358045241345
   - rid: 7993347359332106245
+  - rid: 7993347380854915073
   references:
     version: 2
     RefIds:
     - rid: 7993347358045241344
       type: {class: WeaponSpriteData, ns: Denchik.Weapon.Components, asm: Assembly-CSharp}
       data:
+        _name: WeaponSpriteData
         _attackData:
-        - <Sprites>k__BackingField:
+        - _name: 
+          <Sprites>k__BackingField:
           - {fileID: -1308100729, guid: 09d841d57f4b11d449c5077c34d8e504, type: 3}
           - {fileID: -295702835, guid: 09d841d57f4b11d449c5077c34d8e504, type: 3}
           - {fileID: -1027774235, guid: 09d841d57f4b11d449c5077c34d8e504, type: 3}
           - {fileID: -21408520, guid: 09d841d57f4b11d449c5077c34d8e504, type: 3}
           - {fileID: 1530447941, guid: 09d841d57f4b11d449c5077c34d8e504, type: 3}
-        - <Sprites>k__BackingField:
+        - _name: 
+          <Sprites>k__BackingField:
           - {fileID: -2101919360, guid: 09d841d57f4b11d449c5077c34d8e504, type: 3}
           - {fileID: -431648833, guid: 09d841d57f4b11d449c5077c34d8e504, type: 3}
           - {fileID: -813689298, guid: 09d841d57f4b11d449c5077c34d8e504, type: 3}
           - {fileID: -2105054167, guid: 09d841d57f4b11d449c5077c34d8e504, type: 3}
           - {fileID: 41756412, guid: 09d841d57f4b11d449c5077c34d8e504, type: 3}
-        - <Sprites>k__BackingField:
+        - _name: 
+          <Sprites>k__BackingField:
           - {fileID: 1081698868, guid: 09d841d57f4b11d449c5077c34d8e504, type: 3}
           - {fileID: 1382982136, guid: 09d841d57f4b11d449c5077c34d8e504, type: 3}
           - {fileID: -1879201197, guid: 09d841d57f4b11d449c5077c34d8e504, type: 3}
@@ -45,32 +50,40 @@ MonoBehaviour:
     - rid: 7993347358045241345
       type: {class: MovementData, ns: Denchik.Weapon.Components, asm: Assembly-CSharp}
       data:
+        _name: MovementData
         _attackData:
-        - <Direction>k__BackingField: {x: 1, y: 0}
+        - _name: 
+          <Direction>k__BackingField: {x: 1, y: 0}
           <Velocity>k__BackingField: 3
-        - <Direction>k__BackingField: {x: 1, y: 0}
+        - _name: 
+          <Direction>k__BackingField: {x: 1, y: 0}
           <Velocity>k__BackingField: 4
-        - <Direction>k__BackingField: {x: 1, y: 5}
+        - _name: 
+          <Direction>k__BackingField: {x: 1, y: 5}
           <Velocity>k__BackingField: 5
     - rid: 7993347359332106245
       type: {class: ActionHitBoxData, ns: Denchik.Weapon.Components, asm: Assembly-CSharp}
       data:
+        _name: ActionHitBoxData
         _attackData:
-        - Debug: 0
+        - _name: 
+          Debug: 0
           <HitBox>k__BackingField:
             serializedVersion: 2
             x: 0.11
             y: -0.9
             width: 1.94
             height: 1.41
-        - Debug: 0
+        - _name: 
+          Debug: 0
           <HitBox>k__BackingField:
             serializedVersion: 2
             x: 0.11
             y: -0.9
             width: 1.94
             height: 1.41
-        - Debug: 0
+        - _name: 
+          Debug: 0
           <HitBox>k__BackingField:
             serializedVersion: 2
             x: 0
@@ -80,3 +93,14 @@ MonoBehaviour:
         <DetectableLayers>k__BackingField:
           serializedVersion: 2
           m_Bits: 512
+    - rid: 7993347380854915073
+      type: {class: DamageData, ns: Denchik.Weapon.Components, asm: Assembly-CSharp}
+      data:
+        _name: DamageData
+        _attackData:
+        - _name: Attack 1
+          <DamageAmount>k__BackingField: 5
+        - _name: Attack 2
+          <DamageAmount>k__BackingField: 10
+        - _name: Attack 3
+          <DamageAmount>k__BackingField: 15

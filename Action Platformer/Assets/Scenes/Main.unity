@@ -328,6 +328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 67732754}
   - component: {fileID: 67732756}
+  - component: {fileID: 67732757}
   - component: {fileID: 67732755}
   m_Layer: 9
   m_Name: Combat
@@ -409,7 +410,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxKnockbackTime: 0.2
-  _damageParticles: {fileID: 712945729605957310, guid: 148d1088728410b49b9df0ff287b1e12, type: 3}
+--- !u!114 &67732757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67732753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d96d98bbd7ce8428666dac8755cdc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageParticles: {fileID: 712945729605957310, guid: f562e8e7ffc45894bae8fea8d58c9f6b, type: 3}
 --- !u!1 &81919949
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,6 +650,7 @@ GameObject:
   m_Component:
   - component: {fileID: 249653847}
   - component: {fileID: 249653849}
+  - component: {fileID: 249653850}
   - component: {fileID: 249653848}
   m_Layer: 11
   m_Name: Combat
@@ -718,7 +732,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxKnockbackTime: 0.2
-  _damageParticles: {fileID: 712945729605957310, guid: 148d1088728410b49b9df0ff287b1e12, type: 3}
+--- !u!114 &249653850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249653846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d96d98bbd7ce8428666dac8755cdc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageParticles: {fileID: 712945729605957310, guid: f562e8e7ffc45894bae8fea8d58c9f6b, type: 3}
 --- !u!1 &322960364
 GameObject:
   m_ObjectHideFlags: 0
@@ -28259,6 +28285,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6108647952688108365, guid: fc94c5e6cf29f244092f46d8de95ea36, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1390021143}
+    - targetCorrespondingSourceObject: {fileID: 6108647952688108365, guid: fc94c5e6cf29f244092f46d8de95ea36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1390021144}
   m_SourcePrefab: {fileID: 100100000, guid: fc94c5e6cf29f244092f46d8de95ea36, type: 3}
 --- !u!1 &1390021142 stripped
 GameObject:
@@ -28277,6 +28306,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43c7747afb503a34097129d082a7a056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1390021144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390021142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e1b9516e5b7a3542a80deffe274b9fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1507034524
 GameObject:
   m_ObjectHideFlags: 0
@@ -28287,6 +28328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1507034525}
   - component: {fileID: 1507034527}
+  - component: {fileID: 1507034528}
   - component: {fileID: 1507034526}
   m_Layer: 9
   m_Name: Combat
@@ -28368,7 +28410,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxKnockbackTime: 0.2
-  _damageParticles: {fileID: 712945729605957310, guid: 148d1088728410b49b9df0ff287b1e12, type: 3}
+--- !u!114 &1507034528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507034524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d96d98bbd7ce8428666dac8755cdc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageParticles: {fileID: 712945729605957310, guid: f562e8e7ffc45894bae8fea8d58c9f6b, type: 3}
 --- !u!1 &1537064828
 GameObject:
   m_ObjectHideFlags: 0
@@ -36171,6 +36225,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6108647952688108365, guid: fc94c5e6cf29f244092f46d8de95ea36, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3937287987817889439}
+    - targetCorrespondingSourceObject: {fileID: 6108647952688108365, guid: fc94c5e6cf29f244092f46d8de95ea36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3937287987817889440}
   m_SourcePrefab: {fileID: 100100000, guid: fc94c5e6cf29f244092f46d8de95ea36, type: 3}
 --- !u!1 &3937287987817889438 stripped
 GameObject:
@@ -36187,6 +36244,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43c7747afb503a34097129d082a7a056, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3937287987817889440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3937287987817889438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e1b9516e5b7a3542a80deffe274b9fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &6887815495866026371
