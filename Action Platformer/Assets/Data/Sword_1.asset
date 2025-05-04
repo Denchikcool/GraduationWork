@@ -23,7 +23,7 @@ MonoBehaviour:
     - rid: 7993347357169680396
       type: {class: WeaponSpriteData, ns: Denchik.Weapon.Components, asm: Assembly-CSharp}
       data:
-        <AttackData>k__BackingField:
+        _attackData:
         - <Sprites>k__BackingField:
           - {fileID: 593431752, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
           - {fileID: -326150148, guid: a270dcbcadc0a66428bec4b53716efa6, type: 3}
@@ -45,7 +45,7 @@ MonoBehaviour:
     - rid: 7993347357169680397
       type: {class: MovementData, ns: Denchik.Weapon.Components, asm: Assembly-CSharp}
       data:
-        <AttackData>k__BackingField:
+        _attackData:
         - <Direction>k__BackingField: {x: 1, y: 0}
           <Velocity>k__BackingField: 3
         - <Direction>k__BackingField: {x: 1, y: 0}
@@ -55,4 +55,28 @@ MonoBehaviour:
     - rid: 7993347359332106244
       type: {class: ActionHitBoxData, ns: Denchik.Weapon.Components, asm: Assembly-CSharp}
       data:
-        <AttackData>k__BackingField: []
+        _attackData:
+        - Debug: 0
+          <HitBox>k__BackingField:
+            serializedVersion: 2
+            x: 0.11
+            y: -0.9
+            width: 1.94
+            height: 1.41
+        - Debug: 0
+          <HitBox>k__BackingField:
+            serializedVersion: 2
+            x: 0.11
+            y: -0.9
+            width: 1.94
+            height: 1.41
+        - Debug: 0
+          <HitBox>k__BackingField:
+            serializedVersion: 2
+            x: 0
+            y: -0.99
+            width: 1.61
+            height: 2.51
+        <DetectableLayers>k__BackingField:
+          serializedVersion: 2
+          m_Bits: 512

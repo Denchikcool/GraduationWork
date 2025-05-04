@@ -1,8 +1,6 @@
 using Denchik.Weapon.Components;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing.Printing;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
@@ -18,22 +16,61 @@ namespace Denchik.Weapon
 
         private WeaponData _weaponData;
 
+        private bool _showForceUpdateButtons;
+        private bool _showAddComponentButtons;
+
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
 
-            foreach(Type dataComponent in _dataComponentTypes)
+            if (GUILayout.Button("Set number of attacks"))
             {
-                if (GUILayout.Button(dataComponent.Name))
+                foreach (ComponentData data in _weaponData.ComponentData)
                 {
-                    var component = Activator.CreateInstance(dataComponent) as ComponentData;
+                    data.InitializeAttackData(_weaponData.NumberOfAttacks);
+                }
+            }
 
-                    if(component == null)
+            _showAddComponentButtons = EditorGUILayout.Foldout(_showAddComponentButtons, "Add components");
+
+            if (_showAddComponentButtons)
+            {
+                foreach (Type dataComponent in _dataComponentTypes)
+                {
+                    if (GUILayout.Button(dataComponent.Name))
                     {
-                        return;
-                    }
+                        var component = Activator.CreateInstance(dataComponent) as ComponentData;
 
-                    _weaponData.AddData(component);
+                        if (component == null)
+                        {
+                            return;
+                        }
+
+                        component.InitializeAttackData(_weaponData.NumberOfAttacks);
+
+                        _weaponData.AddData(component);
+                    }
+                }
+            }
+
+            _showForceUpdateButtons = EditorGUILayout.Foldout(_showForceUpdateButtons, "Update buttons");
+
+            if (_showForceUpdateButtons)
+            {
+                if (GUILayout.Button("Update component names"))
+                {
+                    foreach (ComponentData data in _weaponData.ComponentData)
+                    {
+                        data.SetComponentName();
+                    }
+                }
+
+                if (GUILayout.Button("Update attack names"))
+                {
+                    foreach (ComponentData data in _weaponData.ComponentData)
+                    {
+                        data.SetAttackDataNames();
+                    }
                 }
             }
         }
