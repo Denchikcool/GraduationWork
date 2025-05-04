@@ -1,10 +1,10 @@
 namespace Denchik.Weapon.Components
 {
-    public class WeaponSpriteData : ComponentData<AttackSprites>
+    public class KnockbackData : ComponentData<AttackKnokback>
     {
         protected override void SetComponentDependency()
         {
-            ComponentDependency = typeof(WeaponSprite);
+            ComponentDependency = typeof(Knockback);
         }
     }
 }

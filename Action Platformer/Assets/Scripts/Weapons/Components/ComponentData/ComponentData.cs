@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Denchik.Weapon.Components
 {
     [Serializable]
-    public class ComponentData
+    public abstract class ComponentData
     {
         [SerializeField, HideInInspector]
         private string _name;
@@ -14,7 +14,10 @@ namespace Denchik.Weapon.Components
         public ComponentData()
         {
             SetComponentName();
+            SetComponentDependency();
         }
+
+        protected abstract void SetComponentDependency();
 
         public void SetComponentName()
         {
@@ -27,7 +30,7 @@ namespace Denchik.Weapon.Components
     }
 
     [Serializable]
-    public class ComponentData<T> : ComponentData where T : AttackData
+    public abstract class ComponentData<T> : ComponentData where T : AttackData
     {
         [SerializeField]
         private T[] _attackData;

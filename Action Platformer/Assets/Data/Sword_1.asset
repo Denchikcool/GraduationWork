@@ -18,6 +18,7 @@ MonoBehaviour:
   - rid: 7993347357169680397
   - rid: 7993347359332106244
   - rid: 7993347380854915072
+  - rid: 7993347385807077376
   references:
     version: 2
     RefIds:
@@ -104,3 +105,17 @@ MonoBehaviour:
           <DamageAmount>k__BackingField: 10
         - _name: Attack 3
           <DamageAmount>k__BackingField: 15
+    - rid: 7993347385807077376
+      type: {class: KnockbackData, ns: Denchik.Weapon.Components, asm: Assembly-CSharp}
+      data:
+        _name: KnockbackData
+        _attackData:
+        - _name: Attack 1
+          <KnockbackAngle>k__BackingField: {x: 1, y: 1}
+          <KnockbackStrength>k__BackingField: 10
+        - _name: Attack 2
+          <KnockbackAngle>k__BackingField: {x: 1, y: 1}
+          <KnockbackStrength>k__BackingField: 10
+        - _name: Attack 3
+          <KnockbackAngle>k__BackingField: {x: 1, y: 3}
+          <KnockbackStrength>k__BackingField: 20
