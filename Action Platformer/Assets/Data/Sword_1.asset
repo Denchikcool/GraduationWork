@@ -19,6 +19,7 @@ MonoBehaviour:
   - rid: 7993347359332106244
   - rid: 7993347380854915072
   - rid: 7993347385807077376
+  - rid: 7993347407955886080
   references:
     version: 2
     RefIds:
@@ -119,3 +120,14 @@ MonoBehaviour:
         - _name: Attack 3
           <KnockbackAngle>k__BackingField: {x: 1, y: 3}
           <KnockbackStrength>k__BackingField: 20
+    - rid: 7993347407955886080
+      type: {class: PoiseDamageData, ns: Denchik.Weapon.Components, asm: Assembly-CSharp}
+      data:
+        _name: PoiseDamageData
+        _attackData:
+        - _name: Attack 1
+          <PoiseAmount>k__BackingField: 30
+        - _name: Attack 2
+          <PoiseAmount>k__BackingField: 30
+        - _name: Attack 3
+          <PoiseAmount>k__BackingField: 30

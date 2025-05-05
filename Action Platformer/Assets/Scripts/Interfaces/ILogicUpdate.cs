@@ -1,4 +1,8 @@
-public interface ILogicUpdate
+namespace Denchik.Interfaces
 {
-    void UpdateLogic();
+    public interface ILogicUpdate
+    {
+        void UpdateLogic();
+    }
 }
+

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Denchik.Weapon.Components
 {
-    public class Damage : WeaponComponent<DamageData, AttackDamage>
+    public class PoiseDamage : WeaponComponent<PoiseDamageData, AttackPoiseDamage>
     {
         private ActionHitBox _hitBox;
 
@@ -13,16 +13,16 @@ namespace Denchik.Weapon.Components
 
             _hitBox = GetComponent<ActionHitBox>();
 
-            _hitBox.OnDetectedCollider += HandleDetectedCollider;
+            _hitBox.OnDetectedCollider += HandleDetectCollider;
         }
 
-        private void HandleDetectedCollider(Collider2D[] colliders)
+        private void HandleDetectCollider(Collider2D[] colliders)
         {
             foreach(Collider2D collider in colliders)
             {
-                if(collider.TryGetComponent(out IDamageable damageable))
+                if (collider.TryGetComponent(out IPoiseDamageable poiseDamageable))
                 {
-                    damageable.Damage(currentAttackData.DamageAmount);
+                    poiseDamageable.DamagePoise(currentAttackData.PoiseAmount);
                 }
             }
         }
@@ -31,7 +31,7 @@ namespace Denchik.Weapon.Components
         {
             base.OnDestroy();
 
-            _hitBox.OnDetectedCollider -= HandleDetectedCollider;
+            _hitBox.OnDetectedCollider -= HandleDetectCollider;
         }
     }
 }

@@ -49,11 +49,23 @@ public class Archer : Entity
         DeadState = new ArcherDeadState(this, FinalStateMachine, "dead", _deadStateData, this);
         DodgeState = new ArcherDodgeState(this, FinalStateMachine, "dodge", DodgeStateData, this);
         RangeAttackState = new ArcherRangeAttackState(this, FinalStateMachine, "rangeAttack", _rangeAttackPosition, _rangeAttackStateData, this);
+
+        stats.Poise.OnCurrentValueZero += HandlePoiseZero;
     }
 
     private void Start()
     {
         FinalStateMachine.Initialize(MoveState);
+    }
+
+    private void HandlePoiseZero()
+    {
+        FinalStateMachine.ChangeState(StunState);
+    }
+
+    private void OnDestroy()
+    {
+        stats.Poise.OnCurrentValueZero -= HandlePoiseZero;
     }
 
     public override void OnDrawGizmos()

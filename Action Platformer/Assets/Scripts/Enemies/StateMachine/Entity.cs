@@ -33,6 +33,8 @@ public class Entity : MonoBehaviour
     protected bool isDead;
 
     private Movement _movement;
+
+    protected Stats stats;
     #endregion
 
     #region Components
@@ -50,6 +52,8 @@ public class Entity : MonoBehaviour
     public virtual void Awake()
     {
         Core = GetComponentInChildren<Core>();
+
+        stats = Core.GetCoreComponent<Stats>();
 
         _currentHealth = DataEntity.MaxHealth;
         _currentStunResistance = DataEntity.StunResistance;

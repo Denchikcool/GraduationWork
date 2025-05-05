@@ -1,6 +1,5 @@
 using Denchik.CoreSystem;
-using System.Collections;
-using System.Collections.Generic;
+using Denchik.Interfaces;
 using UnityEngine;
 
 namespace Denchik.Weapon.Components

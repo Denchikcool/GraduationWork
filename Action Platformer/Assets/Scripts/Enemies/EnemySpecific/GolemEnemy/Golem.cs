@@ -43,11 +43,23 @@ public class Golem : Entity
         MeleeAttackState = new GolemMeleeAttackState(this, FinalStateMachine, "meleeAttack", _meleeAttackPosition, _meleeAttackStateData, this);
         StunState = new GolemStunState(this, FinalStateMachine, "stun", _stunStateData, this);
         DeadState = new GolemDeadState(this, FinalStateMachine, "dead", _deadStateData, this);
+
+        stats.Poise.OnCurrentValueZero += HandlePoiseZero;
     }
 
     private void Start()
     {
         FinalStateMachine.Initialize(MoveState);
+    }
+
+    private void HandlePoiseZero()
+    {
+        FinalStateMachine.ChangeState(StunState);
+    }
+
+    private void OnDestroy()
+    {
+        stats.Poise.OnCurrentValueZero -= HandlePoiseZero;
     }
 
     public override void OnDrawGizmos()

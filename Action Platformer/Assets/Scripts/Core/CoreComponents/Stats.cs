@@ -1,3 +1,4 @@
+using Denchik.CoreSystem.StatsSystem;
 using System;
 using UnityEngine;
 
@@ -5,34 +6,31 @@ namespace Denchik.CoreSystem
 {
     public class Stats : CoreComponent
     {
+        [field: SerializeField]
+        public Stat Health { get; private set; }
+
+        [field: SerializeField]
+        public Stat Poise { get; private set; }
+
         [SerializeField]
-        private float _maxHealth;
-
-        private float _currentHealth;
-
-        public event Action OnHealthZero;
+        private float _poiseRecoveryRate;
 
         protected override void Awake()
         {
             base.Awake();
 
-            _currentHealth = _maxHealth;
+            Health.Init();
+            Poise.Init();
         }
 
-        public void DecreaseHealth(float damage)
+        private void Update()
         {
-            _currentHealth -= damage;
-
-            if (_currentHealth <= 0)
+            if (Poise.CurrentValue.Equals(Poise.MaxValue))
             {
-                _currentHealth = 0;
-                OnHealthZero?.Invoke();
+                return;
             }
-        }
 
-        public void IncreaseHealth(float amount)
-        {
-            _currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _maxHealth);
+            Poise.IncreaseValue(_poiseRecoveryRate * Time.deltaTime);
         }
     }
 }

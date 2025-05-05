@@ -1,4 +1,8 @@
-public interface IDamageable
+namespace Denchik.Interfaces
 {
-    void Damage(float damage);
+    public interface IDamageable
+    {
+        void Damage(float damage);
+    }
 }
+
