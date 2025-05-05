@@ -36103,10 +36103,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1923818671}
     m_Modifications:
+    - target: {fileID: 412523760943047589, guid: fc94c5e6cf29f244092f46d8de95ea36, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: f813a59797cc29449aee30b5981cd006, type: 2}
     - target: {fileID: 1262054468090909966, guid: fc94c5e6cf29f244092f46d8de95ea36, type: 3}
       propertyPath: _weaponData
       value: 
-      objectReference: {fileID: 11400000, guid: 840d0631169322b4e9161994d71a9070, type: 2}
+      objectReference: {fileID: 11400000, guid: 90315ca0b9ca38747bc42b9f4e73d8f4, type: 2}
     - target: {fileID: 4260995615150793152, guid: fc94c5e6cf29f244092f46d8de95ea36, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -36226,6 +36230,14 @@ PrefabInstance:
     - target: {fileID: 6108647952688108365, guid: fc94c5e6cf29f244092f46d8de95ea36, type: 3}
       propertyPath: m_Name
       value: PrimaryWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798645139101989016, guid: fc94c5e6cf29f244092f46d8de95ea36, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -579586107, guid: 4a2ce2e78f8613f49be99c2a4eaeda8e, type: 3}
+    - target: {fileID: 6798645139101989016, guid: fc94c5e6cf29f244092f46d8de95ea36, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8675647539398799237, guid: fc94c5e6cf29f244092f46d8de95ea36, type: 3}
       propertyPath: <WeaponData>k__BackingField

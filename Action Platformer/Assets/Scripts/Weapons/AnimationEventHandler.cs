@@ -9,6 +9,7 @@ namespace Denchik.Weapon
         public event Action OnStartMovement;
         public event Action OnStopMovement;
         public event Action OnAttackAction;
+        public event Action<AttackPhases> OnEnterAttackPhase;
 
         private void AnimationFinishedTrigger()
         {
@@ -28,6 +29,11 @@ namespace Denchik.Weapon
         private void AttackActionTrigger()
         {
             OnAttackAction?.Invoke();
+        }
+
+        private void EnterAttackPhase(AttackPhases phase)
+        {
+            OnEnterAttackPhase?.Invoke(phase);
         }
     }
 }

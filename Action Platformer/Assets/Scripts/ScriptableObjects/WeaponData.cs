@@ -10,6 +10,10 @@ namespace Denchik.Weapon
     public class WeaponData : ScriptableObject
     {
         [field: SerializeField]
+        public RuntimeAnimatorController AnimatorController { get; private set; }
+
+
+        [field: SerializeField]
         public int NumberOfAttacks { get; private set; }
 
         [field: SerializeReference]

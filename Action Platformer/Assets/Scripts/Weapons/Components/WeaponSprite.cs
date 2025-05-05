@@ -1,4 +1,5 @@
 using Denchik.Weapon.Components;
+using System.Linq;
 using UnityEngine;
 
 namespace Denchik.Weapon.Components
@@ -7,6 +8,8 @@ namespace Denchik.Weapon.Components
     {
         private SpriteRenderer _mainHeroSpriteRenderer;
         private SpriteRenderer _weaponSpriteRenderer;
+
+        private Sprite[] _currentPhaseSprites;
 
         private int _currentWeaponSpriteIndex;
 
@@ -20,6 +23,15 @@ namespace Denchik.Weapon.Components
             data = weapon.WeaponData.GetData<WeaponSpriteData>();
 
             _mainHeroSpriteRenderer.RegisterSpriteChangeCallback(HandleMainHeroSpriteChange);
+
+            eventHandler.OnEnterAttackPhase += HandleEnterAttackPhase;
+        }
+
+        private void HandleEnterAttackPhase(AttackPhases attackPhases)
+        {
+            _currentWeaponSpriteIndex = 0;
+
+            _currentPhaseSprites = currentAttackData.PhaseSprites.FirstOrDefault(data => data.Phases == attackPhases).Sprites;
         }
 
         private void HandleMainHeroSpriteChange(SpriteRenderer spriteRenderer)
@@ -30,15 +42,13 @@ namespace Denchik.Weapon.Components
                 return;
             }
 
-            Sprite[] currentAttackSprites = currentAttackData.Sprites;
-
-            if(_currentWeaponSpriteIndex >= currentAttackSprites.Length)
+            if(_currentWeaponSpriteIndex >= _currentPhaseSprites.Length)
             {
                 print($"{weapon.name} weapon sprites length mismatch");
                 return;
             }
 
-            _weaponSpriteRenderer.sprite = currentAttackSprites[_currentWeaponSpriteIndex];
+            _weaponSpriteRenderer.sprite = _currentPhaseSprites[_currentWeaponSpriteIndex];
 
             _currentWeaponSpriteIndex++;
         }
@@ -55,6 +65,8 @@ namespace Denchik.Weapon.Components
             base.OnDestroy();
 
             _mainHeroSpriteRenderer.RegisterSpriteChangeCallback(HandleMainHeroSpriteChange);
+
+            eventHandler.OnEnterAttackPhase -= HandleEnterAttackPhase;
         }
     }
 }

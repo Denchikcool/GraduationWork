@@ -18,8 +18,11 @@ namespace Denchik.Weapon
         private List<WeaponComponent> _componentsAddedToWeapon = new List<WeaponComponent>();
         private List<Type> _componentDependencies = new List<Type>();
 
+        private Animator _animator;
+
         private void Start()
         {
+            _animator = GetComponentInChildren<Animator>();
             GenerateWeapon(_weaponData);
         }
 
@@ -59,6 +62,8 @@ namespace Denchik.Weapon
             {
                 Destroy(weaponComponent);
             }
+
+            _animator.runtimeAnimatorController = dataWeapon.AnimatorController;
         }
     }
 }
