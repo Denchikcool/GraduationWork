@@ -49,6 +49,8 @@ namespace Denchik.Weapon
                         component.InitializeAttackData(_weaponData.NumberOfAttacks);
 
                         _weaponData.AddData(component);
+
+                        EditorUtility.SetDirty(_weaponData);
                     }
                 }
             }

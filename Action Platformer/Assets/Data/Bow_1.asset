@@ -16,6 +16,7 @@ MonoBehaviour:
   <NumberOfAttacks>k__BackingField: 1
   <ComponentData>k__BackingField:
   - rid: 7993347407955886082
+  - rid: 7993347452940058625
   references:
     version: 2
     RefIds:
@@ -39,3 +40,7 @@ MonoBehaviour:
             - {fileID: 654484937, guid: 167f28d4d8012904dad26760535b732e, type: 3}
             - {fileID: -614281623, guid: 167f28d4d8012904dad26760535b732e, type: 3}
             <Phases>k__BackingField: 2
+    - rid: 7993347452940058625
+      type: {class: InputHoldData, ns: Denchik.Weapon.Components, asm: Assembly-CSharp}
+      data:
+        _name: InputHoldData

@@ -70,8 +70,8 @@ public class MainHero : MonoBehaviour
         MainHeroDashState = new MainHeroDashState(this, StateMachine, _mainHeroData, "inAir");
         MainHeroCrouchIdleState = new MainHeroCrouchIdleState(this, StateMachine, _mainHeroData, "crouchIdle");
         MainHeroCrouchMoveState = new MainHeroCrouchMoveState(this, StateMachine, _mainHeroData, "crouchMove");
-        PrimaryAttackState = new MainHeroAttackState(this, StateMachine, _mainHeroData, "attack", _primaryWeapon);
-        SecondaryAttackState = new MainHeroAttackState(this, StateMachine, _mainHeroData, "attack", _secondaryWeapon);
+        PrimaryAttackState = new MainHeroAttackState(this, StateMachine, _mainHeroData, "attack", _primaryWeapon, CombatInput.primary);
+        SecondaryAttackState = new MainHeroAttackState(this, StateMachine, _mainHeroData, "attack", _secondaryWeapon, CombatInput.secondary);
     }
 
     private void Start()

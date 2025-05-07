@@ -16,8 +16,11 @@ namespace Denchik.Weapon
 
         private int _currentAttackCounter;
 
+        private bool _currentInput;
+
         public event Action OnExit;
         public event Action OnEnter;
+        public event Action<bool> OnCurrentInputChanged;
 
         public WeaponData WeaponData { get; private set; }
 
@@ -33,6 +36,20 @@ namespace Denchik.Weapon
                 _currentAttackCounter = value >= WeaponData.NumberOfAttacks ? 0 : value;
             }
         }
+
+        public bool CurrentInput
+        {
+            get => _currentInput;
+            set
+            {
+                if(_currentInput != value )
+                {
+                    _currentInput = value;
+                    OnCurrentInputChanged?.Invoke(_currentInput);
+                }
+            }
+        }
+
         public GameObject MainHeroGameObject { get; private set; }
         public GameObject WeaponSpriteGameObject { get; private set; }
 
