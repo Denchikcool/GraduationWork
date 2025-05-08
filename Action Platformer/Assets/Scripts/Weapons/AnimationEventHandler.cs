@@ -10,6 +10,7 @@ namespace Denchik.Weapon
         public event Action OnStopMovement;
         public event Action OnAttackAction;
         public event Action OnMinHoldPassed;
+        public event Action OnUseInput;
         public event Action<AttackPhases> OnEnterAttackPhase;
 
         private void AnimationFinishedTrigger()
@@ -35,6 +36,11 @@ namespace Denchik.Weapon
         private void MinHoldPassedTrigger()
         {
             OnMinHoldPassed?.Invoke();
+        }
+
+        private void UseInputTrigger()
+        {
+            OnUseInput?.Invoke();
         }
 
         private void EnterAttackPhase(AttackPhases phase)

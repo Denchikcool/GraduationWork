@@ -12,6 +12,18 @@ public class MainHeroAttackState : MainHeroAbilityState
         _inputIndex = (int)input;
 
         _weapon.OnExit += ExitHandler;
+        _weapon.OnUseInput += HandleUseInput;
+    }
+
+    private void ExitHandler()
+    {
+        AnimationFinishTrigger();
+        isAbilityDone = true;
+    }
+
+    private void HandleUseInput()
+    {
+        mainHero.PlayerInputHandler.ChangeAttackInput(_inputIndex);
     }
 
     public override void Enter()
@@ -19,14 +31,6 @@ public class MainHeroAttackState : MainHeroAbilityState
         base.Enter();
 
         _weapon.Enter();
-    }
-
-    private void ExitHandler()
-    {
-        mainHero.PlayerInputHandler.ChangeAttackInput(_inputIndex);
-
-        AnimationFinishTrigger();
-        isAbilityDone = true;
     }
 
     public override void UpdateLogic()

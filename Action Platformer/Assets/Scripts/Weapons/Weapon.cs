@@ -20,6 +20,7 @@ namespace Denchik.Weapon
 
         public event Action OnExit;
         public event Action OnEnter;
+        public event Action OnUseInput;
         public event Action<bool> OnCurrentInputChanged;
 
         public WeaponData WeaponData { get; private set; }
@@ -83,9 +84,15 @@ namespace Denchik.Weapon
             CurrentAttackCounter = 0;
         }
 
+        private void HandleUseInput()
+        {
+            OnUseInput?.Invoke();
+        }
+
         private void OnEnable()
         {
             EventHandler.OnFinished += Exit;
+            EventHandler.OnUseInput += HandleUseInput;
             _attackCounterResetTimer.OnTimerDone += ResetAttackCounter;
         }
 
