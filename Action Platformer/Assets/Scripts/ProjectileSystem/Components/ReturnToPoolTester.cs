@@ -29,7 +29,7 @@ namespace Denchik.ProjectileSystem.Components
 
         public void SetObjectPool<T>(ObjectPool<T> pool) where T : Component
         {
-            _objectPool = pool;
+            _objectPool = pool as ObjectPool<Projectile>;
         }
     }
 }

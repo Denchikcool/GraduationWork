@@ -1,3 +1,4 @@
+using Denchik.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,19 +39,27 @@ namespace Denchik.ObjectPoolSystem
 
             for(int i = 0; i < startCount; i++)
             {
-                var obj = Object.Instantiate(_prefab);
-                obj.name = prefab.name;
-                obj.gameObject.SetActive(false);
+                var obj = InstantiateNewObject();
                 _poolStack.Enqueue(obj);
             }
+        }
+
+        private T InstantiateNewObject()
+        {
+            var obj = Object.Instantiate(_prefab);
+            obj.name = _prefab.name;
+
+            var objectPoolItem = obj.GetComponent<IObjectPoolItem>();
+            objectPoolItem.SetObjectPool(this);
+
+            return obj;
         }
 
         public T GetObject()
         {
             if(!_poolStack.TryDequeue(out var obj))
             {
-                obj = Object.Instantiate(_prefab);
-                obj.name = _prefab.name;
+                obj = InstantiateNewObject();
                 return obj;
             }
 

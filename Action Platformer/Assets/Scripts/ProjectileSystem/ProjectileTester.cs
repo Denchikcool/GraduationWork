@@ -12,15 +12,9 @@ namespace Denchik.ProjectileSystem
 
         public float ShotCooldown;
 
-        private ObjectPool _objectPool;
-        private ObjectPool<Projectile> _pool;
+        private ObjectPool _objectPool = new ObjectPool();
 
         private float _lastFireTime;
-
-        private void Awake()
-        {
-            _objectPool = FindObjectOfType<ObjectPool>();
-        }
 
         private void Start()
         {
@@ -29,8 +23,6 @@ namespace Denchik.ProjectileSystem
                 Debug.LogWarning("No projectile");
                 return;
             }
-
-            _pool = _objectPool.GetPool(ProjectilePrefab);
 
             FireProjectile();
         }
@@ -45,7 +37,7 @@ namespace Denchik.ProjectileSystem
 
         private void FireProjectile()
         {
-            var projectile = _pool.GetObject();
+            var projectile = _objectPool.GetPool(ProjectilePrefab).GetObject();
             projectile.Reset();
             projectile.transform.position = transform.position;
             projectile.transform.rotation = transform.rotation;
