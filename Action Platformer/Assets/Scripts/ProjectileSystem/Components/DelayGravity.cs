@@ -1,6 +1,4 @@
 using Denchik.Utilities;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Denchik.ProjectileSystem.Components
@@ -52,6 +50,7 @@ namespace Denchik.ProjectileSystem.Components
         {
             base.Init();
 
+            Rigidbody2D.gravityScale = 0.0f;
             _distanceNotifier.Init(transform.position, Distance);
         }
     }

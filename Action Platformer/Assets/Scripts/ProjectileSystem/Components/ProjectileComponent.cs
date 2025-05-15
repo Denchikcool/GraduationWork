@@ -1,3 +1,4 @@
+using Denchik.ProjectileSystem.DataPackages;
 using UnityEngine;
 
 namespace Denchik.ProjectileSystem.Components
@@ -19,6 +20,8 @@ namespace Denchik.ProjectileSystem.Components
             projectile = GetComponent<Projectile>();
 
             projectile.OnInit += Init;
+            projectile.OnReset += Reset;
+            projectile.OnReceiveDataPackage += HandleReceiveDataPackage;
         }
 
         protected virtual void Start()
@@ -41,9 +44,21 @@ namespace Denchik.ProjectileSystem.Components
 
         }
 
+        protected virtual void Reset()
+        {
+
+        }
+
+        protected virtual void HandleReceiveDataPackage(ProjectileDataPackage dataPackage)
+        {
+
+        }
+
         protected virtual void OnDestroy()
         {
             projectile.OnInit -= Init;
+            projectile.OnReset -= Reset;
+            projectile.OnReceiveDataPackage -= HandleReceiveDataPackage;
         }
     }
 }

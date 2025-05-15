@@ -1,6 +1,4 @@
 using Denchik.Utilities;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Denchik.ProjectileSystem.Components
@@ -70,6 +68,13 @@ namespace Denchik.ProjectileSystem.Components
             base.Init();
 
             _isStuck = false;
+        }
+
+        protected override void Reset()
+        {
+            base.Reset();
+
+            SetUnstuck();
         }
 
         protected override void OnDestroy()

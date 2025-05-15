@@ -99,6 +99,7 @@ namespace Denchik.Weapon
         private void OnDisable()
         {
             EventHandler.OnFinished -= Exit;
+            EventHandler.OnUseInput -= HandleUseInput;
             _attackCounterResetTimer.OnTimerDone -= ResetAttackCounter;
         }
 
