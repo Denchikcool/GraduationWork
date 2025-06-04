@@ -5,7 +5,7 @@ public class MainMenu : MonoBehaviour
 {
     public void StartGame() => SceneManager.LoadScene("Level1");
 
-    public void OpenSettings() => SceneManager.LoadScene("Settings");
+    public void OpenSettings() => SceneManager.LoadScene("TestSettings");
 
     public void OpenCharacterControl() => SceneManager.LoadScene("Control");
 
