@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public enum CombatInput
@@ -47,6 +48,11 @@ public class PlayerInputHandler : MonoBehaviour
     {
         CheckJumpInputHoldTime();
         CheckDashInputHoldTime();
+    }
+
+    private void OnEnable()
+    {
+        _camera = Camera.main;
     }
 
     public void OnMoveInput(InputAction.CallbackContext context)
@@ -105,7 +111,16 @@ public class PlayerInputHandler : MonoBehaviour
 
         if(_playerInput.currentControlScheme == "Keyboard")
         {
-            RawDashDirectionInput = _camera.ScreenToWorldPoint((Vector3)RawDashDirectionInput) - transform.position;
+            if (_camera != null)
+            {
+                RawDashDirectionInput = _camera.ScreenToWorldPoint((Vector3)RawDashDirectionInput) - transform.position;
+            }
+            else
+            {
+                Debug.LogWarning("Камера отсутствует!");
+                return;
+            }
+            //RawDashDirectionInput = _camera.ScreenToWorldPoint((Vector3)RawDashDirectionInput) - transform.position;
         }
 
         DashDirectionInput = Vector2Int.RoundToInt(RawDashDirectionInput.normalized);
@@ -113,6 +128,11 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnPrimaryAttackInput(InputAction.CallbackContext context)
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         if (context.started)
         {
             AttackInput[(int)CombatInput.primary] = true;
@@ -126,6 +146,11 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnSecondaryAttackInput(InputAction.CallbackContext context)
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         if (context.started)
         {
             AttackInput[(int)CombatInput.secondary] = true;
