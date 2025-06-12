@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7913539349571739898}
   - component: {fileID: 6947139157286121670}
   - component: {fileID: 8233998313817127957}
+  - component: {fileID: 9004619846906835123}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -130662625
-  m_SortingLayer: 4
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 1285406323, guid: fef9f15e15a1a9a4dad1e2a5b19cf908, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -126,8 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e8d851591bb2446b32660932e22639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gravity: 3
-  _damageRadius: 0.06
+  _gravity: 1
+  _damageRadius: 0.2
   _whatIsGround:
     serializedVersion: 2
     m_Bits: 256
@@ -135,6 +136,51 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   _damagePosition: {fileID: 5727233550546532863}
+--- !u!61 &9004619846906835123
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4612640591710944223}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0095191, y: 0.049565792}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.55642605, y: 0.17390537}
+  m_EdgeRadius: 0
 --- !u!1 &7633308250115047506
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,7 +190,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5727233550546532863}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DamagePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}

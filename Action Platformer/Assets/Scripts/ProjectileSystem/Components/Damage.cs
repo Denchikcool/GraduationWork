@@ -30,7 +30,7 @@ namespace Denchik.ProjectileSystem.Components
             _hitBox.OnRayCastHit2D += HandleRaycastHit2D;
         }
 
-        private void HandleRaycastHit2D(RaycastHit2D[] hits)
+        public void HandleRaycastHit2D(RaycastHit2D[] hits)
         {
             foreach(RaycastHit2D hit in hits)
             {

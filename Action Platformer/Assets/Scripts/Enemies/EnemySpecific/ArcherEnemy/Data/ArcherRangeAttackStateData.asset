@@ -16,3 +16,13 @@ MonoBehaviour:
   RangeAttackItemDamage: 10
   RangeAttackItemSpeed: 12
   RangeAttackItemTravelDistance: 8
+  DamageRadius: 0.5
+  Gravity: 1
+  WhatIsGround:
+    serializedVersion: 2
+    m_Bits: 256
+  WhatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  KnockbackAngle: 45
+  KnockbackStrength: 5

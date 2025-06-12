@@ -7,4 +7,10 @@ public class DataRangeAttackState : ScriptableObject
     public float RangeAttackItemDamage = 10.0f;
     public float RangeAttackItemSpeed = 12.0f;
     public float RangeAttackItemTravelDistance = 10.0f;
+    public float DamageRadius = 0.5f;
+    public float Gravity = 1f;
+    public LayerMask WhatIsGround;
+    public LayerMask WhatIsPlayer;
+    public float KnockbackAngle = 45.0f;
+    public float KnockbackStrength = 5.0f;
 }

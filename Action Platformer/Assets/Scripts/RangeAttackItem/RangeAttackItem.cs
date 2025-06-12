@@ -1,4 +1,8 @@
+using Denchik.Interfaces;
 using UnityEngine;
+using Denchik.ProjectileSystem.Components;
+using Denchik.CoreSystem.StatsSystem;
+using Denchik.CoreSystem;
 
 public class RangeAttackItem : MonoBehaviour
 {
@@ -19,11 +23,21 @@ public class RangeAttackItem : MonoBehaviour
     private float _itemSpeed;
     private float _itemTravelDistance;
     private float _xStartPosition;
-    
+
     private bool _isGravityOn;
     private bool _hasHitGround;
 
     private Rigidbody2D _itemRigidBody;
+
+    private DataRangeAttackState _dataRangeAttackState;
+
+    private Core _core;
+    private Stats _stats;
+
+    public Stats Stats
+    {
+        get => _stats ? _stats : _core.GetCoreComponent(ref _stats);
+    }
 
     private void Start()
     {
@@ -50,7 +64,7 @@ public class RangeAttackItem : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private Collider2D FixedUpdate()
     {
         if (!_hasHitGround)
         {
@@ -59,7 +73,8 @@ public class RangeAttackItem : MonoBehaviour
 
             if (damageHit)
             {
-                Destroy(gameObject);
+               Destroy(gameObject);
+               return damageHit;
             }
             if (groundHit)
             {
@@ -76,7 +91,7 @@ public class RangeAttackItem : MonoBehaviour
         }
     }
 
-    public void FireRangeAttackItem(float speed, float travelDistance, float damage)
+    public void FireRangeAttackItem(float speed, float travelDistance)
     {
         this._itemSpeed = speed;
         this._itemTravelDistance = travelDistance;

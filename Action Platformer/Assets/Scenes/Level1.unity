@@ -2940,10 +2940,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c05eb70651b5334468d2caefd44371fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wallCheck: {fileID: 1200554943}
-  _ledgeCheck: {fileID: 325612576}
+  _wallCheck: {fileID: 0}
+  _ledgeCheck: {fileID: 0}
   _playerCheck: {fileID: 95211777}
-  _groundCheck: {fileID: 1582726109}
+  _groundCheck: {fileID: 0}
   DataEntity: {fileID: 11400000, guid: 3660b0702aa9b4b4f93d256bcbac8a80, type: 2}
   _idleStateData: {fileID: 11400000, guid: 4878fd99f563d114987598fc46555550, type: 2}
   _moveStateData: {fileID: 11400000, guid: d7e3854920c064e45b155baf3b5b26f7, type: 2}
