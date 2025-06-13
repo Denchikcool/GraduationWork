@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     public void PauseButtonClicked()
     {
         _pauseMenu.SetActive(true);
+        MusicManager.PauseBackgroundMusic();
         Time.timeScale = 0.0f;
     }
 
@@ -21,6 +22,7 @@ public class PauseMenu : MonoBehaviour
     public void ResumeButtonClicked()
     {
         _pauseMenu.SetActive(false);
+        MusicManager.PlayBackgroundMusic(false);
         Time.timeScale = 1.0f;
     }
 
