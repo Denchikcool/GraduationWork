@@ -16,7 +16,7 @@ public class MainHeroRespawn : MonoBehaviour
     private void Start()
     {
         Debug.Log("MainHeroRespawn.Start() начал"); // Add this
-        if(_respawnPoint.transform.position == new Vector3(11.86f, 8.47f, 0.0f))
+        if(_respawnPoint.transform.position == new Vector3(-107.98f, -32.39f, 0.0f))
         {
             RespawnPlayer();
         }
