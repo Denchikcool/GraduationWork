@@ -45,6 +45,7 @@ namespace Denchik.CoreSystem.StatsSystem
         public void DecreaseValue(float value)
         {
             CurrentValue -= value;
+            SoundEffectManager.PlaySound("Hit");
         }
     }
 }

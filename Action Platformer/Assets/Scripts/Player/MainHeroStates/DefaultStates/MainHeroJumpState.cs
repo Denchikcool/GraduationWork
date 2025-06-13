@@ -12,6 +12,7 @@ public class MainHeroJumpState : MainHeroAbilityState
 
         mainHero.PlayerInputHandler.ChangeJumpInput();
         Movement?.SetVerticalVelocity(mainHeroData.JumpVelocity);
+        SoundEffectManager.PlaySound("Jumping");
         isAbilityDone = true;
         _amountOfJumpsLeft--;
         mainHero.MainHeroAirState.SetIsJumping();  

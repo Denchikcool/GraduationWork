@@ -3,10 +3,6 @@ using UnityEngine.Audio;
 
 public class LoadSettings : MonoBehaviour
 {
-    [SerializeField]
-    private AudioMixer _audioMixer;
-
-    private const string _volumeKey = "volume";
     private const string _qualityKey = "quality";
     private const string _fullScreenKey = "fullscreen";
     private const string _resolutionKey = "resolution";
@@ -20,16 +16,6 @@ public class LoadSettings : MonoBehaviour
 
     private void ApplySettings()
     {
-        if (PlayerPrefs.HasKey(_volumeKey))
-        {
-            float volume = PlayerPrefs.GetFloat(_volumeKey);
-            _audioMixer.SetFloat("volume", volume);
-        }
-        else
-        {
-            _audioMixer.SetFloat("volume", 0f);
-        }
-
         int qualityIndex = PlayerPrefs.GetInt(_qualityKey, QualitySettings.GetQualityLevel());
         QualitySettings.SetQualityLevel(qualityIndex);
 

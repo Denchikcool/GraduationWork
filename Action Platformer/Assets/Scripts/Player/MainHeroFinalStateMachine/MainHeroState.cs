@@ -1,6 +1,6 @@
 using UnityEngine;
 using Denchik.CoreSystem;
-public class MainHeroState
+public class MainHeroState// : MonoBehaviour
 {
     protected Core core;
 
@@ -64,4 +64,14 @@ public class MainHeroState
     {
         isAnimationFinish = true;
     }
+
+    /*public virtual void StartFootsteps()
+    {
+
+    }
+
+    public virtual void StopFootsteps()
+    {
+
+    }*/
 }

@@ -1,5 +1,11 @@
+using UnityEngine;
 public class MainHeroMoveState : MainHeroGroundedState
 {
+    /*private bool _playingSteps;
+
+    [SerializeField]
+    private float _stepsSpeed = 0.5f;*/
+
     public MainHeroMoveState(MainHero mainHero, MainHeroStateMachine stateMachine, MainHeroData mainHeroData, string animationBoolName) : base(mainHero, stateMachine, mainHeroData, animationBoolName)
     {
     }
@@ -25,6 +31,7 @@ public class MainHeroMoveState : MainHeroGroundedState
 
         Movement?.CheckShouldFlip(inputXPosition);
         Movement?.SetHorizontalVelocity(mainHeroData.MovementVelocity * inputXPosition);
+        SoundEffectManager.PlaySound("Walking");
 
         if (!isExitingState)
         {
@@ -43,4 +50,22 @@ public class MainHeroMoveState : MainHeroGroundedState
     {
         base.UpdatePhysics();
     }
+    
+    /*public override void StartFootsteps()
+    {
+        _playingSteps = true;
+        InvokeRepeating(nameof(PlayFootstep), 0.0f, _stepsSpeed);
+        
+    }
+
+    public override void StopFootsteps()
+    {
+        _playingSteps = false;
+        CancelInvoke(nameof(PlayFootstep));
+    }
+
+    private void PlayFootstep()
+    {
+        SoundEffectManager.PlaySound("Walking");
+    }*/
 }

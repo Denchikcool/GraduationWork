@@ -38,5 +38,6 @@ public class MainHeroAttackState : MainHeroAbilityState
         base.UpdateLogic();
 
         _weapon.CurrentInput = mainHero.PlayerInputHandler.AttackInput[_inputIndex];
+        SoundEffectManager.PlaySound("Attack");
     }
 }
