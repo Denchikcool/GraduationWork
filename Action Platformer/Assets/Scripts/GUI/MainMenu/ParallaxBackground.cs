@@ -2,24 +2,33 @@ using UnityEngine;
 
 public class ParallaxBackground : MonoBehaviour
 {
-    private Vector2 _startPosition;
+    private Vector3 _startPosition;
+    private Canvas _canvas;
+    private RectTransform _canvasRect;
 
-    [SerializeField]
-    private int _moveModifier;
+    [SerializeField, Range(0.1f, 5f)]
+    private float _moveSpeed = 2f;
+
+    [SerializeField, Range(0f, 1f)]
+    private float _parallaxEffect = 0.5f;
 
     private void Start()
     {
-        _startPosition = transform.position;
+        _canvas = GetComponentInParent<Canvas>();
+        _canvasRect = _canvas.GetComponent<RectTransform>();
+        _startPosition = transform.localPosition;
     }
 
     private void Update()
     {
-        Vector2 position = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        Vector2 localMousePos;
 
-        float positionX = Mathf.Lerp(transform.position.x, _startPosition.x + (position.x * _moveModifier), 2.0f * Time.deltaTime);
-        float positionY = Mathf.Lerp(transform.position.y, _startPosition.y + (position.y * _moveModifier), 2.0f * Time.deltaTime);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, Input.mousePosition, _canvas.worldCamera, out localMousePos);
 
-        transform.position = new Vector3(positionX, positionY, 0);
+        Vector2 normalizedMousePos = new Vector2(localMousePos.x / (_canvasRect.rect.width * 0.5f), localMousePos.y / (_canvasRect.rect.height * 0.5f));
+
+        Vector3 targetPosition = _startPosition + new Vector3(normalizedMousePos.x * _parallaxEffect * 100f, normalizedMousePos.y * _parallaxEffect * 100f, 0);
+
+        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition, _moveSpeed * Time.deltaTime);
     }
 }
-
