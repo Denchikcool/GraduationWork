@@ -52,6 +52,7 @@ public class MeleeAttackState : AttackState
 
         foreach(Collider2D collider in detectedObjects)
         {
+            Debug.Log("Damage hit name in melee attack " + collider.transform.name);
             IDamageable damageable = collider.GetComponent<IDamageable>();
 
             if(damageable != null)

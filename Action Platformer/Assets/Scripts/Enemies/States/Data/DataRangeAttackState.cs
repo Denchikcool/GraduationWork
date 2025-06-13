@@ -11,6 +11,6 @@ public class DataRangeAttackState : ScriptableObject
     public float Gravity = 1f;
     public LayerMask WhatIsGround;
     public LayerMask WhatIsPlayer;
-    public float KnockbackAngle = 45.0f;
+    public Vector2 KnockbackAngle;
     public float KnockbackStrength = 5.0f;
 }

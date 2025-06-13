@@ -1,6 +1,6 @@
+using Denchik.CoreSystem;
 using Denchik.Interfaces;
 using UnityEngine;
-using Denchik.CoreSystem;
 
 public class RangeAttackState : AttackState
 {
@@ -11,9 +11,9 @@ public class RangeAttackState : AttackState
 
     private Movement _movement;
 
-    private Movement Movement
+    public Movement Movement
     {
-        get => _movement ?? core.GetCoreComponent(ref _movement);
+        get => _movement ? _movement : core.GetCoreComponent(ref _movement);
     }
     public RangeAttackState(Entity entity, FinalStateMachine stateMachine, string animatorBoolName, Transform attackPosition, DataRangeAttackState dataRangeAttackState) : base(entity, stateMachine, animatorBoolName, attackPosition)
     {
@@ -46,49 +46,35 @@ public class RangeAttackState : AttackState
 
         rangeAttackItem = GameObject.Instantiate(dataRangeAttackState.RangeAttackItem, attackPosition.position, attackPosition.rotation);
         rangeAttackScript = rangeAttackItem.GetComponent<RangeAttackItem>();
+        rangeAttackScript.OnDamageHit += HandleDamageHit;
         rangeAttackScript.FireRangeAttackItem(dataRangeAttackState.RangeAttackItemSpeed, dataRangeAttackState.RangeAttackItemTravelDistance);
     }
-    /*public override void TriggerAttack()
+
+    private void HandleDamageHit(GameObject combatObject)
     {
-        base.TriggerAttack();
-
-        // Создаём и запускаем стрелу (визуальная часть)
-        rangeAttackItem = GameObject.Instantiate(dataRangeAttackState.RangeAttackItem, attackPosition.position, attackPosition.rotation);
-        rangeAttackScript = rangeAttackItem.GetComponent<RangeAttackItem>();
-        rangeAttackScript.FireRangeAttackItem(dataRangeAttackState.RangeAttackItemSpeed, dataRangeAttackState.RangeAttackItemTravelDistance);
-
-        // Логика нанесения урона и отталкивания — здесь, а не в RangeAttackItem
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackPosition.position, dataRangeAttackState.DamageRadius, dataRangeAttackState.WhatIsPlayer);
-        Debug.Log($"RangeAttackState: Найдено объектов в радиусе урона: {detectedObjects.Length}");
-        foreach (Collider2D collider in detectedObjects)
+        if (combatObject != null)
         {
-            Debug.Log($"Проверяем объект: {collider.gameObject.name}");
-            if (collider.TryGetComponent(out IDamageable damageable))
+            IDamageable damageable = combatObject.GetComponent<IDamageable>();
+            if (damageable == null) damageable = combatObject.GetComponentInParent<IDamageable>();
+
+            if (damageable != null)
             {
-                Debug.Log($"IDamageable найден на {collider.gameObject.name}, наносим урон: {dataRangeAttackState.RangeAttackItemDamage}");
                 damageable.Damage(dataRangeAttackState.RangeAttackItemDamage);
             }
-            else
-            {
-                Debug.Log($"IDamageable НЕ найден на {collider.gameObject.name}");
-            }
 
-            if (collider.TryGetComponent(out IKnockbackable knockbackable))
+            IKnockbackable knockbackable = combatObject.GetComponent<IKnockbackable>();
+            if (knockbackable == null) knockbackable = combatObject.GetComponentInParent<IKnockbackable>();
+
+            if (knockbackable != null)
             {
-                // Формируем вектор отталкивания так же, как в ближней атаке
-                Vector2 knockbackDirection = new Vector2(
-                    Mathf.Cos(dataRangeAttackState.KnockbackAngle * Mathf.Deg2Rad) * Movement.FacingDirection,
-                    Mathf.Sin(dataRangeAttackState.KnockbackAngle * Mathf.Deg2Rad)
-                );
-                Debug.Log($"IKnockbackable найден на {collider.gameObject.name}, применяем отталкивание: направление {knockbackDirection}, сила {dataRangeAttackState.KnockbackStrength}");
-                knockbackable.Knockback(knockbackDirection, dataRangeAttackState.KnockbackStrength, Movement.FacingDirection);
-            }
-            else
-            {
-                Debug.Log($"IKnockbackable НЕ найден на {collider.gameObject.name}");
+                knockbackable.Knockback(dataRangeAttackState.KnockbackAngle, dataRangeAttackState.KnockbackStrength, Movement.FacingDirection);
             }
         }
-    }*/
+        else
+        {
+            Debug.LogWarning("No Combat object received in HandleDamageHit.");
+        }
+    }
 
     public override void UpdateLogic()
     {

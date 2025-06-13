@@ -127,8 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e8d851591bb2446b32660932e22639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gravity: 1
-  _damageRadius: 0.2
+  _gravity: 3
+  _damageRadius: 0.06
   _whatIsGround:
     serializedVersion: 2
     m_Bits: 256
@@ -143,7 +143,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4612640591710944223}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -165,10 +165,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0095191, y: 0.049565792}
+  m_Offset: {x: -0.03324747, y: 0.046511173}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -179,7 +179,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.55642605, y: 0.17390537}
+  m_Size: {x: 0.4708929, y: 0.16168499}
   m_EdgeRadius: 0
 --- !u!1 &7633308250115047506
 GameObject:
@@ -190,7 +190,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5727233550546532863}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: DamagePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}

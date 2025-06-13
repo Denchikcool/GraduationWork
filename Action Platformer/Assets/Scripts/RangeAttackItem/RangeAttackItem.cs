@@ -1,7 +1,5 @@
-using Denchik.Interfaces;
+using System;
 using UnityEngine;
-using Denchik.ProjectileSystem.Components;
-using Denchik.CoreSystem.StatsSystem;
 using Denchik.CoreSystem;
 
 public class RangeAttackItem : MonoBehaviour
@@ -29,15 +27,7 @@ public class RangeAttackItem : MonoBehaviour
 
     private Rigidbody2D _itemRigidBody;
 
-    private DataRangeAttackState _dataRangeAttackState;
-
-    private Core _core;
-    private Stats _stats;
-
-    public Stats Stats
-    {
-        get => _stats ? _stats : _core.GetCoreComponent(ref _stats);
-    }
+    public event Action<GameObject> OnDamageHit;
 
     private void Start()
     {
@@ -64,7 +54,7 @@ public class RangeAttackItem : MonoBehaviour
         }
     }
 
-    private Collider2D FixedUpdate()
+    private void FixedUpdate()
     {
         if (!_hasHitGround)
         {
@@ -73,11 +63,33 @@ public class RangeAttackItem : MonoBehaviour
 
             if (damageHit)
             {
-               Destroy(gameObject);
-               return damageHit;
+                Transform mainHeroTransform = damageHit.transform.GetComponent<Transform>();
+                Core targetCore = mainHeroTransform.GetComponentInChildren<Core>();
+
+                if (targetCore != null)
+                {
+                    Transform combatTransform = targetCore.transform.Find("Combat");
+                    if (combatTransform != null)
+                    {
+                        OnDamageHit?.Invoke(combatTransform.gameObject);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Combat object not found in Core: " + targetCore.transform.name);
+                        OnDamageHit?.Invoke(null);
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Core not found in parent hierarchy of " + damageHit.transform.name);
+                    OnDamageHit?.Invoke(null);
+                }
+                Destroy(gameObject);
             }
             if (groundHit)
             {
+                Debug.Log(groundHit.transform.name);
+                Debug.Log("Ground hit!");
                 _hasHitGround = true;
                 _itemRigidBody.gravityScale = 0.0f;
                 _itemRigidBody.velocity = Vector2.zero;
